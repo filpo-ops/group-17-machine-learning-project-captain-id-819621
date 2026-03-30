@@ -153,9 +153,21 @@ def _merge_issues(*tool_results) -> dict:
 
 
 def _safe_call(fn, *args, **kwargs):
-    """Call *fn* and return its result; on exception return an error dict."""
+    """Call *fn* and return its result; on exception return an error dict.
+
+    Tools that return a plain ``list`` of issue dicts are wrapped into the
+    standard ``{"issues": [...], "summary": "..."}`` format so that
+    ``_merge_issues`` can consume them correctly.
+    """
     try:
-        return fn(*args, **kwargs)
+        result = fn(*args, **kwargs)
+        if isinstance(result, list):
+            return {
+                "tool": getattr(fn, "__name__", str(fn)),
+                "issues": result,
+                "summary": f"{len(result)} issue(s) found by {getattr(fn, '__name__', str(fn))}.",
+            }
+        return result
     except Exception as exc:  # noqa: BLE001
         return {
             "tool": getattr(fn, "__name__", str(fn)),
@@ -273,10 +285,12 @@ def run_completeness_agent(state: DataQualityState) -> DataQualityState:
             )
         else:
             r1 = _safe_call(detect_null_and_placeholders, df)
-            r2 = _safe_call(calculate_completeness, df)
+            # calculate_completeness returns stats (not issues) — store as metadata
+            completeness_stats = _safe_call(calculate_completeness, df)
             r3 = _safe_call(detect_sparse_columns, df)
-            report = _merge_issues(r1, r2, r3)
+            report = _merge_issues(r1, r3)
             report["agent"] = "completeness_analysis"
+            report["completeness_stats"] = completeness_stats
 
     except Exception as exc:  # noqa: BLE001
         report = {
@@ -343,7 +357,20 @@ def run_consistency_agent(state: DataQualityState) -> DataQualityState:
                 df=df,
             )
         else:
-            r1 = _safe_call(check_format_consistency, df)
+            # check_format_consistency requires a column name — iterate over all columns
+            _NOIIPA_FORMAT_COLS = [
+                "rata", "RATA", "mese", "anno", "spesa", "aggregation-time",
+                "Tipo Imposta", "tipo_imposta", "Ente", "ente",
+            ]
+            format_issues = []
+            for _col in list(df.columns):
+                _r = _safe_call(check_format_consistency, df, _col)
+                format_issues.extend(_r.get("issues", []))
+            r1 = {
+                "tool": "check_format_consistency",
+                "issues": format_issues,
+                "summary": f"{len(format_issues)} format issue(s) across {len(df.columns)} columns.",
+            }
             r2 = _safe_call(check_cross_column_consistency, df)
             r3 = _safe_call(check_cross_column_logic, df)
             r4 = _safe_call(detect_duplicates, df)
@@ -822,24 +849,33 @@ def calculate_score_node(state: DataQualityState) -> DataQualityState:
     """
     Score Calculator node.
 
-    Computes the overall reliability score from all four quality reports
-    and increments the iteration counter.
+    Collects all issues from the four agent reports into a single flat list,
+    then calls calculate_reliability_score(all_issues, df) which returns a
+    dict with keys schema/completeness/consistency/anomaly/overall.
     """
     try:
-        score = calculate_reliability_score(
-            schema_report=state.get("schema_report", {}),
-            completeness_report=state.get("completeness_report", {}),
-            consistency_report=state.get("consistency_report", {}),
-            anomaly_report=state.get("anomaly_report", {}),
-            df=state["dataset"],
-        )
-    except Exception as exc:  # noqa: BLE001
-        # Fallback: simple heuristic based on issue severities
-        score = _fallback_score(state)
-        print(f"[calculate_score_node] calculate_reliability_score failed ({exc}); "
-              f"using fallback score {score:.3f}.")
+        # Collect issues from all four reports into a single flat list
+        all_issues = []
+        for report_key in ("schema_report", "completeness_report",
+                           "consistency_report", "anomaly_report"):
+            report = state.get(report_key) or {}
+            all_issues.extend(report.get("issues", []))
 
-    state["reliability_score"] = float(score)
+        result = calculate_reliability_score(all_issues, state["dataset"])
+        overall = float(result.get("overall", 0.0))
+
+        # Store dimensional breakdown in all_reports for later use
+        state["all_reports"] = state.get("all_reports", []) + [{
+            "iteration": state.get("iteration", 0),
+            "agent": "score_calculator",
+            "report": result,
+        }]
+    except Exception as exc:  # noqa: BLE001
+        overall = _fallback_score(state)
+        print(f"[calculate_score_node] calculate_reliability_score failed ({exc}); "
+              f"using fallback score {overall:.3f}.")
+
+    state["reliability_score"] = overall
     state["iteration"] = state.get("iteration", 0) + 1
     return state
 
