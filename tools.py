@@ -1,8 +1,7 @@
 """
 tools.py — Deterministic Data Quality Tools for the NoiPA project.
 
-All 11 tools are pure Python functions decorated with @tool from langchain_core.tools
-so they are directly usable in a LangGraph agent workflow.
+All 11 tools are pure Python functions (no @tool decorator — DataFrame is not JSON-serializable).
 
 Each tool returns list[dict] with keys:
     column   : str
@@ -17,7 +16,7 @@ Additional helper: calculate_reliability_score returns a dict of dimension score
 import re
 import pandas as pd
 import numpy as np
-from langchain_core.tools import tool
+# from langchain_core.tools import tool  # removed: DataFrame not JSON-serializable
 
 
 # ---------------------------------------------------------------------------
@@ -151,7 +150,6 @@ def _is_placeholder(val, placeholders: list[str]) -> bool:
 # Tool 1 — check_naming_convention
 # ---------------------------------------------------------------------------
 
-@tool
 def check_naming_convention(df: pd.DataFrame) -> list[dict]:
     """
     Check every column name in the DataFrame for NoiPA naming-convention violations.
@@ -254,7 +252,6 @@ def check_naming_convention(df: pd.DataFrame) -> list[dict]:
 # Tool 2 — check_data_types
 # ---------------------------------------------------------------------------
 
-@tool
 def check_data_types(df: pd.DataFrame, expected_types: dict = None) -> list[dict]:
     """
     Verify that each column conforms to its expected data type for NoiPA data.
@@ -326,7 +323,6 @@ def check_data_types(df: pd.DataFrame, expected_types: dict = None) -> list[dict
 # Tool 3 — detect_null_and_placeholders
 # ---------------------------------------------------------------------------
 
-@tool
 def detect_null_and_placeholders(
     df: pd.DataFrame, placeholders: list = None
 ) -> list[dict]:
@@ -392,7 +388,6 @@ def detect_null_and_placeholders(
 # Tool 4 — calculate_completeness
 # ---------------------------------------------------------------------------
 
-@tool
 def calculate_completeness(df: pd.DataFrame, placeholders: list = None) -> dict:
     """
     Calculate per-column and overall completeness rates for a NoiPA DataFrame.
@@ -447,7 +442,6 @@ def calculate_completeness(df: pd.DataFrame, placeholders: list = None) -> dict:
 # Tool 5 — detect_sparse_columns
 # ---------------------------------------------------------------------------
 
-@tool
 def detect_sparse_columns(df: pd.DataFrame, threshold: float = 0.90) -> list[dict]:
     """
     Identify columns in the DataFrame whose null/placeholder rate exceeds the threshold.
@@ -504,7 +498,6 @@ def detect_sparse_columns(df: pd.DataFrame, threshold: float = 0.90) -> list[dic
 # Tool 6 — check_format_consistency
 # ---------------------------------------------------------------------------
 
-@tool
 def check_format_consistency(
     df: pd.DataFrame, column: str, expected_patterns: list = None
 ) -> list[dict]:
@@ -620,7 +613,6 @@ def check_format_consistency(
 # Tool 7 — check_cross_column_consistency
 # ---------------------------------------------------------------------------
 
-@tool
 def check_cross_column_consistency(
     df: pd.DataFrame, column_pairs: list = None
 ) -> list[dict]:
@@ -684,7 +676,6 @@ def check_cross_column_consistency(
 # Tool 8 — check_cross_column_logic
 # ---------------------------------------------------------------------------
 
-@tool
 def check_cross_column_logic(
     df: pd.DataFrame, rules: list = None
 ) -> list[dict]:
@@ -775,7 +766,6 @@ def check_cross_column_logic(
 # Tool 9 — detect_duplicates
 # ---------------------------------------------------------------------------
 
-@tool
 def detect_duplicates(
     df: pd.DataFrame, key_columns: list = None, fuzzy: bool = False
 ) -> list[dict]:
@@ -851,7 +841,6 @@ def detect_duplicates(
 # Tool 10 — detect_outliers
 # ---------------------------------------------------------------------------
 
-@tool
 def detect_outliers(
     df: pd.DataFrame, column: str, method: str = "iqr"
 ) -> list[dict]:
@@ -948,7 +937,6 @@ def detect_outliers(
 # Tool 11 — detect_categorical_anomalies
 # ---------------------------------------------------------------------------
 
-@tool
 def detect_categorical_anomalies(
     df: pd.DataFrame, column: str, min_frequency: float = 0.01
 ) -> list[dict]:
@@ -1166,74 +1154,74 @@ if __name__ == "__main__":
     all_issues: list[dict] = []
 
     print("--- check_naming_convention ---")
-    r = check_naming_convention.invoke({"df": df_test})
+    r = check_naming_convention(df_test)
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- check_data_types ---")
-    r = check_data_types.invoke({"df": df_test})
+    r = check_data_types(df_test)
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- detect_null_and_placeholders ---")
-    r = detect_null_and_placeholders.invoke({"df": df_test})
+    r = detect_null_and_placeholders(df_test)
     for item in r:
         print(f"  [{item['severity']}] {item['column']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- calculate_completeness ---")
-    comp = calculate_completeness.invoke({"df": df_test})
+    comp = calculate_completeness(df_test)
     print(f"  Overall completeness: {comp['overall_completeness']:.2%}")
     for col_stat in comp["columns"]:
         if col_stat["completeness_rate"] < 1.0:
             print(f"    {col_stat['column']}: {col_stat['completeness_rate']:.2%} complete")
 
     print("\n--- detect_sparse_columns ---")
-    r = detect_sparse_columns.invoke({"df": df_test})
+    r = detect_sparse_columns(df_test)
     for item in r:
         print(f"  [{item['severity']}] {item['column']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- check_format_consistency (RATA) ---")
-    r = check_format_consistency.invoke({"df": df_test, "column": "RATA"})
+    r = check_format_consistency(df_test, column="RATA")
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- check_format_consistency (mese) ---")
-    r = check_format_consistency.invoke({"df": df_test, "column": "mese"})
+    r = check_format_consistency(df_test, column="mese")
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- check_cross_column_consistency ---")
-    r = check_cross_column_consistency.invoke({"df": df_test})
+    r = check_cross_column_consistency(df_test)
     for item in r:
         print(f"  [{item['severity']}] {item['column']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- check_cross_column_logic ---")
-    r = check_cross_column_logic.invoke({"df": df_test})
+    r = check_cross_column_logic(df_test)
     for item in r:
         print(f"  [{item['severity']}] {item['column']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- detect_duplicates ---")
-    r = detect_duplicates.invoke({"df": df_test, "fuzzy": True})
+    r = detect_duplicates(df_test, fuzzy=True)
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- detect_outliers (spesa, iqr) ---")
-    r = detect_outliers.invoke({"df": df_test, "column": "spesa", "method": "iqr"})
+    r = detect_outliers(df_test, column="spesa", method="iqr")
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
 
     print("\n--- detect_categorical_anomalies (tipo_imposta) ---")
-    r = detect_categorical_anomalies.invoke({"df": df_test, "column": "tipo_imposta"})
+    r = detect_categorical_anomalies(df_test, column="tipo_imposta")
     for item in r:
         print(f"  [{item['severity']}] {item['issue']}: {item['details'][:80]}")
     all_issues.extend(r)
