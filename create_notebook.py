@@ -16,6 +16,13 @@ cells = []
 def md(source): return nbf.v4.new_markdown_cell(source)
 def code(source): return nbf.v4.new_code_cell(source)
 
+# Legge i moduli .py per includerli come celle %%writefile nel notebook
+# (rende il notebook auto-contenuto come richiesto dalle linee guida LUISS)
+with open("tools.py", "r", encoding="utf-8") as _f:
+    _TOOLS_PY = _f.read()
+with open("agents.py", "r", encoding="utf-8") as _f:
+    _AGENTS_PY = _f.read()
+
 # ─────────────────────────────────────────────────────────────────────────────
 # TITLE
 # ─────────────────────────────────────────────────────────────────────────────
@@ -575,7 +582,12 @@ I tool sono funzioni Python pure (senza dipendenze da LLM) che implementano cont
 {"column": str, "row": int (opzionale), "issue": str, "severity": "critical"|"warning"|"info", "details": str}
 ```
 
-I tool sono definiti in `tools.py` e importati qui. Ogni tool è decorato con `@tool` di LangChain per permettere agli agenti LLM di invocarlo tramite function calling.
+La cella seguente scrive il modulo `tools.py` su disco tramite la magic `%%writefile`. Questo permette al notebook di essere **completamente auto-contenuto**: tutto il codice è definito qui, e le celle successive possono fare `from tools import ...` normalmente.
+"""))
+
+cells.append(code("%%writefile tools.py\n" + _TOOLS_PY))
+
+cells.append(md("""I tool sono ora scritti su disco. La cella successiva li importa per verificare il caricamento corretto e procedere con le dimostrazioni.
 """))
 
 cells.append(code("""# Import dei tool deterministici da tools.py
@@ -1013,18 +1025,26 @@ Il sistema segue il **Supervisor Pattern**: 5 agenti specializzati coordinati da
 ```
 """))
 
+cells.append(md("""La cella seguente scrive il modulo `agents.py` su disco (stesso approccio di `tools.py`), rendendo il notebook completamente auto-contenuto.
+"""))
+
+cells.append(code("%%writefile agents.py\n" + _AGENTS_PY))
+
+cells.append(md("""Il modulo `agents.py` è ora disponibile su disco. La cella seguente verifica la disponibilità della chiave API OpenAI e importa il grafo LangGraph.
+"""))
+
 cells.append(code("""# Import degli agenti LangGraph
 import os
 from dotenv import load_dotenv
 
-# Carica variabili d'ambiente (chiave API OpenAI)
+# Carica variabili d'ambiente (chiave API Google)
 load_dotenv()
 
-openai_key = os.getenv("OPENAI_API_KEY", "")
-if openai_key:
-    print(f"✓ OPENAI_API_KEY trovata (modalità LLM attiva)")
+google_key = os.getenv("GOOGLE_API_KEY", "")
+if google_key:
+    print(f"✓ GOOGLE_API_KEY trovata (modalità LLM attiva — Gemini 1.5 Flash)")
 else:
-    print("⚠ OPENAI_API_KEY non trovata — gli agenti opereranno in modalità deterministica")
+    print("⚠ GOOGLE_API_KEY non trovata — gli agenti opereranno in modalità deterministica")
     print("  Per attivare la modalità LLM: copia .env.example in .env e inserisci la chiave")
 
 try:
@@ -1642,7 +1662,7 @@ nb.cells = cells
 
 # Save
 import os
-output_path = "/Users/giuseppe/Desktop/Machine Learning/Machine-Learning-Segreto/main.ipynb"
+output_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "main.ipynb")
 with open(output_path, "w", encoding="utf-8") as f:
     nbf.write(nb, f)
 

@@ -1,0 +1,27 @@
+# Variabili d'ambiente — NON committare mai questo file
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Output generati (si rigenerano eseguendo il notebook)
+data/synthetic/
+data/cleaned/
+images/
+
+# Ambienti virtuali
+venv/
+.venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db

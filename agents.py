@@ -14,8 +14,8 @@ schema_agent (more iterations needed) or to stop.
 
 Two operating modes
 -------------------
-- LLM mode   : OPENAI_API_KEY is set.  Each agent is a ReAct agent that can
-               reason over its tools with GPT-4o-mini.
+- LLM mode   : GOOGLE_API_KEY is set.  Each agent is a ReAct agent that can
+               reason over its tools with Gemini 1.5 Flash.
 - Deterministic mode : no API key.  Tools are called directly; no LLM round-
                        trips occur.  Useful for offline testing.
 """
@@ -89,20 +89,20 @@ except ImportError as _tools_err:
 # ---------------------------------------------------------------------------
 # LLM setup
 # ---------------------------------------------------------------------------
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-LLM_MODE = bool(OPENAI_API_KEY)
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+LLM_MODE = bool(GOOGLE_API_KEY)
 
 _llm = None  # lazy-initialised
 
 def _get_llm():
-    """Return a ChatOpenAI instance, initialising it on first call."""
+    """Return a ChatGoogleGenerativeAI instance, initialising it on first call."""
     global _llm
     if _llm is None:
-        from langchain_openai import ChatOpenAI
-        _llm = ChatOpenAI(
-            model="gpt-4o-mini",
+        from langchain_google_genai import ChatGoogleGenerativeAI
+        _llm = ChatGoogleGenerativeAI(
+            model="gemini-1.5-flash",
             temperature=0,
-            openai_api_key=OPENAI_API_KEY,
+            google_api_key=GOOGLE_API_KEY,
         )
     return _llm
 
