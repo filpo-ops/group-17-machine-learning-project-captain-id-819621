@@ -1,4 +1,4 @@
-# 🎉 PROGETTO "AGENTS FOR DATA QUALITY" — COMPLETION REPORT
+# PROGETTO "AGENTS FOR DATA QUALITY" — COMPLETION REPORT
 
 ## Status: ✅ 100% COMPLETO
 
@@ -9,16 +9,16 @@
 
 ---
 
-## 📋 DELIVERABLES CONSEGNATI
+## DELIVERABLES CONSEGNATI
 
 ### Fase 0: Setup e Configurazione
 - ✅ **README.md** — 5 sezioni obbligatorie (Introduction, Methods, Experimental Design, Results, Conclusions)
 - ✅ **requirements.txt** — 18 pacchetti pinned per reproducibilità
-- ✅ **.env.example** — Template variabili d'ambiente (OPENAI_API_KEY)
+- ✅ **.env.example** — Template variabili d'ambiente (GOOGLE_API_KEY)
 - ✅ **Directory structure** — data/{raw,synthetic,cleaned}, images/
 
 ### Fase 1: Esplorazione Dataset
-- ✅ **data/raw/spesa.csv** — 7,543 righe × 18 colonne
+- ✅ **data/raw/spesa.csv** — 7,543 righe × 18 colonne (fornito dall'università)
   - ✓ Problemi naming (6 colonne non-snake_case)
   - ✓ Duplicati semantici (tipo_imposta vs Tipo Imposta, spesa vs SPESA TOTALE, ecc.)
   - ✓ Formati multipli (rata: YYYYMM, MM/YYYY, MMM-YYYY)
@@ -26,7 +26,7 @@
   - ✓ Sentinel value 999999999.99 in riga 1528
   - ✓ 385 mismatch tipo_imposta, 39 mismatch spesa, 225 mismatch cod_imposta
   
-- ✅ **data/raw/attivazioniCessazioni.csv** — 20,102 righe × 19 colonne
+- ✅ **data/raw/attivazioniCessazioni.csv** — 20,102 righe × 19 colonne (fornito dall'università)
   - ✓ 62 formati diversi nella colonna mese (vs 12 attesi)
   - ✓ 10 formati anno (vs 4 attesi)
   - ✓ 2,499 inconsistenze mese+anno vs RATA
@@ -34,7 +34,7 @@
   - ✓ 1,671 mismatch provincia_sede vs Provincia Sede
 
 ### Fase 2: Tool Deterministici
-- ✅ **tools.py** — 1,246 linee
+- ✅ **11 tool deterministici** — definiti in `main.ipynb` (Fase 2), scritti su `tools.py` al runtime
   - ✅ Tool 1: `check_naming_convention()` — 6 colonne con problemi
   - ✅ Tool 2: `check_data_types()` — 227 non-numerici in spesa
   - ✅ Tool 3: `detect_null_and_placeholders()` — severity rules NoiPA
@@ -49,14 +49,14 @@
   - ✅ Helper: `calculate_reliability_score()` — weighted 4D formula
 
 ### Fase 3: Dataset Sintetico
-- ✅ **data_generator.py** — 712 linee
+- ✅ **Generazione dataset sintetico** — definita in `main.ipynb` (Fase 3)
   - ✓ Genera dataset pulito + dataset sporco + ground truth
   - ✓ 10 categorie di problemi iniettati (naming, null, placeholder, format, ecc.)
   - ✓ Reproducibile con np.random.seed(42)
-  - ✓ Output: synthetic_dataset.csv + ground_truth.csv (pronto per Precision/Recall/F1)
+  - ✓ Output: `data/synthetic/synthetic_dataset.csv` + `ground_truth.csv`
 
 ### Fase 4-5: LangGraph Multi-Agent
-- ✅ **agents.py** — 1,101 linee
+- ✅ **5 agenti LangGraph** — definiti in `main.ipynb` (Fase 4-5), scritti su `agents.py` al runtime
   - ✅ Schema Validation Agent — naming + data types
   - ✅ Completeness Analysis Agent — nulls + placeholders + sparse
   - ✅ Consistency Validation Agent — formati + cross-column + logic
@@ -65,110 +65,88 @@
   - ✅ Score Calculator — reliability score ponderato
   - ✅ Graph construction — linear pipeline + feedback loop (max 3 iterazioni)
   - ✅ Routing function — stop su score >= 0.75 o max_iterations
-  - ✅ Modalità LLM (GPT-4o-mini) + modalità deterministica (fallback)
+  - ✅ Modalità LLM (Gemini 1.5 Flash) + modalità deterministica (fallback)
 
 ### Fase 6: Esecuzione
-- ✅ **main.ipynb** — 68 celle (28 markdown + 40 codice)
+- ✅ **main.ipynb** — 98 celle (markdown + codice alternati)
   - ✓ Fase 0: Setup e caricamento
   - ✓ Fase 1: Esplorazione dettagliata 2 dataset reali
-  - ✓ Fase 2: Dimostrazione tutti i tool
+  - ✓ Fase 2: Definizione e dimostrazione tutti i tool
   - ✓ Fase 3: Generazione dataset sintetico con iniezioni controllate
   - ✓ Fase 4-5: Descrizione agenti e system prompt
   - ✓ Fase 6: Esecuzione 3 dataset (spesa, attivazioniCessazioni, sintetico)
   - ✓ Fase 7: Reliability score formula + calcolo
   - ✓ Fase 8: 9 visualizzazioni (completeness heatmap, format distribution, boxplot, ecc.)
-  - ✓ Alternanza testo-codice da inizio a fine
+  - ✓ Interfaccia Streamlit: scrittura app.py
+  - ✓ Conclusioni
 
-### Fase 9: Streamlit App
-- ✅ **app.py** — 83 linee
+### Streamlit App
+- ✅ **app.py** — generato da `main.ipynb` via `%%writefile`
   - ✓ Sidebar: upload CSV, configurazione soglia/iterazioni
-  - ✓ Tab 1 Overview: gauge chart score iniziale/finale, tabella severity
-  - ✓ Tab 2 Dettagli: drill-down per agente
-  - ✓ Tab 3 Remediation: azioni applicate, download CSV pulito
-  - ✓ Tab 4 Audit Trail: timeline iterazioni
+  - ✓ Tab Overview: score, numero issues, iterazioni
+  - ✓ Tab Dettagli: drill-down per agente
+  - ✓ Tab Remediation: azioni applicate, download CSV pulito
 
 ---
 
-## 📊 STATISTICA DEL CODICE
-
-| File | Linee | KB | Descrizione |
-|------|-------|----|----|
-| tools.py | 1,246 | 42.3 | 11 tool + scoring |
-| agents.py | 1,101 | 38.9 | 5 agenti + grafo |
-| create_notebook.py | 1,654 | 78.6 | Generatore notebook |
-| data_generator.py | 712 | 28.6 | CSV + sintetico |
-| app.py | 83 | 3.2 | Streamlit UI |
-| **TOTALE CODICE** | **4,796** | **191.6** | |
-
----
-
-## 🗂️ STRUTTURA FINALE
+## STRUTTURA DEL PROGETTO
 
 ```
 Machine-Learning-Segreto/
-├── README.md ............................ (74 linee)
-├── requirements.txt ..................... (18 pacchetti)
-├── .env.example ......................... (configurazione)
-├── main.ipynb ........................... (68 celle, 95 KB)
-├── tools.py ............................. (11 tool + helper)
-├── agents.py ............................ (5 agenti + LangGraph)
-├── app.py ............................... (Streamlit UI)
-├── data_generator.py .................... (genera CSV)
-├── create_notebook.py ................... (genera ipynb)
-├── data/
-│   ├── raw/
-│   │   ├── spesa.csv ................... (7.543 × 18)
-│   │   └── attivazioniCessazioni.csv ... (20.102 × 19)
-│   ├── synthetic/
-│   │   └── [generabile a runtime]
-│   └── cleaned/
-│       └── [generabile a runtime]
-└── images/
-    └── [generabile da notebook]
+├── main.ipynb ........................... (98 celle — unica fonte di codice)
+├── README.md
+├── QUICK_START.md
+├── COMPLETION_REPORT.md
+├── requirements.txt ..................... (18 pacchetti pinned)
+├── .env.example ......................... (GOOGLE_API_KEY)
+├── .gitignore
+└── data/
+    └── raw/
+        ├── spesa.csv ................... (7.543 × 18 — fornito dall'università)
+        └── attivazioniCessazioni.csv ... (20.102 × 19 — fornito dall'università)
+
+# Generati eseguendo main.ipynb (esclusi da git):
+# tools.py, agents.py, app.py
+# data/synthetic/, data/cleaned/, images/
 ```
 
 ---
 
-## 🎯 COME USARE IL PROGETTO
+## COME USARE IL PROGETTO
 
-### 1️⃣ Setup Ambiente
+### 1. Setup Ambiente
 ```bash
-cd "/Users/giuseppe/Desktop/Machine Learning/Machine-Learning-Segreto"
 pip install -r requirements.txt
 ```
 
-### 2️⃣ Eseguire il Notebook
+### 2. Eseguire il Notebook
 ```bash
 jupyter notebook main.ipynb
 ```
 Questo:
-- Carica i 2 dataset reali
+- Carica i 2 dataset universitari
 - Esegue i 5 agenti su spesa.csv
 - Esegue i 5 agenti su attivazioniCessazioni.csv
 - Genera il dataset sintetico
-- Esegue i 5 agenti sul syntetico
+- Esegue i 5 agenti sul sintetico
 - Calcola Precision/Recall/F1
 - Produce 9 immagini in images/
 
-### 3️⃣ Eseguire Streamlit App
+### 3. Eseguire Streamlit App
 ```bash
+# Esegui prima il notebook (genera tools.py e agents.py)
 streamlit run app.py
 ```
-Interfaccia interattiva:
-- Upload CSV arbitrario
-- Analisi real-time
-- Download dataset pulito
 
-### 4️⃣ (Opzionale) Attivare modalità LLM
+### 4. (Opzionale) Attivare modalità LLM
 ```bash
 cp .env.example .env
-# Inserisci OPENAI_API_KEY in .env
-python main.ipynb  # o streamlit run app.py
+# Inserisci GOOGLE_API_KEY in .env (Google AI Studio)
 ```
 
 ---
 
-## 🧠 ARCHITETTURA MULTI-AGENTE
+## ARCHITETTURA MULTI-AGENTE
 
 ```
 Supervisor Pattern
@@ -202,7 +180,7 @@ Supervisor Pattern
 
 ---
 
-## 📈 RELIABILITY SCORE FORMULA
+## RELIABILITY SCORE FORMULA
 
 ```
 R = 0.15·S_schema + 0.30·S_completeness + 0.35·S_consistency + 0.20·S_anomaly
@@ -212,24 +190,28 @@ R = 0.15·S_schema + 0.30·S_completeness + 0.35·S_consistency + 0.20·S_anomal
 - Schema (15%) — prerequisito strutturale
 - Completeness (30%) — dati mancanti → rischio operativo PA
 - Consistency (35%) — incoerenze → rischio errori cedolini
-- Anomaly (20%) — outlier important ma meno frequenti
+- Anomaly (20%) — outlier importanti ma meno frequenti
 
 **Range**: 0.0 (pessimo) → 1.0 (perfetto)  
 **Soglia**: score >= 0.75 per stop automatico feedback
 
 ---
 
-## ✨ CARATTERISTICHE CHIAVE
+## CARATTERISTICHE CHIAVE
 
 ✅ **Deterministic + LLM Hybrid**
 - Funziona sempre (strumenti Python puri)
-- Potenziato con GPT-4o-mini se API key disponibile
+- Potenziato con Gemini 1.5 Flash se GOOGLE_API_KEY disponibile
+
+✅ **Single-file Architecture**
+- Tutto il codice risiede in `main.ipynb`
+- tools.py, agents.py, app.py generati automaticamente via `%%writefile`
 
 ✅ **Pattern-based Detection**
 - Regex pre-configured per NoiPA data types
 - Severity rules hardcoded per dominio PA
 
-✅ **Feedback Loop+Validation**
+✅ **Feedback Loop + Validation**
 - Multi-iterazione: analizza → ripara → riesamina
 - Stoppage automatica su score >= 0.75 OR max iter
 
@@ -237,14 +219,9 @@ R = 0.15·S_schema + 0.30·S_completeness + 0.35·S_consistency + 0.20·S_anomal
 - Dataset sintetico con iniezioni note
 - Calcolo Precision/Recall/F1 per agente
 
-✅ **Production-Ready**
-- Error handling robusto
-- Logging completo
-- Sessione state Streamlit per UI reattiva
-
 ---
 
-## 🔍 PROBLEMI RISOLTI NEI DATI REALI
+## PROBLEMI RISOLTI NEI DATI REALI
 
 ### spesa.csv
 - 6 colonne non-snake_case → rinominate
@@ -262,25 +239,24 @@ R = 0.15·S_schema + 0.30·S_completeness + 0.35·S_consistency + 0.20·S_anomal
 
 ---
 
-## 📚 RIFERIMENTI AI
+## RIFERIMENTI AI
 
-**Modalità LLM utilizzata**: GPT-4o-mini (gpt-4o-mini)
+**Modalità LLM utilizzata**: Gemini 1.5 Flash (Google AI Studio)
 - Temperatura: 0 (deterministico)
 - Sistema: Italian domain-specific prompts per agenti
 - Fallback: tool diretti se API fallisce
 
 **AI Tools Utilizzati nel Progetto**:
 - Claude Opus/Sonnet per code generation
-- Anthropic SDK per Claude API (se abilitata)
 - LangChain + LangGraph per orchestration
 
 ---
 
-## ✅ CHECKLIST FINALE PRE-CONSEGNA
+## CHECKLIST FINALE PRE-CONSEGNA
 
+- [x] Tutto il codice risiede in main.ipynb
 - [x] Notebook alterna celle testo e codice
 - [x] Ogni cella preceduta da spiegazione
-- [x] Ogni output commentato dopo esecuzione
 - [x] Tutte le figure in images/ generate da codice
 - [x] README.md con 5 sezioni obbligatorie
 - [x] requirements.txt completo
@@ -293,15 +269,13 @@ R = 0.15·S_schema + 0.30·S_completeness + 0.35·S_consistency + 0.20·S_anomal
 
 ---
 
-## 🚀 PRONTO PER LA CONSEGNA
+## PRONTO PER LA CONSEGNA
 
-**Data di completamento**: 30 Marzo 2026 14:42 CET  
-**Responsabile**: Claude AI (Anthropic)  
-**Validazione**: ✅ Tutti i test passati  
+**Data di completamento**: 30 Marzo 2026  
+**Team**: LUISS Guido Carli  
 **Status**: 🟢 100% OPERATIVO
 
 ---
 
 *Progetto realizzato per LUISS Guido Carli  
-Committente: Whitehall Reply per NoiPA (MEF)  
-Scadenza originale: 1 Maggio 2025*
+Committente: Whitehall Reply per NoiPA (MEF)*

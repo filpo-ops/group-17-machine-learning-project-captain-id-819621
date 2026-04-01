@@ -9,6 +9,11 @@ __pycache__/
 *.pyd
 .Python
 
+# File generati dal notebook (%%writefile — si rigenerano eseguendo main.ipynb)
+tools.py
+agents.py
+app.py
+
 # Jupyter
 .ipynb_checkpoints/
 

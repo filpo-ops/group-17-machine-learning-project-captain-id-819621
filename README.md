@@ -34,7 +34,7 @@ The system was evaluated across three distinct dataset runs:
 
 - **spesa.csv**: The real government spending dataset (7,543 rows × 18 columns), used to assess the pipeline's behavior on financial administrative data with real-world noise and inconsistencies.
 - **attivazioniCessazioni.csv**: The real employee lifecycle dataset (20,102 rows × 19 columns), used to evaluate the pipeline on HR and workforce data with temporal and relational constraints.
-- **Synthetic dataset**: A controlled dataset of approximately 2,000 rows generated using the `Faker` library and custom injection scripts. Ten distinct categories of problems were injected with known ground truth labels, including: missing values, wrong data types, format violations, out-of-range numerical values, duplicate rows, cross-column inconsistencies, placeholder strings, rare categorical values, structural schema deviations, and combined multi-issue rows.
+- **Synthetic dataset**: A controlled dataset of approximately 2,000 rows generated directly within the notebook using the `Faker` library and custom injection functions. Ten distinct categories of problems were injected with known ground truth labels, including: missing values, wrong data types, format violations, out-of-range numerical values, duplicate rows, cross-column inconsistencies, placeholder strings, rare categorical values, structural schema deviations, and combined multi-issue rows.
 
 The synthetic dataset enables quantitative evaluation of each agent's detection capabilities. For each agent and each problem category, the following metrics are computed:
 
