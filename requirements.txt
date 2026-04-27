@@ -1,13 +1,23 @@
-langgraph>=0.2.0
-langchain-groq>=1.1.0
-langchain-core>=0.2.0
+# Core data
 pandas>=2.0.0
 numpy>=1.26.0
-scikit-learn>=1.4.0
 scipy>=1.12.0
+scikit-learn>=1.4.0
+
+# Multi-agent orchestration
+langgraph>=0.2.0
+langchain-core>=0.2.0
+langchain-groq>=0.2.0     # Groq cloud inference (Llama 3 family)
+
+# Reporting
 jinja2>=3.1.0
-weasyprint>=60.0
-streamlit>=1.35.0
+matplotlib>=3.7.0
+
+# Demo UI
+streamlit>=1.35.0         # Phase 7 — quality report viewer + ad-hoc pipeline runs
+plotly>=5.18.0            # gauge, radar, severity bar in the Streamlit demo
+
+# Notebook & env
 python-dotenv>=1.0.0
-nbconvert>=7.0.0
 jupyter>=1.0.0
+nbconvert>=7.0.0
