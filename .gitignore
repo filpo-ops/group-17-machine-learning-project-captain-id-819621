@@ -37,3 +37,4 @@ outputs/
 .cache/
 .env
 .venv
+.env

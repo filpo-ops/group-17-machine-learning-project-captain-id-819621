@@ -47,9 +47,9 @@ st.markdown("""
 def boot_pipeline():
     from dotenv import load_dotenv
     load_dotenv(dotenv_path=PROJECT_ROOT / ".env")
-    if not os.environ.get("GROQ_API_KEY"):
-        return None, "GROQ_API_KEY non trovata in .env"
-    nb_data = json.loads((APP_DIR / "Main.ipynb").read_text())
+    if not os.environ.get("DEEPSEEK_API_KEY"):
+        return None, "DEEPSEEK_API_KEY non trovata in .env"
+    nb_data = json.loads((APP_DIR / "Main.ipynb").read_text(encoding="utf-8"))
     glb = {"__builtins__": __builtins__, "display": lambda x: None,
            "__file__": str(APP_DIR / "Main.ipynb")}
     os.chdir(APP_DIR)
@@ -122,7 +122,7 @@ st.markdown("""
 <div class="hero">
   <h1>🛠️ Agents for Data Quality</h1>
   <div class="tagline">A multi-agent LLM pipeline that validates, scores, and remediates any CSV — in seconds.</div>
-  <div class="meta">LangGraph · Groq Llama 3.3 70B · 9 nodes (4 LLM agents + supervisor) · ~3-5k tokens / dataset</div>
+  <div class="meta">LangGraph · DEEPSEEK v4 flash · 9 nodes (4 LLM agents + supervisor) · ~3-5k tokens / dataset</div>
 </div>
 """, unsafe_allow_html=True)
 
