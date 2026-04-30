@@ -1,0 +1,75 @@
+{
+  "benchmark": "phase4_event_level_v2",
+  "seed": 42,
+  "sample_size": 500,
+  "trials_per_family": 5,
+  "families": [
+    "disguisednull",
+    "iqr_outlier",
+    "mixed_date_format",
+    "wrong_but_parseable",
+    "semantic_duplicate",
+    "crossfield_inconsistency"
+  ],
+  "overall": {
+    "TP": 75,
+    "FP": 14,
+    "FN": 5,
+    "Precision": 0.8427,
+    "Recall": 0.9375,
+    "F1": 0.8876
+  },
+  "per_family": {
+    "disguisednull": {
+      "TP": 20,
+      "FP": 6,
+      "FN": 0,
+      "Precision": 0.7692,
+      "Recall": 1.0,
+      "F1": 0.8696,
+      "Runs": 20,
+      "IssueHitRate": 0.0
+    },
+    "iqr_outlier": {
+      "TP": 15,
+      "FP": 1,
+      "FN": 5,
+      "Precision": 0.9375,
+      "Recall": 0.75,
+      "F1": 0.8333,
+      "Runs": 20,
+      "IssueHitRate": 0.0
+    },
+    "wrong_but_parseable": {
+      "TP": 20,
+      "FP": 5,
+      "FN": 0,
+      "Precision": 0.8,
+      "Recall": 1.0,
+      "F1": 0.8889,
+      "Runs": 20,
+      "IssueHitRate": 0.0
+    },
+    "semantic_duplicate": {
+      "TP": 10,
+      "FP": 1,
+      "FN": 0,
+      "Precision": 0.9091,
+      "Recall": 1.0,
+      "F1": 0.9524,
+      "Runs": 10,
+      "IssueHitRate": 0.0
+    },
+    "crossfield_inconsistency": {
+      "TP": 10,
+      "FP": 1,
+      "FN": 0,
+      "Precision": 0.9091,
+      "Recall": 1.0,
+      "F1": 0.9524,
+      "Runs": 10,
+      "IssueHitRate": 0.0
+    }
+  },
+  "n_trials": 80
+}
