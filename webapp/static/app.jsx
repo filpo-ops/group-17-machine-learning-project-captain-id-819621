@@ -3,11 +3,66 @@
 const { useState: useStateA, useEffect: useEffectA, useRef: useRefA } = React;
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "theme": "light"
+  "theme": "light",
+  "palette": "navy"
 }/*EDITMODE-END*/;
 
 // Tweaks panel is only visible when ?dev=1 is set in the URL.
 const DEV_MODE = new URLSearchParams(window.location.search).get('dev') === '1';
+
+// ─── Palette system ────────────────────────────────────────────────────────
+// Each palette overrides only the brand-color CSS variables; the theme
+// (light/dark/hc) controls bg/fg. Palette + theme compose orthogonally.
+const PALETTES = {
+  navy:    { name: 'Navy & plum',    det: '#2d4a8a', llm: '#6b4e8c', good: '#2f6f4f', mid: '#8a6a1a', bad: '#9a3535' },
+  teal:    { name: 'Teal & coral',   det: '#1f6b6e', llm: '#c46a4a', good: '#2f6f4f', mid: '#9a6a1a', bad: '#9a3535' },
+  forest:  { name: 'Forest & ochre', det: '#2a5d3a', llm: '#a87830', good: '#2a5d3a', mid: '#a87830', bad: '#9a3535' },
+  indigo:  { name: 'Indigo & rose',  det: '#3a3f8a', llm: '#a8456b', good: '#2f6f4f', mid: '#8a6a1a', bad: '#9a3535' },
+  slate:   { name: 'Slate & amber',  det: '#3d4a5e', llm: '#b8721a', good: '#3a6b48', mid: '#b8721a', bad: '#9a3535' },
+};
+
+function softenColor(hex, amount = 0.92) {
+  // Convert hex → rgb, blend with white (used for soft-tone variants in light theme)
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  const sr = Math.round(r + (255 - r) * amount);
+  const sg = Math.round(g + (255 - g) * amount);
+  const sb = Math.round(b + (255 - b) * amount);
+  return `rgb(${sr}, ${sg}, ${sb})`;
+}
+
+function applyPalette(palette, theme) {
+  const p = PALETTES[palette] || PALETTES.navy;
+  const root = document.documentElement;
+  // Brand colors — solid
+  root.style.setProperty('--accent', p.det);
+  root.style.setProperty('--det', p.det);
+  root.style.setProperty('--llm', p.llm);
+  root.style.setProperty('--good', p.good);
+  root.style.setProperty('--mid', p.mid);
+  root.style.setProperty('--bad', p.bad);
+  // Soft variants depend on the active theme: dark uses alpha hex suffix,
+  // light blends with white through softenColor().
+  if (theme === 'dark') {
+    root.style.setProperty('--accent-soft', `${p.det}1f`);
+    root.style.setProperty('--det-soft',    `${p.det}1f`);
+    root.style.setProperty('--llm-soft',    `${p.llm}26`);
+    root.style.setProperty('--good-soft',   `${p.good}1f`);
+    root.style.setProperty('--mid-soft',    `${p.mid}26`);
+    root.style.setProperty('--bad-soft',    `${p.bad}26`);
+  } else {
+    root.style.setProperty('--accent-soft', softenColor(p.det, 0.88));
+    root.style.setProperty('--det-soft',    softenColor(p.det, 0.88));
+    root.style.setProperty('--llm-soft',    softenColor(p.llm, 0.86));
+    root.style.setProperty('--good-soft',   softenColor(p.good, 0.88));
+    root.style.setProperty('--mid-soft',    softenColor(p.mid, 0.86));
+    root.style.setProperty('--bad-soft',    softenColor(p.bad, 0.88));
+  }
+  root.style.setProperty('--type-num', p.det);
+  root.style.setProperty('--type-str', p.llm);
+  root.style.setProperty('--type-dat', p.good);
+}
 
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
@@ -24,9 +79,11 @@ function App() {
   const [dragging, setDragging] = useStateA(false);
   const eventSourceRef = useRefA(null);
 
+  // Apply theme + palette together so every brand color follows the theme's bg/fg
   useEffectA(() => {
     document.documentElement.setAttribute('data-theme', t.theme);
-  }, [t.theme]);
+    applyPalette(t.palette, t.theme);
+  }, [t.theme, t.palette]);
 
   // Drag-drop CSV anywhere on the page
   useEffectA(() => {
@@ -124,20 +181,24 @@ function App() {
     es.addEventListener('complete', (ev) => {
       completed = true;
       const payload = JSON.parse(ev.data);
-      // Replace mock RESULTS with real data so the existing ResultsScreen reads it
+      // Replace RESULTS with real backend data so the design's ResultsScreen reads it
       window.RESULTS = {
-        reliability_score:  payload.reliability_score,
-        sub_scores:         payload.sub_scores,
-        weights:            payload.weights,
-        severity_breakdown: payload.severity_breakdown,
-        issues:             payload.issues,
-        correction_log:     payload.correction_log,
-        audit_trail:        payload.audit_trail,
+        dataset_name:             payload.dataset_name,
+        reliability_score:        payload.reliability_score,
+        post_reliability_score:   payload.post_reliability_score,
+        sub_scores:               payload.sub_scores,
+        post_sub_scores:          payload.post_sub_scores,
+        weights:                  payload.weights,
+        severity_breakdown:       payload.severity_breakdown,
+        post_severity_breakdown:  payload.post_severity_breakdown,
+        issues:                   payload.issues,
+        correction_log:           payload.correction_log,
+        audit_trail:              payload.audit_trail,
       };
-      window.FIXED_PREVIEW = payload.fixed_preview;
-      window.LATEST_PROVIDER = payload.provider;
-      window.LATEST_HTML_REPORT = payload.html_report;
-      window.LATEST_SESSION_ID = sessionId;     // used by ExportMenu to build download URLs
+      window.FIXED_PREVIEW       = payload.fixed_preview;
+      window.LATEST_PROVIDER     = payload.provider;
+      window.LATEST_HTML_REPORT  = payload.html_report;
+      window.LATEST_SESSION_ID   = sessionId;     // used by ExportMenu to build download URLs
       es.close();
       eventSourceRef.current = null;
       setTimeout(() => setPhase('done'), 350);
@@ -200,6 +261,9 @@ function App() {
               { value: 'hc',    label: 'High contrast' },
             ]}
             onChange={(v) => setTweak('theme', v)} />
+          <TweakSelect label="Color palette" value={t.palette}
+            options={Object.entries(PALETTES).map(([id, p]) => ({ value: id, label: p.name }))}
+            onChange={(v) => setTweak('palette', v)} />
           <TweakSection label="Demo" />
           <TweakButton label="Restart from welcome" onClick={reset} />
           {phase === 'preview' && (

@@ -10,7 +10,7 @@ const PIPELINE_NODES = [
   { id: 'anomaly',      kind: 'llm', label: 'Anomaly',        desc: 'Reason about outliers' },
   { id: 'remediation',  kind: 'det', label: 'Remediation',    desc: 'Apply planned actions' },
   { id: 're_audit',     kind: 'det', label: 'Re-audit',       desc: 'Re-run audit on fixed data' },
-  { id: 'supervisor',   kind: 'det', label: 'Supervisor',     desc: 'Compute before/after score' },
+  { id: 'supervisor',   kind: 'det', label: 'Supervisor',     desc: 'Compute before / after score' },
 ];
 
 const NODE_OUTCOMES = {
@@ -22,7 +22,8 @@ const NODE_OUTCOMES = {
   consistency:  '4 actions planned · consistency score 0.78 → 0.90',
   anomaly:      '3 actions planned · 12 outliers flagged, 9 retained',
   remediation:  '19 actions applied · 1,847 cells modified',
-  supervisor:   'Reliability = 54.0 / 100 — verdict: medium',
+  re_audit:     'Re-audit complete · 2 residual issues (down from 29)',
+  supervisor:   'Before 54.0 → After 91.5 — verdict: high',
 };
 
 const SAMPLE_CSV_PREVIEW = {
@@ -57,9 +58,11 @@ const FIXED_PREVIEW = [
 ];
 
 const RESULTS = {
-  reliability_score: 54.0,
-  sub_scores: { validity: 90, completeness: 0, consistency: 90, uniqueness: 90, accuracy: 0 },
-  weights:    { validity: 0.20, completeness: 0.30, consistency: 0.25, uniqueness: 0.15, accuracy: 0.10 },
+  reliability_score:        54.0,
+  reliability_score_after:  91.5,
+  sub_scores:        { validity: 90, completeness: 0,  consistency: 90, uniqueness: 90, accuracy: 0 },
+  sub_scores_after:  { validity: 96, completeness: 88, consistency: 95, uniqueness: 100, accuracy: 80 },
+  weights:           { validity: 0.20, completeness: 0.30, consistency: 0.25, uniqueness: 0.15, accuracy: 0.10 },
   severity_breakdown: { critical: 1, high: 16, medium: 6, low: 6 },
   issues: [
     { id: 1,  tool: 'check_nulls',          issue_type: 'missing_mandatory_values',  severity: 'critical', columns: ['spesa'],                  row_count: 1582, message: 'Column `spesa` has 1582 effectively missing values (21.0%)', sample_rows: [2, 5, 47, 102, 318] },
@@ -91,7 +94,7 @@ const RESULTS = {
     'discover:      14 rules generated, 11 retained after sample validation',
     'audit:         9 tools executed in parallel — 29 issues raised',
     'audit:         severity distribution — 1 critical, 16 high, 6 medium, 6 low',
-    'schema:        agent invoked (deepseek-chat) — 5 actions planned',
+    'schema:        agent invoked (claude-3-5-sonnet) — 5 actions planned',
     'completeness:  agent invoked — 7 actions planned, score 0.00 → 0.74',
     'consistency:   agent invoked — 4 actions planned, score 0.78 → 0.90',
     'anomaly:       agent invoked — 3 actions planned, 12 outliers reviewed',

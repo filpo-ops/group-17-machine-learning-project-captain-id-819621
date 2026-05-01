@@ -23,22 +23,31 @@ function ResultsScreen({ onReset }) {
   const R = window.RESULTS;
   const [selectedIssue, setSelectedIssue] = useStateR(null);
   const [tab, setTab] = useStateR('issues');
+  const [showAfter, setShowAfter] = useStateR(false);
 
-  // The verdict reflects the post-fix score when available — that's the score
-  // that describes the *delivered* dataset quality, not the input quality.
-  const hasPost = R.post_reliability_score != null;
-  const displayScore = hasPost ? R.post_reliability_score : R.reliability_score;
-  const score = useCountUp(displayScore, 1400);
-  const preScore = useCountUp(R.reliability_score, 1400);
-  const verdict = displayScore >= 70 ? 'high' : displayScore >= 40 ? 'medium' : 'low';
-  const verdictLabel = { high: 'High reliability', medium: 'Medium reliability', low: 'Low reliability' }[verdict];
-  const delta = hasPost ? +(R.post_reliability_score - R.reliability_score).toFixed(1) : null;
+  // Reveal "after" score 1.6s after mount
+  useEffectR(() => {
+    const t = setTimeout(() => setShowAfter(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Defensive: if re_audit didn't produce a post-fix score, fall back to the
+  // pre-fix value so the UI shows two equal cards instead of NaN/Infinity.
+  const postScoreSafe = R.post_reliability_score != null ? R.post_reliability_score : R.reliability_score;
+  const postSubScoresSafe = R.post_sub_scores || R.sub_scores;
+
+  const beforeScore = useCountUp(R.reliability_score, 1400);
+  const afterScore  = useCountUp(showAfter ? postScoreSafe : 0, 1300, 0);
+  const beforeVerdict = R.reliability_score >= 70 ? 'high' : R.reliability_score >= 40 ? 'medium' : 'low';
+  const afterVerdict  = postScoreSafe >= 70 ? 'high' : postScoreSafe >= 40 ? 'medium' : 'low';
+  const verdictLabel = { high: 'High reliability', medium: 'Medium reliability', low: 'Low reliability' };
+  const delta = (postScoreSafe - R.reliability_score).toFixed(1);
 
   return (
     <div className="screen results">
       <div className="screen-head">
         <div>
-          <div className="eyebrow">Run complete · sample.csv</div>
+          <div className="eyebrow">Run complete · {R.dataset_name || 'dataset'}.csv</div>
           <h2 className="screen-title">Results</h2>
         </div>
         <div className="screen-actions">
@@ -47,45 +56,53 @@ function ResultsScreen({ onReset }) {
         </div>
       </div>
 
-      {/* Hero: score + sub-scores side by side */}
-      <div className="results-hero">
-        <div className={`score-card score-${verdict}`}>
-          <div className="score-card-h">{hasPost ? 'Reliability — post-fix' : 'Reliability score'}</div>
-          <div className="score-card-num">
-            <span className="score-num mono">{score.toFixed(1)}</span>
-            <span className="score-denom mono">/ 100</span>
-          </div>
-          <div className="score-verdict">
-            <span className="verdict-dot"></span>
-            {verdictLabel}
-          </div>
-          {hasPost && (
-            <div className="score-delta mono" style={{
-              marginTop: 8, fontSize: 13,
-              color: delta > 0 ? '#0a6e2c' : delta < 0 ? '#a31515' : '#666'
-            }}>
-              before {preScore.toFixed(1)} → after {score.toFixed(1)}
-              <span style={{ marginLeft: 6, fontWeight: 600 }}>
-                ({delta >= 0 ? '+' : ''}{delta.toFixed(1)})
-              </span>
+      {/* Hero: before/after score + sub-scores + severity */}
+      <div className="results-hero results-hero-2">
+        <div className="score-pair">
+          <div className={`score-card score-${beforeVerdict} score-before`}>
+            <div className="score-card-h">Before remediation</div>
+            <div className="score-card-num">
+              <span className="score-num mono">{beforeScore.toFixed(1)}</span>
+              <span className="score-denom mono">/ 100</span>
             </div>
-          )}
-          <div className="score-formula mono">
-            weighted sum · 5 ISO-8000 dimensions
+            <div className="score-verdict">
+              <span className="verdict-dot"></span>
+              {verdictLabel[beforeVerdict]}
+            </div>
+          </div>
+
+          <div className={`score-arrow ${showAfter ? 'arrow-active' : ''}`}>
+            <svg width="28" height="14" viewBox="0 0 28 14" fill="none" aria-hidden="true">
+              <path d="M1 7h24M19 1l6 6-6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="arrow-delta mono">+{delta}</span>
+          </div>
+
+          <div className={`score-card score-${afterVerdict} score-after ${showAfter ? 'after-revealed' : 'after-hidden'}`}>
+            <div className="score-card-h">After remediation</div>
+            <div className="score-card-num">
+              <span className="score-num mono">{afterScore.toFixed(1)}</span>
+              <span className="score-denom mono">/ 100</span>
+            </div>
+            <div className="score-verdict">
+              <span className="verdict-dot"></span>
+              {verdictLabel[afterVerdict]}
+            </div>
           </div>
         </div>
 
         <div className="subscores-card">
           <div className="subscores-h">
-            <span>Sub-scores by dimension {hasPost && <span className="dim" style={{fontWeight:400}}>· post-fix</span>}</span>
-            <span className="mono dim">weight × score = contribution</span>
+            <span>Sub-scores by dimension</span>
+            <span className="mono dim">before → after · weight × score</span>
           </div>
           <div className="subscores-grid">
-            {Object.entries(hasPost ? R.post_sub_scores : R.sub_scores).map(([dim, val]) => (
-              <SubScoreRow
-                key={dim} dim={dim} value={val} weight={R.weights[dim]}
-                preValue={hasPost ? R.sub_scores[dim] : null}
-              />
+            {Object.entries(R.sub_scores).map(([dim, val]) => (
+              <SubScoreRow key={dim} dim={dim}
+                value={val}
+                valueAfter={postSubScoresSafe[dim]}
+                weight={R.weights[dim]}
+                showAfter={showAfter} />
             ))}
           </div>
         </div>
@@ -93,28 +110,16 @@ function ResultsScreen({ onReset }) {
         <div className="severity-card">
           <div className="severity-h">Severity breakdown</div>
           <div className="severity-list">
-            {Object.entries(R.severity_breakdown).map(([sev, count]) => {
-              const postCount = hasPost ? (R.post_severity_breakdown?.[sev] ?? 0) : null;
-              const resolved = hasPost ? (count - postCount) : null;
-              return (
-                <div key={sev} className={`sev-row sev-${sev}`}>
-                  <span className="sev-dot"></span>
-                  <span className="sev-label">{sev}</span>
-                  <span className="sev-count mono">
-                    {hasPost ? `${count} → ${postCount}` : count}
-                    {hasPost && resolved > 0 && (
-                      <span style={{ color: '#0a6e2c', marginLeft: 4, fontSize: 11 }}>
-                        (-{resolved})
-                      </span>
-                    )}
-                  </span>
-                </div>
-              );
-            })}
+            {Object.entries(R.severity_breakdown).map(([sev, count]) => (
+              <div key={sev} className={`sev-row sev-${sev}`}>
+                <span className="sev-dot"></span>
+                <span className="sev-label">{sev}</span>
+                <span className="sev-count mono">{count}</span>
+              </div>
+            ))}
           </div>
           <div className="severity-foot mono dim">
-            {R.issues.length} issues pre-fix
-            {hasPost && ` · ${(R.post_severity_breakdown ? Object.values(R.post_severity_breakdown).reduce((a,b)=>a+b,0) : 0)} residual`}
+            {R.issues.length} issues across {new Set(R.issues.map(i => i.tool)).size} tools
           </div>
         </div>
       </div>
@@ -152,28 +157,23 @@ function ResultsScreen({ onReset }) {
   );
 }
 
-function SubScoreRow({ dim, value, weight, preValue }) {
+function SubScoreRow({ dim, value, valueAfter, weight, showAfter }) {
   const animVal = useCountUp(value, 1100);
-  const contribution = (value * weight).toFixed(1);
+  const animValAfter = useCountUp(showAfter ? valueAfter : value, 1100, value);
   const tone = value >= 70 ? 'good' : value >= 40 ? 'mid' : 'bad';
-  const hasDelta = preValue != null && Math.abs(preValue - value) >= 0.5;
+  const toneAfter = valueAfter >= 70 ? 'good' : valueAfter >= 40 ? 'mid' : 'bad';
   return (
     <div className="ss-row">
       <div className="ss-row-top">
         <span className="ss-dim">{dim}</span>
         <span className="mono ss-weight">×{weight.toFixed(2)}</span>
         <span className={`mono ss-val ss-val-${tone}`}>{Math.round(animVal)}</span>
+        {showAfter && <span className="ss-arrow">→</span>}
+        {showAfter && <span className={`mono ss-val ss-val-${toneAfter}`}>{Math.round(animValAfter)}</span>}
       </div>
       <div className="ss-bar">
         <div className={`ss-bar-fill ss-${tone}`} style={{ width: `${animVal}%` }} />
-      </div>
-      <div className="ss-contrib mono dim">
-        contributes {contribution} pts
-        {hasDelta && (
-          <span style={{ marginLeft: 6, color: value >= preValue ? '#0a6e2c' : '#a31515' }}>
-            · {Math.round(preValue)} → {Math.round(value)}
-          </span>
-        )}
+        {showAfter && <div className={`ss-bar-fill-after ss-${toneAfter}`} style={{ width: `${animValAfter}%` }} />}
       </div>
     </div>
   );
@@ -244,12 +244,33 @@ function CorrectionLog({ log }) {
   );
 }
 
+// Format a cell value for display: trim float noise (e.g. 182904.47999999954 → 182904.48),
+// preserve the trailing "*" marker for remediated values, and stringify everything else as-is.
+function formatCell(v) {
+  if (v == null || v === '') return '';
+  const s = String(v);
+  const modified = s.endsWith('*');
+  const core = modified ? s.slice(0, -1) : s;
+  // If it parses as a number with > 4 decimals of binary noise, round to 2.
+  if (/^-?\d+\.\d{5,}$/.test(core)) {
+    const n = parseFloat(core);
+    if (!Number.isNaN(n)) return (modified ? n.toFixed(2) + '*' : n.toFixed(2));
+  }
+  return s;
+}
+
 function FixedPreview({ rows }) {
-  const cols = ['id', 'cognome', 'nome', 'data_nascita', 'comune', 'spesa', 'data_pagamento', 'flag_attivo'];
+  // Derive columns from the actual payload — never hardcode. The mock had
+  // NoiPA-style headers (cognome, nome, ...), but real datasets have arbitrary
+  // schemas (spesa.csv: _id, rata, ente, ...). Hardcoded cols → empty cells.
+  if (!rows || rows.length === 0) {
+    return <div className="table-card flush"><div className="table-card-h">No fixed-dataset preview available.</div></div>;
+  }
+  const cols = Object.keys(rows[0]);
   return (
     <div className="table-card flush">
       <div className="table-card-h">
-        <span>First {rows.length} rows of corrected dataset</span>
+        <span>First {rows.length} rows of corrected dataset · {cols.length} columns</span>
         <span className="mono dim"><span className="mod-mark">*</span> = value modified by remediation</span>
       </div>
       <div className="table-scroll">
@@ -261,9 +282,9 @@ function FixedPreview({ rows }) {
             {rows.map((r, i) => (
               <tr key={i}>
                 {cols.map(c => {
-                  const v = r[c] || '';
-                  const modified = v.toString().includes('*');
-                  return <td key={c} className={modified ? 'td-modified' : ''}>{v}</td>;
+                  const display = formatCell(r[c]);
+                  const modified = display.endsWith('*');
+                  return <td key={c} className={modified ? 'td-modified' : ''}>{display}</td>;
                 })}
               </tr>
             ))}
@@ -340,23 +361,6 @@ function IssuePanel({ issue, onClose }) {
 
 function ExportMenu() {
   const [open, setOpen] = useStateR(false);
-  // Trigger a download from a session-id-scoped backend endpoint by clicking
-  // a hidden anchor; the backend sets Content-Disposition: attachment.
-  const download = (kind) => {
-    const sid = window.LATEST_SESSION_ID;
-    if (!sid) {
-      alert("No active session — run the pipeline first.");
-      return;
-    }
-    const url = `/download/${kind}/${sid}`;
-    const a = document.createElement("a");
-    a.href = url;
-    a.rel = "noopener";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setOpen(false);
-  };
   return (
     <div className="export-menu">
       <button className="btn-primary" onClick={() => setOpen(!open)}>
@@ -367,18 +371,10 @@ function ExportMenu() {
         <>
           <div className="export-scrim" onClick={() => setOpen(false)} />
           <div className="export-pop">
-            <button className="export-item" onClick={() => download("fixed")}>
-              <span>Fixed dataset</span><span className="mono dim">.csv</span>
-            </button>
-            <button className="export-item" onClick={() => download("report")}>
-              <span>Quality report</span><span className="mono dim">.html</span>
-            </button>
-            <button className="export-item" onClick={() => download("log")}>
-              <span>Correction log</span><span className="mono dim">.json</span>
-            </button>
-            <button className="export-item" onClick={() => download("bundle")}>
-              <span>Full run bundle</span><span className="mono dim">.zip</span>
-            </button>
+            <button className="export-item"><span>Fixed dataset</span><span className="mono dim">.csv</span></button>
+            <button className="export-item"><span>Quality report</span><span className="mono dim">.html</span></button>
+            <button className="export-item"><span>Correction log</span><span className="mono dim">.json</span></button>
+            <button className="export-item"><span>Full run bundle</span><span className="mono dim">.zip</span></button>
           </div>
         </>
       )}

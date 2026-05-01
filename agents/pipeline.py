@@ -1516,10 +1516,14 @@ h1{color:#0a6e2c;border-bottom:3px solid #0a6e2c;padding-bottom:8px}
 h2{color:#444;margin-top:32px;border-left:4px solid #0a6e2c;padding-left:10px}
 .score{display:flex;gap:24px;align-items:center;background:#f4faf6;border:1px solid #cde9d6;padding:18px;border-radius:8px;margin:16px 0}
 .gauge{font-size:56px;font-weight:700;color:{{ score_color }}}
+.delta{font-size:13px;color:#0a6e2c;margin-top:6px;font-family:monospace}
+.delta.neg{color:#c0392b}
 .subs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
 .sub{background:#fafafa;border:1px solid #e0e0e0;padding:10px;border-radius:6px;text-align:center}
 .sub .l{font-size:11px;color:#666;text-transform:uppercase}
 .sub .v{font-size:22px;font-weight:600;color:#0a6e2c}
+.sub .pre{font-size:11px;color:#888;text-decoration:line-through;font-family:monospace}
+.sub .arr{font-size:11px;color:#0a6e2c;font-family:monospace;margin:2px 0}
 .sub .w{font-size:10px;color:#999}
 table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
 th,td{border:1px solid #ddd;padding:6px 10px;text-align:left;vertical-align:top}
@@ -1537,16 +1541,28 @@ th{background:#f0f0f0}
 <p class="muted">{{ generated_at }} · {{ provider }} · multi-agent pipeline</p>
 
 <div class="score">
-  <div class="gauge">{{ reliability_score }}/100</div>
+  <div class="gauge">{{ display_score }}/100</div>
   <div>
-    <strong>Reliability score</strong> (ISO-8000 weighted)<br>
-    <span class="muted">{{ issues|length }} issues detected · {{ applied_count }} corrections applied</span>
+    <strong>Reliability {% if post_reliability_score is not none %}— post-fix{% else %}score{% endif %}</strong> (ISO-8000 weighted)<br>
+    <span class="muted">{{ issues|length }} issues detected · {{ applied_count }} corrections applied{% if post_issues_count is not none %} · {{ post_issues_count }} residual after re-audit{% endif %}</span>
+    {% if post_reliability_score is not none %}
+    <div class="delta {% if score_delta < 0 %}neg{% endif %}">
+      before {{ reliability_score }} → after {{ post_reliability_score }} ({{ '+' if score_delta >= 0 else '' }}{{ score_delta }})
+    </div>
+    {% endif %}
   </div>
 </div>
 
 <div class="subs">
-{% for cat, val in sub_scores.items() %}
-  <div class="sub"><div class="l">{{ cat }}</div><div class="v">{{ val }}</div><div class="w">w={{ weights[cat] }}</div></div>
+{% for cat, val in display_sub_scores.items() %}
+  <div class="sub">
+    <div class="l">{{ cat }}</div>
+    {% if pre_sub_scores and pre_sub_scores[cat] != val %}
+      <div class="arr">{{ pre_sub_scores[cat] }} →</div>
+    {% endif %}
+    <div class="v">{{ val }}</div>
+    <div class="w">w={{ weights[cat] }}</div>
+  </div>
 {% endfor %}
 </div>
 
@@ -1586,28 +1602,51 @@ Plotly.newPlot("radar", [{type:"scatterpolar",r:{{ radar_values|tojson }},theta:
 """)
 
 
-def render_quality_report(state, provider_name="DEEPSEEK v4 flash"):
-    """Render the full quality report HTML page from the final pipeline state (with embedded plotly radar)."""
+def render_quality_report(state, provider_name="DeepSeek-Chat (V3)"):
+    """Render the full quality report HTML page from the final pipeline state (with embedded plotly radar).
+
+    When `state` includes `post_reliability_score` and `post_sub_scores` (i.e. the
+    `re_audit` node ran), the report shows the *post-fix* score as the primary
+    gauge and renders the pre→post delta on each sub-score box.
+    """
     from datetime import datetime
     issues = state.get("issues", [])
     log = state.get("correction_log", [])
     applied = sum(1 for e in log if e.get("applied"))
-    score = state.get("reliability_score", 0)
-    score_color = "#0a6e2c" if score >= 70 else ("#d4ad28" if score >= 40 else "#c0392b")
+
+    pre_score  = state.get("reliability_score", 0)
+    post_score = state.get("post_reliability_score")  # None if re_audit didn't run
+
+    # The gauge shows the post-fix score (the *delivered* quality) when available;
+    # otherwise it falls back to pre-fix. score_color tracks the displayed value.
+    display_score = post_score if post_score is not None else pre_score
+    score_color = "#0a6e2c" if display_score >= 70 else ("#d4ad28" if display_score >= 40 else "#c0392b")
+    score_delta = round(post_score - pre_score, 1) if post_score is not None else None
 
     sev_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
     top_issues = sorted(issues, key=lambda x: (sev_order.get(x["severity"], 4), -(x.get("row_count") or 0)))[:25]
 
-    sub_scores = state.get("sub_scores", {k: 100.0 for k in RELIABILITY_WEIGHTS})
+    pre_sub_scores  = state.get("sub_scores", {k: 100.0 for k in RELIABILITY_WEIGHTS})
+    post_sub_scores = state.get("post_sub_scores")
+    display_sub_scores = post_sub_scores if post_sub_scores else pre_sub_scores
+
     radar_labels = list(RELIABILITY_WEIGHTS.keys())
-    radar_values = [sub_scores.get(k, 100.0) for k in radar_labels]
+    radar_values = [display_sub_scores.get(k, 100.0) for k in radar_labels]
 
     raw_df, fixed_df = state["raw_df"], state.get("fixed_df", state["raw_df"])
+    post_issues = state.get("post_issues", [])
 
     return REPORT_TEMPLATE.render(
         dataset_name=state["dataset_name"],
-        reliability_score=score, score_color=score_color,
-        sub_scores=sub_scores,
+        # Gauge shows post-fix when available; pre/post passed for the delta line
+        display_score=display_score, score_color=score_color,
+        reliability_score=pre_score,
+        post_reliability_score=post_score,
+        score_delta=score_delta,
+        post_issues_count=(len(post_issues) if post_issues else None),
+        # Sub-score grid: display = post if available, with pre alongside
+        display_sub_scores=display_sub_scores,
+        pre_sub_scores=(pre_sub_scores if post_sub_scores else None),
         weights={k: f"{int(v*100)}%" for k, v in RELIABILITY_WEIGHTS.items()},
         radar_labels=radar_labels, radar_values=radar_values,
         issues=issues, top_issues=top_issues,
@@ -1623,16 +1662,33 @@ def render_quality_report(state, provider_name="DEEPSEEK v4 flash"):
 
 
 def _default_exec_summary(state):
-    """Build a deterministic executive-summary string from severity counts and reliability score."""
-    rs = state.get("reliability_score", 0)
-    sev = state.get("severity_breakdown", {})
+    """Build a deterministic executive-summary string from severity counts and reliability score.
+
+    Mentions the post-fix score and delta when the re_audit ran; falls back to
+    pre-fix-only narrative for backward compatibility.
+    """
+    pre  = state.get("reliability_score", 0)
+    post = state.get("post_reliability_score")
+    sev  = state.get("severity_breakdown", {})
+    post_sev = state.get("post_severity_breakdown") or {}
     n_applied = sum(1 for e in state.get("correction_log", []) if e.get("applied"))
-    verdict = "alto" if rs >= 70 else ("medio" if rs >= 40 else "basso")
-    return (f"Il dataset <strong>{state['dataset_name']}</strong> ha reliability "
-            f"<strong>{rs}/100</strong> (livello {verdict}). Issue: "
+
+    display = post if post is not None else pre
+    verdict = "alto" if display >= 70 else ("medio" if display >= 40 else "basso")
+
+    base = (f"Il dataset <strong>{state['dataset_name']}</strong> ha reliability "
+            f"<strong>{display}/100</strong> (livello {verdict}). Issue iniziali: "
             f"{sev.get('critical',0)} critical / {sev.get('high',0)} high / "
             f"{sev.get('medium',0)} medium / {sev.get('low',0)} low. "
-            f"Pipeline ha applicato {n_applied} correzioni.")
+            f"Pipeline ha applicato {n_applied} correzioni")
+
+    if post is not None:
+        residual = sum(post_sev.values()) if post_sev else 0
+        delta = round(post - pre, 1)
+        return (base + f", portando lo score da <strong>{pre}/100</strong> a "
+                f"<strong>{post}/100</strong> (Δ {'+' if delta >= 0 else ''}{delta}). "
+                f"Residuano {residual} issue dopo il re-audit deterministico.")
+    return base + "."
 
 # ─── Extracted from notebook cell 56 ────────────────────────────────────
 # Optional LLM-narrative for the executive summary (single short call per run)

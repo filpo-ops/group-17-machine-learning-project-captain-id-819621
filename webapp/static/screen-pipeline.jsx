@@ -1,16 +1,43 @@
-// Pipeline execution screen
+// Pipeline execution screen — flowing horizontal layout
+// Visualizes the 10-node pipeline as 3 groups: head (det) → middle (llm) → tail (det)
 
-const { useState: useState2, useEffect: useEffect2, useRef: useRef2, useMemo: useMemo2 } = React;
+const { useState: useState2 } = React;
 
 function PipelineScreen({ progress, onSkip }) {
-  // progress: { activeIdx, statuses: [...], elapsed: [...], log: [strings] }
   const nodes = window.PIPELINE_NODES;
-  const detNodes = nodes.filter(n => n.kind === 'det');
-  const llmNodes = nodes.filter(n => n.kind === 'llm');
+  const llmStart = nodes.findIndex(n => n.kind === 'llm');
+  const llmEnd   = nodes.length - 1 - [...nodes].reverse().findIndex(n => n.kind === 'llm');
 
-  const totalElapsed = progress.elapsed.reduce((a, b) => a + b, 0);
+  const head    = nodes.slice(0, llmStart);            // det before LLM
+  const middle  = nodes.slice(llmStart, llmEnd + 1);   // LLM agents
+  const tail    = nodes.slice(llmEnd + 1);             // det after LLM
+
+  const totalElapsed   = progress.elapsed.reduce((a, b) => a + b, 0);
   const completedCount = progress.statuses.filter(s => s === 'done').length;
-  const pct = (completedCount / nodes.length) * 100;
+  const pct            = (completedCount / nodes.length) * 100;
+
+  const renderGroup = (group, kindClass) => (
+    <div className={`flow-group ${kindClass}`}>
+      <div className="flow-group-head">
+        <span className={`lane-tag ${kindClass === 'group-llm' ? 'lane-tag-llm' : ''}`}>
+          {kindClass === 'group-llm' ? 'LLM AGENTS' : 'DETERMINISTIC'}
+        </span>
+        <span className="lane-sub">
+          {kindClass === 'group-llm'
+            ? `${group.length} agents · plan fixes per ISO-8000 dimension`
+            : `${group.length} ${group.length === 1 ? 'step' : 'steps'} · rule-based, reproducible`}
+        </span>
+      </div>
+      <div className="flow-group-track">
+        {group.map(node => {
+          const idx = nodes.findIndex(n => n.id === node.id);
+          return <NodeCard key={node.id} node={node} idx={idx}
+                   status={progress.statuses[idx]}
+                   elapsed={progress.elapsed[idx]} />;
+        })}
+      </div>
+    </div>
+  );
 
   return (
     <div className="screen pipeline">
@@ -33,37 +60,13 @@ function PipelineScreen({ progress, onSkip }) {
       </div>
 
       <div className="pipeline-stage">
-        <div className="lane lane-det">
-          <div className="lane-h">
-            <span className="lane-tag">DETERMINISTIC</span>
-            <span className="lane-sub">Python · 5 nodes · rule-based, reproducible</span>
-          </div>
-          <div className="lane-track">
-            {detNodes.map((node, i) => {
-              const idx = nodes.findIndex(n => n.id === node.id);
-              return <NodeCard key={node.id} node={node} idx={idx}
-                       status={progress.statuses[idx]}
-                       elapsed={progress.elapsed[idx]} />;
-            })}
-          </div>
+        <div className="flow-row">
+          {renderGroup(head,   'group-det')}
+          <div className="flow-arrow"><FlowArrow /></div>
+          {renderGroup(middle, 'group-llm')}
+          <div className="flow-arrow"><FlowArrow /></div>
+          {renderGroup(tail,   'group-det')}
         </div>
-
-        <div className="lane lane-llm">
-          <div className="lane-h">
-            <span className="lane-tag lane-tag-llm">LLM AGENTS</span>
-            <span className="lane-sub">DeepSeek · 4 nodes · plan fixes per ISO-8000 dimension</span>
-          </div>
-          <div className="lane-track">
-            {llmNodes.map((node, i) => {
-              const idx = nodes.findIndex(n => n.id === node.id);
-              return <NodeCard key={node.id} node={node} idx={idx}
-                       status={progress.statuses[idx]}
-                       elapsed={progress.elapsed[idx]} />;
-            })}
-          </div>
-        </div>
-
-        <FlowConnectors statuses={progress.statuses} />
       </div>
 
       <div className="audit-stream">
@@ -87,12 +90,20 @@ function PipelineScreen({ progress, onSkip }) {
   );
 }
 
+function FlowArrow() {
+  return (
+    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true">
+      <path d="M1 7h18M14 1l6 6-6 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
 function NodeCard({ node, idx, status, elapsed }) {
   const outcome = window.NODE_OUTCOMES[node.id];
   return (
     <div className={`node-card node-${node.kind} node-${status}`}>
       <div className="node-card-top">
-        <div className="node-idx mono">0{idx + 1}</div>
+        <div className="node-idx mono">{String(idx + 1).padStart(2, '0')}</div>
         <NodeStatus status={status} />
       </div>
       <div className="node-card-body">
@@ -119,16 +130,6 @@ function NodeStatus({ status }) {
     return <span className="status-spinner" />;
   }
   return <span className="status-pending" />;
-}
-
-function FlowConnectors({ statuses }) {
-  // Arrows from audit (idx 2) → 4 LLM agents → remediation (idx 7)
-  // Pure decoration; positioning handled in CSS via the lane structure
-  return (
-    <svg className="flow-svg" aria-hidden="true">
-      {/* connectors are pseudo via CSS gradient lines */}
-    </svg>
-  );
 }
 
 window.PipelineScreen = PipelineScreen;
