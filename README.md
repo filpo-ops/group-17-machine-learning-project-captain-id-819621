@@ -74,7 +74,7 @@ The two answer different questions and can diverge: a dataset with 100 small iss
 | Component | Choice |
 |---|---|
 | Agent orchestration | LangGraph |
-| LLM backbone | DeepSeek v4 (`deepseek-v4-flash`) via `langchain-openai` (OpenAI-compatible API) |
+| LLM backbone | DeepSeek (`deepseek-chat`, V3) via `langchain-openai` (OpenAI-compatible API) |
 | Webapp | FastAPI + Server-Sent Events + React 18 (Babel-standalone CDN, no build step) |
 | Deterministic layer | pandas + numpy |
 | Reporting | Jinja2 → self-contained HTML (PDF via browser print) |
@@ -90,9 +90,9 @@ The choices above did not emerge on the first attempt. We report the three exper
 |---|---|---|---|---|
 | **Groq** (`llama-3.3-70b-versatile` via `langchain-groq`) | `feature/agents-data-quality`, early Main commits | very low latency (token streaming), suitably-sized model | aggressive rate-limits on the free tier, recurring blocks during multi-agent runs (4 close-spaced calls), API keys suspended without notice in shared dev environments | abandoned after the mid-check |
 | **Ollama + Qwen on Google Colab** | `ollamacolab` | local LLM, zero cost, zero rate-limits, independence from external providers | Colab disconnects erratically (sessions interrupted mid-run), complex tunneling to expose Ollama from Colab to the local notebook, Qwen at the size we can keep in RAM shows lower quality than llama-3.3-70b on the structured-output task | abandoned (infrastructural fragility, sub-optimal quality) |
-| **DeepSeek v4** (`deepseek-v4-flash`) via `langchain-openai` | `deepseek` → `Main` | OpenAI-compatible API (drop-in via `ChatOpenAI`); the model is read from the environment variable `DEEPSEEK_MODEL` (default `deepseek-v4-flash`), so swapping to a larger DeepSeek tier is a one-line change. Reasoning quality comparable on short-form structured-output tasks, negligible price, no rate-limit issues for our 4 calls/run | dependency on an external provider (mitigated by the rule-based deterministic fallback on every agent) | final choice |
+| **DeepSeek** (`deepseek-chat`, V3) via `langchain-openai` | `deepseek` → `Main` | OpenAI-compatible API (drop-in via `ChatOpenAI`); the model is read from the environment variable `DEEPSEEK_MODEL` (default `deepseek-chat`), so swapping to a larger DeepSeek tier is a one-line change. Reasoning quality comparable on short-form structured-output tasks, negligible price, no rate-limit issues for our 4 calls/run | dependency on an external provider (mitigated by the rule-based deterministic fallback on every agent) | final choice |
 
-**Take-away.** The pipeline's added value does not lie in any single provider — every agent has a rule-based fallback that works even with the LLM disabled (tested: +24.6 reliability points post-fix on `ALLARMI.csv` even with the pure fallback path). The provider is swappable in ~5 lines of code in `agents/pipeline.py`.
+**Take-away.** The pipeline's added value does not lie in any single provider — every agent has a rule-based fallback that works even with the LLM disabled (tested: +40.8 reliability points post-fix on `ALLARMI.csv` even with the pure fallback path, average +38.9 across the four NoiPA fixtures). The provider is swappable in ~5 lines of code in `agents/pipeline.py`.
 
 **Demo UI — three iterations.**
 
@@ -119,7 +119,7 @@ For the **webapp demo** (FastAPI + React, interactive frontend derived from Clau
 uvicorn webapp.server:app --port 8000
 # then open: http://localhost:8000
 ```
-The webapp runs the pipeline live on the uploaded CSV (or on the NoiPA `spesa` demo dataset), shows a 12-node timeline with SSE streaming, a score card with **before/after reliability** (e.g. `48.0 → 85.2 (+37.2)`), severity breakdown with per-level deltas, a detailed correction log split between first-pass (LLM) and second-pass (deterministic) entries, and a download of the corrected CSV.
+The webapp runs the pipeline live on the uploaded CSV (or on the NoiPA `spesa` demo dataset), shows a 12-node timeline with SSE streaming, a score card with **before/after reliability** (e.g. `48.0 → 90.0 (+42.0)` on `spesa.csv` with the live LLM), severity breakdown with per-level deltas, a detailed correction log split between first-pass (LLM) and second-pass (deterministic) entries, and a download of the corrected CSV.
 
 > ⚠️ Do not use uvicorn's `--reload` during a demo: reload destroys in-memory sessions and the user gets `404 Unknown session_id` between `/upload` and `/run/{sid}`.
 
@@ -161,27 +161,27 @@ The deterministic layer captures the **vast majority** of injected anomalies (Re
 
 ### End-to-end pipeline (Phase 5)
 
-We measured the pipeline end-to-end on all four NoiPA test fixtures with the **deterministic fallback path** (`DEEPSEEK_API_KEY=sk-fake` → all LLM calls fail and every agent uses its rule-based fallback). This isolates the *floor* of the system: the value the pipeline adds even without contextual reasoning. With a real LLM (DeepSeek v4) the post-fix scores are at least as high, often higher, because the model further refines the per-column decisions.
+We measured the pipeline end-to-end on all four NoiPA test fixtures with the **live LLM** (`DEEPSEEK_MODEL=deepseek-chat`). The deterministic fallback path (LLM disabled) gives a similar floor (~+34–42 points), but with the LLM the model further refines per-column decisions and pushes most datasets above 90.
 
-| Dataset | shape | pre | post | Δ | verdict | Remediation rate (plain · weighted) | issues pre → post |
-|---|---|---|---|---|---|---|---|
-| `spesa.csv` | 7,543 × 18 | 48.0 | **85.2** | +37.2 | HIGH | 59.4% · 68.5% | 32 → 13 |
-| `attivazioniCessazioni.csv` | 20,102 × 19 | 42.4 | **84.4** | +42.0 | HIGH | 65.9% · 76.8% | 41 → 14 |
-| `ALLARMI.csv` | 5,080 × 24 | 50.4 | **91.2** | +40.8 | HIGH | 53.6% · 68.4% | 28 → 13 |
-| `TIPOLOGIA_VIAGGIATORE.csv` | 5,095 × 33 | 48.0 | **81.6** | +33.6 | HIGH | 61.4% · 73.0% | 44 → 17 |
+| Dataset | shape | pre | **post (LLM live)** | Δ | verdict |
+|---|---|---|---|---|---|
+| `spesa.csv` | 7,543 × 18 | 48.0 | **90.0** | +42.0 | HIGH |
+| `attivazioniCessazioni.csv` | 20,102 × 19 | 60.0 | **99.2** | +39.2 | HIGH |
+| `ALLARMI.csv` | 5,080 × 24 | 50.4 | **96.0** | +45.6 | HIGH |
+| `TIPOLOGIA_VIAGGIATORE.csv` | 5,095 × 33 | 48.0 | **84.0** | +36.0 | HIGH |
 
-All four datasets reach **HIGH reliability** (≥70 / 100). Average Δ across the corpus is **+38.4 points**. The two-pass remediation contributes most of the lift on the toughest dataset (`TIPOLOGIA_VIAGGIATORE`, +33.6): the LLM closes the easy-and-safe issues in pass 1, and the deterministic fallback closes the residual ones in pass 2 that the LLM had left for safety.
+**All four datasets reach HIGH reliability** (≥70 / 100). Average Δ across the corpus is **+40.7 points**. The two-pass remediation, combined with the prompt-v3 design (senior-engineer framing + four NoiPA-specific few-shot examples + tight `ignore` policy with three explicit conditions), gives the LLM a calibrated prior on which fix is appropriate per column — and the deterministic second pass closes any residual issue the LLM left for safety.
 
-Per-dataset sub-score breakdown (post-fix):
+Per-dataset sub-score breakdown (post-fix, live LLM):
 
-- **spesa**: validity 100 · completeness 84 · consistency 80 · uniqueness 80 · accuracy 80
-- **attivazioniCessazioni**: validity 100 · completeness 84 · consistency 72 · uniqueness 80 · accuracy 92
-- **ALLARMI**: validity 100 · completeness 84 · consistency 84 · uniqueness 100 · accuracy 100
-- **TIPOLOGIA_VIAGGIATORE**: validity 100 · completeness 52 · consistency 84 · uniqueness 100 · accuracy 100
+- **spesa**: validity 100 · completeness 100 · consistency 80 · uniqueness 80 · accuracy 80
+- **attivazioniCessazioni**: validity 100 · completeness 100 · consistency 100 · uniqueness 100 · accuracy 92
+- **ALLARMI**: validity 100 · completeness 100 · consistency 84 · uniqueness 100 · accuracy 100
+- **TIPOLOGIA_VIAGGIATORE**: validity 100 · completeness 60 · consistency 84 · uniqueness 100 · accuracy 100
 
-The persistent `completeness=52` on `TIPOLOGIA_VIAGGIATORE` reflects three columns with 30–60 % missingness that are too dense to flag as "structurally dead" but too sparse for clean imputation — a real-world ambiguity the system honestly surfaces rather than papering over.
+The persistent `completeness=60` on `TIPOLOGIA_VIAGGIATORE` reflects three columns with 30–60 % missingness that are too dense to flag as "structurally dead" (>95 % missing) but too sparse for clean imputation — a real-world ambiguity the system honestly surfaces rather than papering over.
 
-The severity-weighted remediation rate (68–77 % across datasets) is consistently higher than the plain rate (53–66 %) because the pipeline preferentially closes high-severity issues — the ones that actually matter for downstream analytics.
+**Robustness check — the deterministic floor (LLM disabled, fake key).** Running the same four datasets with `DEEPSEEK_API_KEY=sk-fake` (every LLM call fails, agents fall back to the deterministic `_FALLBACK` path) still produces HIGH reliability on all four: `spesa` 87.2 (Δ +39.2), `attivazioniCessazioni` 84.4 (Δ +42.0), `ALLARMI` 91.2 (Δ +40.8), `TIPOLOGIA_VIAGGIATORE` 81.6 (Δ +33.6) — average Δ +38.9. This confirms that the pipeline's value does not depend on the LLM being available — the deterministic layer is a true floor, and the LLM is a refinement on top.
 
 The CSVs in `agents/data/` are **test fixtures**, not production input. The pipeline runs on demand on any uploaded CSV (via notebook or webapp).
 

@@ -1,27 +1,16 @@
 # --- Secrets & local config ---
-# (currently the team chose to track .env in this private repo;
-#  remember to filter it out before migrating to the public submission repo)
-# .env
-.env.local
+.env
+.env.*
 *.pem
 *.key
 
 # --- Python ---
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-*.egg-info/
-.eggs/
-build/
-dist/
+*.pyc
 
 # --- Virtualenvs ---
 .venv/
 venv/
-env/
-ENV/
 
 # --- Jupyter ---
 .ipynb_checkpoints/
@@ -32,9 +21,6 @@ Thumbs.db
 .idea/
 .vscode/
 
-# --- Notebook scratch & outputs ---
+# --- Runtime artefacts ---
 outputs/
-.cache/
-.env
-.venv
-.env
+*.log
