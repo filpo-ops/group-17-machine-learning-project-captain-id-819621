@@ -7,21 +7,17 @@ scikit-learn>=1.4.0
 # Multi-agent orchestration
 langgraph>=0.2.0
 langchain-core>=0.2.0
-langchain-openai>=0.1.0     # DeepSeek integration via OpenAI-compatible API
+langchain-openai>=0.1.0     # DeepSeek integration
 
 # Reporting
 jinja2>=3.1.0
 matplotlib>=3.7.0
 
-# Webapp (FastAPI backend + SSE)
-fastapi>=0.110.0
-uvicorn[standard]>=0.27.0
-python-multipart>=0.0.9     # required by FastAPI for file uploads
-sse-starlette>=2.0.0        # Server-Sent Events for live pipeline timeline
-
-# Legacy Streamlit demo (archived in legacy/streamlit/, kept as fallback)
-streamlit>=1.35.0
-plotly>=5.18.0
+# Demo UI
+streamlit>=1.35.0         # Phase 7 — quality report viewer + ad-hoc pipeline runs
+plotly>=5.18.0       
+sse-starlette==3.4.1  
+fastapi==0.136.1    # gauge, radar, severity bar in the Streamlit demo
 
 # Notebook & env
 python-dotenv>=1.0.0
