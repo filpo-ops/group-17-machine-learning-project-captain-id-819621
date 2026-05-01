@@ -156,25 +156,6 @@ Run with `random.seed(42)`, `trials_per_family=5`, on a 500-row sample per datas
 
 The deterministic layer captures the **vast majority** of injected anomalies (Recall 93.75% global, 100% on 4 of 5 reported families). The non-trivial false-positive rate (Precision 0.84) is concentrated on `disguisednull` and `wrong_but_parseable` — the detectors flag suspicious patterns that, on the 500-row sample, look like injected anomalies but are actually pre-existing artefacts of the host dataset. The single dimension that under-recalls is `iqr_outlier` (Recall 0.75): IQR is sensitive to the underlying distribution, and on small samples the fence widens enough to miss some injections. This is informative — not perfect — and is the right baseline before delegating reasoning to the LLM agents, because the pipeline must remain useful even when the deterministic facts are imperfect.
 
-### End-to-end pipeline (Phase 5)
-
-Smoke test on `ALLARMI.csv` (test fixture, 5,080 × 24) with automatic rule discovery + LLM disabled (fake key → all agents fall back to the deterministic path). Measures the *reasonable worst case*: no contextual reasoning, only the default actions mapped by `_FALLBACK`.
-
-| Metric | Value |
-|---|---|
-| Total LLM calls | 4 (all failed — fallback path) |
-| Issues detected (pre-fix) | 29 (15 high / 9 medium / 5 low) |
-| Issues remaining (post-fix) | 19 (7 high / 7 medium / 5 low) |
-| Issues resolved by remediation | 10 (8 high + 2 medium) |
-| Corrections applied | 29/29 with `applied=True` |
-| **Reliability — pre-fix** | **42.4 / 100** |
-| **Reliability — post-fix** | **67.0 / 100** (Δ +24.6) |
-| **Remediation score** (resolved / detected) | **34.5%** |
-| **Remediation — severity-weighted** | **43.4%** |
-
-Sub-scores pre → post: validity 90 → 90 · completeness 0 → 44 · consistency 56 → 56 · uniqueness 56 → 92 · accuracy 0 → 60. The fact that the delta is +24.6 points **even with the LLM disabled** validates that the pipeline adds value through the deterministic layer (`impute_mode/median`, `drop_duplicates`, `clip_iqr`, `normalize_dates`) — the LLM agents further refine the choices but are not the driver of the improvement. The severity-weighted remediation rate (43.4%) is higher than the plain rate (34.5%) because the pipeline preferentially closes high-severity issues (8 of 15 high, vs 2 of 9 medium and 0 of 5 low) — the ones that matter most for downstream analysis.
-
-The CSVs in `agents/data/` are **test fixtures**, not production input. The pipeline runs on demand on any uploaded CSV (via notebook or webapp).
 
 ## [Section 5] Conclusions
 
