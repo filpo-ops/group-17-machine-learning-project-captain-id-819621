@@ -44,16 +44,21 @@ ingest → discover → audit → schema(LLM) → completeness(LLM) → consiste
 python -m venv .venv
 source .venv/bin/activate  # macOS/Linux
 pip install -r ../requirements.txt
-echo "GROQ_API_KEY=gsk_..." >> ../.env
+echo "DEEPSEEK_API_KEY=sk-..." >> ../.env
 jupyter lab Main.ipynb
 ```
-Il notebook è interamente self-contained: tutto il codice — caricamento dati, tool deterministici, benchmark, definizione del grafo LangGraph, esecuzione, generazione report, materializzazione dell'app Streamlit — vive in `Main.ipynb`. Le celle di codice sono separate da celle di testo che spiegano *cosa* e *perché*.
+Il notebook è interamente self-contained per la pipeline scientifica: tutto il codice — caricamento dati, tool deterministici, benchmark v2, definizione del grafo LangGraph, esecuzione, generazione report — vive in `Main.ipynb`. Le celle di codice sono separate da celle di testo che spiegano *cosa* e *perché*.
 
-Per la demo Streamlit (dopo aver eseguito Run All del notebook):
+Per il **webapp demo** (FastAPI + React, frontend interattivo derivato da Claude Design):
 ```bash
-streamlit run agents/app.py
+uvicorn webapp.server:app --reload --port 8000
+# poi: http://localhost:8000
 ```
-L'app espone due modalità: esecuzione della pipeline su un CSV caricato dall'utente (modalità principale), e dashboard del benchmark sintetico Phase 4.
+La webapp esegue live la pipeline sul CSV caricato (o sul dataset demo NoiPA `spesa`), mostra una timeline a 9 nodi con stream SSE, render del Quality Report HTML, e download del CSV corretto.
+
+Il modulo `agents/pipeline.py` (estratto da `Main.ipynb`) espone l'API runtime usata dalla webapp: `run_quality_pipeline()`, `stream_quality_pipeline()`, `render_quality_report()`, `quality_graph`, `RELIABILITY_WEIGHTS`. Smoke test CLI: `python -m agents.pipeline`.
+
+> *Lo Streamlit demo precedente è archiviato in `legacy/streamlit/app.py` come fallback; la webapp lo sostituisce in tutti i flussi.*
 
 ## [Section 3] Experimental Design
 
