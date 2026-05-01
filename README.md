@@ -3,8 +3,6 @@
 **LUISS — Machine Learning A.A. 2025/26 · Reply Whitehall**
 Group 17 — Ludovica De Biase, Giuseppe Catrambone, Filippo Lombardo (captain ID 819621)
 
-![Architecture](agents/images/architecture_flowchart.png)
-
 ## [Section 1] Introduction
 
 The system takes a raw CSV dataset as input (with anomalies typical of NoiPA public data: disguised nulls, currency symbols, heterogeneous date formats, out-of-range values, duplicate rows, cross-column logic violations) and produces two outputs:
@@ -40,7 +38,7 @@ Columns with >95% missing values (e.g. `note_operatore`, `flag_rischio` in ALLAR
 | Agent orchestration | LangGraph |
 | LLM backbone | DeepSeek-Chat (V3) via `langchain-openai` (OpenAI-compatible API) |
 | Webapp | FastAPI + Server-Sent Events + React 18 (Babel-standalone CDN, no build step) |
-| Deterministic layer | pandas + numpy + scipy |
+| Deterministic layer | pandas + numpy |
 | Reporting | Jinja2 → self-contained HTML (PDF via browser print) |
 | Language | Python 3.10+ |
 
@@ -62,7 +60,7 @@ The choices above did not emerge on the first attempt. We report the three exper
 
 | Iteration | Pros | Cons | Outcome |
 |---|---|---|---|
-| **Streamlit** (original Phase 7, today in `legacy/streamlit/app.py`) | quick to write, materialised from the notebook with `%%writefile` | limited layout for multi-step pipeline visualization, no live node-by-node streaming, prototype look-and-feel | archived as fallback |
+| **Streamlit** (original Phase 7, materialised from the notebook with `%%writefile`) | quick to write, no separate frontend code to maintain | limited layout for multi-step pipeline visualization, no live node-by-node streaming, prototype look-and-feel | discarded and removed during cleanup |
 | **React + FastAPI v1** (commit `33d0142 demo html implementation`) | live 9-node timeline via SSE, single score, downloads of the 4 artefacts (CSV, log, report, bundle) | pre-fix score only (frustrating: the user would see 54/100 even after applying fixes that reduced issues by 70%), `FixedPreview` with hardcoded NoiPA mock columns | replaced |
 | **React + FastAPI v2** (current, after Claude Design v2) | 10-node timeline grouped into 3 phases (det → llm → det), **before/after side-by-side** score with reveal animation, sub-scores with per-dimension delta, dynamic-column `FixedPreview`, 5 selectable palettes in dev mode | none significant identified | final choice |
 
@@ -89,7 +87,6 @@ The webapp runs the pipeline live on the uploaded CSV (or on the NoiPA `spesa` d
 
 The `agents/pipeline.py` module (extracted from `main.ipynb`) exposes the runtime API used by the webapp: `run_quality_pipeline()`, `stream_quality_pipeline()`, `render_quality_report()`, `quality_graph`, `RELIABILITY_WEIGHTS`. CLI smoke test: `python -m agents.pipeline`.
 
-> *The earlier Streamlit demo is archived in `legacy/streamlit/app.py` as a fallback; the webapp replaces it in every flow.*
 
 ## [Section 3] Experimental Design
 
@@ -97,30 +94,32 @@ The `agents/pipeline.py` module (extracted from `main.ipynb`) exposes the runtim
 
 **Baseline.** *No-op detector* (detects 0 anomalies → Precision undefined, Recall=0). A working system must clearly outperform this reference.
 
-**Evaluation Metrics.** Precision, Recall, F1 computed at the `(dataset, error_type)` pair level, comparing injected pairs (deterministic ground truth) against detected ones. Three error types — one categorical (`disguised_null`), one numerical (`iqr_outlier`), one structural (`exact_duplicate`) — are enough to cover the typical anomaly classes of a public CSV.
+**Evaluation Metrics.** Precision, Recall, F1 computed at the event level, comparing injected anomalies (deterministic ground truth) against detected ones. The v2 benchmark covers **six error families** that span the typical anomaly classes of a public CSV: `disguisednull` (categorical), `iqr_outlier` (numerical), `mixed_date_format` (format-consistency), `wrong_but_parseable` (numeric validity), `semantic_duplicate` (uniqueness), `crossfield_inconsistency` (cross-column logic). The breadth lets us measure where the deterministic detectors are strong and where they leak.
 
 ## [Section 4] Results
 
 ### Deterministic layer — synthetic benchmark (Phase 4)
 
-Run with `random.seed(42)`, `n_each=3` injections per error_type, on a 500-row sample per dataset. **3 representative error types** (one categorical, one numerical, one structural):
+Run with `random.seed(42)`, `trials_per_family=5`, on a 500-row sample per dataset. **80 trials across 6 error families** (the artefacts are in `agents/data/benchmark/evaluation_results_v2.json`). The benchmark is event-level (one count per injected anomaly), so a single noisy column can produce multiple TP/FP.
 
-![Benchmark metrics](agents/images/detection_heatmap.png)
+![Benchmark metrics — detection heatmap](agents/images/benchmark_family_heatmap_v2.png)
 
 | Metric | Value |
 |---|---|
-| **Global F1** | 1.00 |
-| Global Precision | 1.00 |
-| Global Recall | 1.00 |
-| TP / FP / FN | 12 / 0 / 0 |
+| **Global F1** | **0.8876** |
+| Global Precision | 0.8427 |
+| Global Recall | 0.9375 |
+| TP / FP / FN | 75 / 14 / 5 |
 
-| error_type | detected? | issue_types that capture it |
-|---|---|---|
-| `disguised_null` | ✅ all | `missing_*_values`, `sparse_column` |
-| `iqr_outlier` | ✅ all | `iqr_outliers` |
-| `exact_duplicate` | ✅ all | `exact_duplicate_rows` |
+| error family | TP / FP / FN | Precision | Recall | F1 |
+|---|---|---|---|---|
+| `disguisednull` | 20 / 6 / 0 | 0.77 | 1.00 | 0.87 |
+| `iqr_outlier` | 15 / 1 / 5 | 0.94 | 0.75 | 0.83 |
+| `wrong_but_parseable` | 20 / 5 / 0 | 0.80 | 1.00 | 0.89 |
+| `semantic_duplicate` | 10 / 1 / 0 | 0.91 | 1.00 | 0.95 |
+| `crossfield_inconsistency` | 10 / 1 / 0 | 0.91 | 1.00 | 0.95 |
 
-The deterministic layer captures 100% of the injections of the 3 tracked types at the `(dataset, error_type)` level. This is expected: the 3 types are *designed* to be detectable by Phase 3 tools — the experiment is a *sanity check* that the deterministic pipeline works as declared, not an adversarial benchmark. The metrics serve as a solid baseline before delegating reasoning to the LLM agents.
+The deterministic layer captures the **vast majority** of injected anomalies (Recall 93.75% global, 100% on 4 of 5 reported families). The non-trivial false-positive rate (Precision 0.84) is concentrated on `disguisednull` and `wrong_but_parseable` — the detectors flag suspicious patterns that, on the 500-row sample, look like injected anomalies but are actually pre-existing artefacts of the host dataset. The single dimension that under-recalls is `iqr_outlier` (Recall 0.75): IQR is sensitive to the underlying distribution, and on small samples the fence widens enough to miss some injections. This is informative — not perfect — and is the right baseline before delegating reasoning to the LLM agents, because the pipeline must remain useful even when the deterministic facts are imperfect.
 
 ### End-to-end pipeline (Phase 5)
 
@@ -153,41 +152,41 @@ The CSVs in `agents/data/` are **test fixtures**, not production input. The pipe
 ## Repository structure
 
 ```
-Machine-Learning-Segreto/                  (repo name ends with captain id 819621 on submission)
-├── README.md                              ← this file
+GROUP-17-Machine-Learning-Project-Captain-ID-819621/
+├── README.md                                  ← this file
 ├── requirements.txt
 ├── .gitignore
-├── .env                                   ← DEEPSEEK_API_KEY=sk-... (gitignored on submission)
+├── .env                                       ← DEEPSEEK_API_KEY=sk-... (gitignored)
 ├── agents/
-│   ├── main.ipynb                         ← single source of truth (scientific pipeline)
-│   ├── pipeline.py                        ← runtime module extracted from the notebook (used by webapp)
-│   ├── images/                            ← README figures (generated from code)
-│   │   ├── architecture_flowchart.png
-│   │   └── detection_heatmap.png
-│   ├── data/
-│   │   ├── project_data_quality/          ← spesa.csv, attivazioniCessazioni.csv
-│   │   ├── project_anomaly_detection/     ← TIPOLOGIA_VIAGGIATORE.csv, ALLARMI.csv
-│   │   └── benchmark/                     ← Phase 4 artefacts (regenerated by notebook)
-│   └── outputs/                           ← generated by notebook (fixed CSV + reports)
-├── webapp/                                ← FastAPI + React demo (live SSE timeline, before/after scoring)
-│   ├── server.py                          ← FastAPI app: /upload, /demo, /run/{sid} (SSE), /download/*
-│   ├── adapters.py                        ← pipeline final_state → React JSON shape
-│   ├── sessions.py                        ← in-memory session store
-│   └── static/                            ← single-page React app (Babel-standalone, no build step)
+│   ├── main.ipynb                             ← single source of truth (scientific pipeline)
+│   ├── pipeline.py                            ← runtime module extracted from the notebook (used by webapp)
+│   ├── images/                                ← README figures (generated from the notebook)
+│   │   ├── benchmark_family_f1_v2.png
+│   │   └── benchmark_family_heatmap_v2.png
+│   └── data/
+│       ├── project_data_quality/              ← spesa.csv, attivazioniCessazioni.csv
+│       ├── project_anomaly_detection/         ← TIPOLOGIA_VIAGGIATORE.csv, ALLARMI.csv
+│       └── benchmark/                         ← Phase 4 artefacts (regenerated by notebook)
+│           ├── benchmark_family_metrics_v2.csv
+│           ├── benchmark_trials_v2.csv
+│           ├── evaluation_results_v2.json
+│           └── charts/                        ← generated PNGs (mirrored into agents/images/ for the README)
+├── webapp/                                    ← FastAPI + React demo (live SSE timeline, before/after scoring)
+│   ├── server.py                              ← FastAPI app: /upload, /demo, /run/{sid} (SSE), /download/*
+│   ├── adapters.py                            ← pipeline final_state → React JSON shape
+│   ├── sessions.py                            ← in-memory session store
+│   └── static/                                ← single-page React app (Babel-standalone, no build step)
 │       ├── index.html
-│       ├── app.jsx                        ← phase orchestrator + SSE consumer + palette switcher
-│       ├── data.js                        ← pipeline node definitions (10 nodes)
-│       ├── screens-intro.jsx              ← welcome + dataset preview
-│       ├── screen-pipeline.jsx            ← live timeline (3-group flow: det → llm → det)
-│       ├── screen-results.jsx             ← results dashboard (before/after score, severity, log)
-│       ├── tweaks-panel.jsx               ← dev panel (visible with ?dev=1)
+│       ├── app.jsx                            ← phase orchestrator + SSE consumer + palette switcher
+│       ├── data.js                            ← pipeline node definitions (10 nodes)
+│       ├── screens-intro.jsx                  ← welcome + dataset preview
+│       ├── screen-pipeline.jsx                ← live timeline (3-group flow: det → llm → det)
+│       ├── screen-results.jsx                 ← results dashboard (before/after score, severity, log)
+│       ├── tweaks-panel.jsx                   ← dev panel (visible with ?dev=1)
 │       └── styles.css
-├── legacy/
-│   └── streamlit/app.py                   ← discarded Streamlit demo, kept as fallback
 └── docs/
-    ├── ML Projects general info.docx.pdf
-    ├── Reply_projects.pdf
-    └── midterm_pitch_speech.md
+    ├── ML Projects general info.docx.pdf      ← assignment guidance
+    └── Reply_projects.pdf                     ← project briefs from Reply
 ```
 
 **Branches to consult for the experimental design choices (not all merged into `Main`):**
