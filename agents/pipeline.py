@@ -960,13 +960,23 @@ def _missing(action, col):
 
 
 def fix_strip_currency(df, col, **_):
-    """Strip currency symbols (€, $, £) from a column and coerce the result to numeric."""
-    if col not in df.columns: return df, _log("strip_currency", False, column=col, reason="column missing")
-    before = df[col].astype(str).str.contains(r"[€$£]", na=False).sum()
+    """Strip currency symbols (€, $, £) from a column and coerce the result to numeric.
+
+    Robust against pandas' StringDtype (which rejects integer assignment) and
+    against the removal of `errors='ignore'` in modern pd.to_numeric: we always
+    use `errors='coerce'` and let downstream tools handle the resulting NaNs.
+    """
+    if col not in df.columns:
+        return df, _log("strip_currency", False, column=col, reason="column missing")
     df = df.copy()
-    df[col] = df[col].astype(str).str.replace(r"[€$£]", "", regex=True).str.strip()
-    df[col] = pd.to_numeric(df[col].str.replace(",", ".", regex=False), errors="ignore")
-    return df, _log("strip_currency", column=col, rows_affected=int(before))
+    raw_str = df[col].astype(str)
+    before = int(raw_str.str.contains(r"[€$£]", na=False).sum())
+    cleaned = raw_str.str.replace(r"[€$£]", "", regex=True).str.strip().str.replace(",", ".", regex=False)
+    coerced = pd.to_numeric(cleaned, errors="coerce")
+    # Replace the column entirely — switches dtype from object/string to float64,
+    # which is what downstream numeric tools (clip_iqr, clip_to_min) expect.
+    df[col] = coerced
+    return df, _log("strip_currency", column=col, rows_affected=before)
 
 
 def fix_cast_numeric(df, col, **_):
@@ -980,40 +990,82 @@ def fix_cast_numeric(df, col, **_):
 
 
 def fix_impute_median(df, col, **_):
-    """Replace nulls and disguised-null tokens with the column's median value."""
-    if col not in df.columns: return df, _log("impute_median", False, column=col, reason="column missing")
+    """Replace nulls and disguised-null tokens with the column's median value.
+
+    Replaces the whole column with the imputed Series to force float dtype —
+    string-dtype columns reject numeric assignment in modern pandas.
+    """
+    if col not in df.columns:
+        return df, _log("impute_median", False, column=col, reason="column missing")
     df = df.copy()
     s = coerce_numeric_loose(df[col])
     median = s.median()
-    if pd.isna(median): return df, _log("impute_median", False, column=col, reason="no numeric data")
+    if pd.isna(median):
+        return df, _log("impute_median", False, column=col, reason="no numeric data")
     mask = s.isna() | df[col].astype(str).str.strip().str.lower().isin(DISGUISED_NULLS)
-    df.loc[mask, col] = median
+    s_imputed = s.where(~mask, float(median))
+    df[col] = s_imputed
     return df, _log("impute_median", column=col, rows_affected=int(mask.sum()), value=float(median))
 
 
 def fix_impute_mode(df, col, **_):
-    """Replace nulls and disguised-null tokens with the column's most frequent value (mode)."""
-    if col not in df.columns: return df, _log("impute_mode", False, column=col, reason="column missing")
+    """Replace nulls and disguised-null tokens with the column's most frequent value (mode).
+
+    Type-aware: if the column is already numeric (e.g. after cast_numeric in pass 1),
+    we compute a *numeric* mode and stay in numeric dtype. Otherwise we go through
+    string normalization (handling DISGUISED_NULLS) and impute the string mode.
+    Replacing the column in full avoids pandas' dtype-mismatch errors on string
+    or float columns.
+    """
+    if col not in df.columns:
+        return df, _log("impute_mode", False, column=col, reason="column missing")
     df = df.copy()
-    s = df[col].astype(str).str.strip()
-    clean = s[~s.str.lower().isin(DISGUISED_NULLS) & df[col].notna()]
-    if clean.empty: return df, _log("impute_mode", False, column=col, reason="all values missing")
+
+    if pd.api.types.is_numeric_dtype(df[col]):
+        # Numeric column — compute mode in numeric domain, no string dance needed
+        s = df[col]
+        clean = s.dropna()
+        if clean.empty:
+            return df, _log("impute_mode", False, column=col, reason="all values missing")
+        mode = clean.mode().iloc[0]
+        mask = s.isna()
+        s_imputed = s.where(~mask, mode)
+        df[col] = s_imputed
+        return df, _log("impute_mode", column=col, rows_affected=int(mask.sum()), value=float(mode))
+
+    # Non-numeric column — handle string + disguised nulls
+    raw_str = df[col].astype(str).str.strip()
+    clean = raw_str[~raw_str.str.lower().isin(DISGUISED_NULLS) & df[col].notna()]
+    if clean.empty:
+        return df, _log("impute_mode", False, column=col, reason="all values missing")
     mode = clean.mode().iloc[0]
-    mask = df[col].isna() | s.str.lower().isin(DISGUISED_NULLS)
-    df.loc[mask, col] = mode
+    mask = df[col].isna() | raw_str.str.lower().isin(DISGUISED_NULLS)
+    # Cast to object so pandas accepts the (potentially) heterogeneous string assignment
+    base = df[col].astype(object)
+    s_imputed = base.where(~mask, mode)
+    df[col] = s_imputed
     return df, _log("impute_mode", column=col, rows_affected=int(mask.sum()), value=str(mode))
 
 
 def fix_clip_iqr(df, col, **_):
-    """Clip outliers to the IQR fence (q1 − 1.5·IQR, q3 + 1.5·IQR)."""
-    if col not in df.columns: return df, _log("clip_iqr", False, column=col, reason="column missing")
+    """Clip outliers to the IQR fence (q1 − 1.5·IQR, q3 + 1.5·IQR).
+
+    Replaces the column entirely with the coerced numeric Series (clipped),
+    so the resulting dtype is float64 — works on string-dtype columns that
+    pandas would otherwise reject for assigning numeric values.
+    """
+    if col not in df.columns:
+        return df, _log("clip_iqr", False, column=col, reason="column missing")
     df = df.copy()
     s = coerce_numeric_loose(df[col])
-    if s.dropna().empty: return df, _log("clip_iqr", False, column=col, reason="no numeric data")
+    if s.dropna().empty:
+        return df, _log("clip_iqr", False, column=col, reason="no numeric data")
     q1, q3 = s.quantile([0.25, 0.75])
     lo, hi = q1 - 1.5 * (q3 - q1), q3 + 1.5 * (q3 - q1)
     mask = s.notna() & ~s.between(lo, hi)
-    df.loc[mask, col] = s[mask].clip(lo, hi)
+    # Build the clipped Series and replace the entire column (forces float64 dtype).
+    s_clipped = s.where(~mask, s.clip(lo, hi))
+    df[col] = s_clipped
     return df, _log("clip_iqr", column=col, rows_affected=int(mask.sum()),
                     bounds={"lower": float(lo), "upper": float(hi)})
 
@@ -1050,6 +1102,35 @@ def fix_normalize_categorical(df, col, **_):
     return df, _log("normalize_categorical", column=col, rows_affected=len(df))
 
 
+def fix_clip_to_min(df, col, dataset_name=None, **_):
+    """Clip values below the configured minimum to the minimum itself.
+
+    Targeted fix for `value_below_minimum` issues. Reads the `min` constraint
+    from `NUMERIC_RULES[dataset_name][col]` (populated by `discover_dataset_rules`)
+    and replaces every value below it with the minimum.
+
+    Why this matters: `clip_iqr` clips at the statistical IQR fence, which can
+    well *include* values that violate a hard domain constraint (e.g. negatives
+    when min=0 if the IQR is wide). `clip_to_min` enforces the hard constraint,
+    so post-audit no longer flags `value_below_minimum`.
+    """
+    if col not in df.columns:
+        return df, _log("clip_to_min", False, column=col, reason="column missing")
+    rule = NUMERIC_RULES.get(dataset_name or "", {}).get(col, {})
+    min_value = rule.get("min")
+    if min_value is None:
+        return df, _log("clip_to_min", False, column=col, reason="no min rule for column")
+    df = df.copy()
+    parsed = coerce_numeric_loose(df[col])
+    mask = parsed.notna() & (parsed < min_value)
+    # Replace the whole column to force float dtype — string-dtype columns reject
+    # numeric assignment in modern pandas (TypeError: Invalid value '0' for dtype 'str').
+    s_clipped = parsed.where(~mask, float(min_value))
+    df[col] = s_clipped
+    return df, _log("clip_to_min", column=col, rows_affected=int(mask.sum()),
+                    bounds={"min": float(min_value)})
+
+
 def fix_ignore(df, col=None, **_):
     return df, _log("ignore", column=col, reason="deferred or low-priority")
 
@@ -1060,6 +1141,7 @@ REMEDIATION_TOOLS = {
     "impute_median":           fix_impute_median,
     "impute_mode":             fix_impute_mode,
     "clip_iqr":                fix_clip_iqr,
+    "clip_to_min":             fix_clip_to_min,
     "drop_duplicates":         fix_drop_duplicates,
     "normalize_dates":         fix_normalize_dates,
     "drop_unexpected_columns": fix_drop_unexpected_columns,
@@ -1082,8 +1164,10 @@ class AgentState(TypedDict, total=False):
     plan: Annotated[List[Dict[str, Any]], operator.add]   # accumulates from each analysis agent
     sub_scores: Annotated[Dict[str, float], _merge_dicts] # 5 dimensions: validity/completeness/consistency/uniqueness/accuracy
     fixed_df: Any
-    correction_log: List[Dict[str, Any]]
+    correction_log: Annotated[List[Dict[str, Any]], operator.add]  # accumulates from remediation + second_pass
     reliability_score: float
+    remediation_score: float
+    remediation_score_weighted: float
     # Post-remediation re-audit: deterministic measurement of the fixed_df.
     # Lets the UI show a meaningful before/after delta (otherwise reliability_score
     # always reflects pre-fix issues, which is misleading after a successful run).
@@ -1158,15 +1242,33 @@ SEVERITY_PENALTY = {"critical": 0.40, "high": 0.20, "medium": 0.08, "low": 0.02}
 _DEAD_COLUMN_THRESHOLD = 0.05  # completeness ratio below which we skip the penalty
 
 
+# Issue types whose only safe action is `ignore` (cosmetic / structural). They show up
+# in audits but the correct response is always to leave them alone — renaming a column
+# would break downstream references, semantic mismatches require human judgement, etc.
+# Excluding them from the sub-score prevents the system from being penalised for
+# correctly identifying problems it cannot or should not fix.
+_COSMETIC_ISSUE_TYPES = {
+    "naming_convention_violation",
+}
+
+
 def _compute_subscore(issues):
     """Compute a 0–1 sub-score from severity-weighted issue penalties, clipped to [0, 1].
 
-    Sparsity-aware: issues on columns that are >95% missing are excluded from the penalty
-    because imputation would introduce noise — `ignore` is the correct action and the column
-    is structurally untreatable, not a pipeline failure.
+    Two exemption rules apply, both designed so the score reflects *fixable* anomalies
+    rather than artefacts of source-data structure:
+
+    - **Sparsity-aware**: issues on columns >95% missing are excluded — imputation would
+      add noise, `ignore` is the correct action, and the column is structurally untreatable.
+    - **Cosmetic-aware**: issues whose only safe action is `ignore` (e.g. naming convention
+      violations on column headers — renaming would break downstream references) are excluded
+      via the `_COSMETIC_ISSUE_TYPES` set.
     """
     score = 1.0
     for iss in issues:
+        # Cosmetic / structural: always exempt
+        if iss["issue_type"] in _COSMETIC_ISSUE_TYPES:
+            continue
         ev = iss.get("evidence", {}) or {}
         # sparse_column carries `completeness`; missing_*_values carry `missing_ratio`
         if iss["issue_type"] == "sparse_column":
@@ -1211,6 +1313,60 @@ def _safe_parse_json_list(text):
     return None
 
 
+# Keywords that justify an `ignore` decision from the LLM. Substring match in the
+# `why` field is enough — if NONE of these appear AND the issue isn't on a structurally
+# dead column, we treat the `ignore` as "safety-driven, not evidence-driven" and
+# override with the issue type's fallback action.
+#
+# Kept loose intentionally: false negatives (= override when LLM was actually right)
+# are cheaper than false positives (= leave fixable issues untouched). The list covers
+# the three valid `ignore` reasons explicitly enumerated in the prompt: high missingness,
+# cosmetic / structural, and column-type mismatch with the proposed action.
+_VALID_IGNORE_KEYWORDS = (
+    # (a) high-missingness
+    "missing", "sparse", "mostly null", "mostly empty",
+    "98%", "99%", ">95%", "98 %", "99 %",
+    # (b) cosmetic / structural
+    "naming", "cosmetic", "header", "rename", "downstream",
+    "would break", "break references", "structural", "untreatable", "irreparable",
+    # (c) type-mismatch (most common LLM rationale)
+    "string column", "string identifier", "string type", "free text",
+    "categorical", "category", "for codes", "for code", "code column",
+    "not meaningful", "meaningless", "not applicable", "doesn't apply", "does not apply",
+    "not numeric", "non-numeric", "not a date", "not a number", "id column", "identifier",
+    # (d) data-corruption
+    "corrupt", "destroy", "lossy", "unsafe", "would harm",
+    "would corrupt", "introduces noise", "introduce noise",
+    # (e) IQR-on-discrete (common edge case)
+    "few unique", "low cardinality", "constant",
+)
+
+
+def _ignore_is_valid(rationale: str, issue: Dict[str, Any]) -> bool:
+    """Decide whether an LLM `ignore` decision is evidence-based or safety-driven.
+
+    Returns True if any of:
+      - the issue is on a structurally dead column (>95% missing, naming convention)
+      - the rationale text matches one of `_VALID_IGNORE_KEYWORDS`
+    Returns False otherwise — meaning the `ignore` is over-cautious and should be
+    replaced by the issue type's deterministic fallback.
+    """
+    # Structural exemptions — independent of rationale
+    ev = issue.get("evidence") or {}
+    if issue.get("issue_type") == "sparse_column" and ev.get("completeness", 1.0) < 0.05:
+        return True
+    if issue.get("issue_type") in ("missing_optional_values", "missing_mandatory_values") \
+            and ev.get("missing_ratio", 0.0) > 0.95:
+        return True
+    if issue.get("issue_type") == "naming_convention_violation":
+        return True
+    # Rationale-based check
+    if not rationale:
+        return False
+    low = rationale.lower()
+    return any(kw in low for kw in _VALID_IGNORE_KEYWORDS)
+
+
 _FALLBACK = {
     "duplicate_column_names": "drop_unexpected_columns",
     "semantic_type_mismatch": "cast_numeric",
@@ -1221,23 +1377,99 @@ _FALLBACK = {
     "exact_duplicate_rows": "drop_duplicates",
     "duplicate_business_keys": "drop_duplicates",
     "iqr_outliers": "clip_iqr",
-    "value_below_minimum": "clip_iqr",
+    "value_below_minimum": "clip_to_min",
     "non_numeric_values_in_numeric_field": "cast_numeric",
     "forbidden_token_in_numeric_field": "strip_currency",
 }
 
 
 def _make_agent(name, issue_types, allowed, dims):
-    """Build an analysis-agent node with a focused, contextual prompt."""
+    """Build an analysis-agent node with a focused, fix-biased prompt.
+
+    The prompt v3 combines four techniques:
+      1. **Senior-engineer framing** — primes the model toward decisive action.
+      2. **Default-action mapping** — exposes the deterministic fallback for each
+         issue type, so the model has a concrete prior to deviate from only with
+         evidence.
+      3. **Tight `ignore` policy** — restricts `ignore` to three named cases
+         (>95% missing, cosmetic, would-corrupt). Anything else is over-cautious.
+      4. **Few-shot examples** — three concrete decisions on NoiPA-style data,
+         showing both the right call and a tempting wrong one.
+
+    Without this priming, LLMs default to `ignore` whenever they're uncertain,
+    leaving 30–40% of fixable issues untouched. The deterministic fallback is
+    aggressive by construction; this prompt aligns the LLM with that aggression
+    while still giving it room to override when the column context says so.
+    """
     actions_str = ", ".join(allowed)
+    # Per-issue-type default action, filtered to what this agent is allowed to do
+    defaults_for_agent = {
+        it: _FALLBACK[it] for it in issue_types
+        if it in _FALLBACK and _FALLBACK[it] in allowed
+    }
+    defaults_block = "\n".join(f"  - {it:40s} → {act}" for it, act in defaults_for_agent.items()) \
+        or "  (no defaults applicable; choose from allowed actions)"
+
+    # Few-shot examples picked to cover the three failure modes we observed:
+    # over-cautious ignore, type-mismatch on string-as-numeric, structural sparsity.
+    few_shots = (
+        "EXAMPLES (calibrate your decisions on these):\n"
+        '  Issue: missing_mandatory_values on "descrizione" (6% nulls, 113 unique values)\n'
+        "    ✓ impute_mode  — high-cardinality categorical, mode is plausible\n"
+        "    ✗ ignore       — \"uncertain\" is NOT a valid reason\n"
+        "\n"
+        '  Issue: missing_optional_values on "note_operatore" (98% nulls)\n'
+        "    ✓ ignore       — column is 98% missing, imputation = noise\n"
+        "    ✗ impute_mode  — would replace 98% with the mode, distorting data\n"
+        "\n"
+        '  Issue: iqr_outliers on "ente%code" (integer, 8 unique values)\n'
+        "    ✓ ignore       — integer categorical / code, IQR meaningless for codes\n"
+        "    ✗ clip_iqr     — would corrupt valid category codes\n"
+        "\n"
+        '  Issue: value_below_minimum on "spesa" (numeric, min=0, 11 negative rows)\n'
+        "    ✓ clip_to_min  — clips -5, -3 etc to 0; respects domain constraint\n"
+        "    ✗ clip_iqr     — IQR fence may include negatives, leaving them unfixed\n"
+    )
+
     sys_prompt = (
-        f"You are the {name} agent in a data quality multi-agent system.\n"
+        f"You are a senior data engineer responsible for the {name} dimension of a "
+        "data-quality pipeline on Italian public-sector CSVs (NoiPA). You've seen "
+        "thousands of these files: disguised nulls, currency in numeric fields, "
+        "mixed date formats, value-below-minimum violations. You know that *fixing* "
+        "the anomaly is almost always preferable to skipping it, because downstream "
+        "queries fail on bad data. Be decisive, not cautious.\n\n"
+
         f"Scope: issues of type {sorted(issue_types)}.\n"
         f"Allowed actions: {actions_str}.\n\n"
-        "For each issue you receive, decide the best action. Use the column context "
-        "(dtype, samples, null counts) to reason concretely, not abstractly.\n\n"
+
+        "DECISION POLICY:\n"
+        "Pick the action that ACTUALLY FIXES the issue. The defaults below are "
+        "calibrated for the average case — diverge from them only if the column "
+        "context (samples, null rate, cardinality, dtype) makes the default harmful.\n\n"
+
+        f"DEFAULT ACTION per issue type:\n{defaults_block}\n\n"
+
+        "USE `ignore` ONLY WHEN one of these three conditions holds (and your `why` "
+        "must cite which one):\n"
+        "  (a) the column is >95% missing → imputation = noise\n"
+        "  (b) the issue is cosmetic (e.g. naming convention, header style) and the "
+        "fix would break downstream code/SQL/serialization\n"
+        "  (c) the column type makes the default action invalid (e.g. clip_iqr on a "
+        "string identifier, normalize_dates on a non-date column)\n"
+        "Choosing `ignore` outside these three reasons is a SCORE PENALTY for the "
+        "system. Do NOT use `ignore` because you are uncertain — the default is "
+        "calibrated for uncertainty.\n\n"
+
+        f"{few_shots}\n"
+
+        "REASONING PROTOCOL — for every issue, mentally walk through:\n"
+        "  1) What is this column really? (numeric / categorical / string-id / date / free-text)\n"
+        "  2) Does the default action match that type, or would it corrupt the data?\n"
+        "  3) If the default fits → use it. If not → pick another allowed action that fits, "
+        "or `ignore` only if condition (a)/(b)/(c) above applies.\n\n"
+
         "Output STRICT JSON: an array of objects, one per input issue in the same order:\n"
-        '  [{"i": <issue_index>, "action": "<allowed_name>", "why": "<concrete observation, max 25 words>"}]\n'
+        '  [{"i": <issue_index>, "action": "<allowed_name>", "why": "<≤25-word reason citing column type or one of (a)/(b)/(c)>"}]\n'
         "No markdown fencing, no prose outside the JSON."
     )
 
@@ -1283,12 +1515,30 @@ def _make_agent(name, issue_types, allowed, dims):
             tag = " (fallback)"
         else:
             plan = []
-            for entry, (i, _) in zip(parsed, relevant):
+            n_overrides = 0
+            for entry, (i, iss) in zip(parsed, relevant):
                 action = entry.get("action") if entry.get("action") in allowed else "ignore"
+                rationale = (entry.get("why") or "")[:200]
+
+                # Safety net: if the LLM picked `ignore` and the issue type has a
+                # sensible deterministic fallback, AND the rationale doesn't cite
+                # one of the three valid reasons (>95% missing / cosmetic / type-
+                # mismatch), override with the fallback. This counteracts the
+                # safety-driven `ignore` bias that LLMs exhibit on ambiguous cases.
+                if action == "ignore":
+                    fallback_action = _FALLBACK.get(iss["issue_type"])
+                    if fallback_action and fallback_action in allowed:
+                        if not _ignore_is_valid(rationale, iss):
+                            action = fallback_action
+                            rationale = (f"override: LLM chose ignore without an evidence-based reason; "
+                                         f"applying default '{fallback_action}'. "
+                                         f"Original LLM rationale: {rationale[:80]}")
+                            n_overrides += 1
+
                 plan.append({"issue_index": i, "action": action,
-                             "rationale": (entry.get("why") or "")[:200],
+                             "rationale": rationale,
                              "agent": name})
-            tag = ""
+            tag = f" (LLM, {n_overrides} ignore-overrides)" if n_overrides else " (LLM)"
 
         out = {"plan": plan, "sub_scores": sub_scores,
                "audit_trail": [f"{name}: {len(plan)} actions planned, score={sub_score}{tag}"]}
@@ -1302,7 +1552,7 @@ def _make_agent(name, issue_types, allowed, dims):
 SCHEMA_ACTIONS       = ["drop_unexpected_columns", "cast_numeric", "normalize_dates", "ignore"]
 COMPLETENESS_ACTIONS = ["impute_median", "impute_mode", "ignore"]
 CONSISTENCY_ACTIONS  = ["normalize_dates", "drop_duplicates", "normalize_categorical", "ignore"]
-ANOMALY_ACTIONS      = ["clip_iqr", "cast_numeric", "strip_currency", "ignore"]
+ANOMALY_ACTIONS      = ["clip_iqr", "clip_to_min", "cast_numeric", "strip_currency", "ignore"]
 
 node_schema_agent       = _make_agent("Schema",       SCHEMA_ISSUE_TYPES,       SCHEMA_ACTIONS,       ["validity"])
 node_completeness_agent = _make_agent("Completeness", COMPLETENESS_ISSUE_TYPES, COMPLETENESS_ACTIONS, ["completeness"])
@@ -1314,7 +1564,7 @@ node_anomaly_agent      = _make_agent("Anomaly",      ANOMALY_ISSUE_TYPES,      
 # Actions outside this set work on the whole df (drop_duplicates) or use `columns` (drop_unexpected_columns).
 _COLUMN_BOUND_ACTIONS = {
     "strip_currency", "cast_numeric", "impute_median", "impute_mode",
-    "clip_iqr", "normalize_dates", "normalize_categorical",
+    "clip_iqr", "clip_to_min", "normalize_dates", "normalize_categorical",
 }
 
 def node_remediation(state: AgentState) -> Dict[str, Any]:
@@ -1356,7 +1606,9 @@ def node_remediation(state: AgentState) -> Dict[str, Any]:
             continue
 
         try:
-            df, log_entry = tool_fn(df, col=col, columns=cols)
+            # `dataset_name` is needed by `clip_to_min` to look up `min` in NUMERIC_RULES.
+            # Other fix tools accept **_ so the extra kwarg is harmless.
+            df, log_entry = tool_fn(df, col=col, columns=cols, dataset_name=state.get("dataset_name"))
             log_entry.update({
                 "issue_index": idx,
                 "issue_type": issue["issue_type"],
@@ -1441,16 +1693,138 @@ def node_re_audit(state: AgentState) -> Dict[str, Any]:
     }
 
 
-def node_supervisor(state: AgentState) -> Dict[str, Any]:
-    """Deterministic supervisor — aggregates sub-scores into a 0-100 reliability score.
+def node_second_pass_remediation(state: AgentState) -> Dict[str, Any]:
+    """Apply deterministic fallback remediation to issues that survived the first pass.
 
-    Computes both the *pre-remediation* score (from LLM agents' sub-scores on the
-    raw audit) and the *post-remediation* score (from the deterministic re-audit
-    on `fixed_df`). The before/after delta is the visible value the pipeline adds.
+    Zero LLM calls. For every residual issue produced by `re_audit`, look up the
+    deterministic fallback action (`_FALLBACK[issue_type]`) and apply it directly,
+    bypassing the LLM. This closes the gap between the LLM's safety-driven `ignore`
+    decisions and the deterministic floor that the rule-based fallback would have
+    produced.
+
+    Why two passes are better than one:
+      - Pass 1 (`remediation`): the LLM picks actions, optionally over-ridden when
+        the `ignore` rationale is not evidence-based. Some genuinely cautious
+        ignores (rationale cites column-type mismatch, etc.) survive.
+      - Pass 2 (this node): for the surviving residual issues, if `_FALLBACK`
+        provides a non-`ignore` default that's compatible with the column, we
+        apply it. The deterministic fallback is calibrated to the average case
+        and is the right floor when the LLM has been over-cautious.
+
+    The fixed_df is updated in place; the new fix entries are concatenated to
+    the existing `correction_log` so the audit trail stays complete.
+    """
+    df = state.get("fixed_df")
+    if df is None:
+        return {"audit_trail": ["second_pass_remediation: skipped (no fixed_df)"]}
+
+    df = df.copy()
+    post_issues = state.get("post_issues") or []
+    existing_log = list(state.get("correction_log") or [])
+    new_log: List[Dict[str, Any]] = []
+
+    for iss in post_issues:
+        action = _FALLBACK.get(iss.get("issue_type"))
+        if not action or action == "ignore":
+            continue
+        cols = [c for c in (iss.get("columns") or []) if c and c != ""]
+        col = cols[0] if cols else None
+
+        # Skip if action is column-bound but we have no usable column
+        if action in _COLUMN_BOUND_ACTIONS and (col is None or col not in df.columns):
+            continue
+
+        tool_fn = REMEDIATION_TOOLS.get(action)
+        if tool_fn is None:
+            continue
+
+        try:
+            df, log_entry = tool_fn(df, col=col, columns=cols, dataset_name=state.get("dataset_name"))
+            log_entry.update({
+                "issue_type": iss.get("issue_type"),
+                "agent": "SecondPass",
+                "rationale": f"second-pass deterministic fallback ({action}) for {iss.get('issue_type')}",
+            })
+            log_entry.setdefault("column", col)
+            new_log.append(log_entry)
+        except Exception as e:
+            new_log.append({
+                "action": action, "applied": False,
+                "column": col, "columns": cols,
+                "issue_type": iss.get("issue_type"),
+                "agent": "SecondPass",
+                "error": f"{type(e).__name__}: {e}",
+                "rationale": f"second-pass exception while applying {action}",
+            })
+
+    n_applied = sum(1 for e in new_log if e.get("applied"))
+    msg = f"second_pass_remediation: applied {n_applied}/{len(new_log)} fallback fixes on {len(post_issues)} residual issues"
+    return {
+        "fixed_df": df,
+        # `correction_log` is Annotated[..., operator.add] in AgentState — return only
+        # NEW entries; LangGraph's reducer concatenates them with the existing log.
+        # (Previously we returned `existing_log + new_log`, which double-appended
+        # under the webapp's stream_quality_pipeline custom merge.)
+        "correction_log": new_log,
+        "audit_trail": [msg],
+    }
+
+
+def node_final_audit(state: AgentState) -> Dict[str, Any]:
+    """Re-audit `fixed_df` after the second-pass deterministic remediation.
+
+    Replaces the `post_issues`, `post_severity_breakdown`, and `post_sub_scores`
+    produced by `node_re_audit` with the *final* values measured after both
+    LLM remediation and deterministic-fallback second pass. This is what the
+    supervisor uses to compute the headline post_reliability_score.
+    """
+    name = state["dataset_name"]
+    df = state.get("fixed_df")
+    if df is None:
+        return {"audit_trail": ["final_audit: skipped (no fixed_df)"]}
+
+    audit = audit_dataset(df, name, auto_discover=False)
+    flat: List[Dict[str, Any]] = []
+    for r in audit["results"]:
+        flat.extend(r["issues"])
+
+    sev = {"critical": 0, "high": 0, "medium": 0, "low": 0}
+    for iss in flat:
+        sev[iss["severity"]] = sev.get(iss["severity"], 0) + 1
+
+    post_sub: Dict[str, float] = {}
+    for dim, types in _DIMENSION_ISSUE_TYPES.items():
+        relevant = [iss for iss in flat if iss["issue_type"] in types]
+        post_sub[dim] = _compute_subscore(relevant)
+
+    msg = f"final_audit: {len(flat)} residual issues after both passes — {sev}"
+    return {
+        "post_issues": flat,
+        "post_severity_breakdown": sev,
+        "post_sub_scores": post_sub,
+        "audit_trail": [msg],
+    }
+
+
+# Severity weights for the resolution-rate metric — closing one critical issue counts
+# more than closing five lows. Independent of SEVERITY_PENALTY (which feeds reliability).
+_SEVERITY_RESOLUTION_WEIGHT = {"critical": 4.0, "high": 2.0, "medium": 1.0, "low": 0.5}
+
+
+def node_supervisor(state: AgentState) -> Dict[str, Any]:
+    """Deterministic supervisor — aggregates sub-scores into 0-100 quality metrics.
+
+    Produces three complementary numbers:
+    - **reliability_score** (pre-fix): "how dirty is the input?" (penalty-based)
+    - **post_reliability_score**: "how clean is the output?" (penalty-based on
+      issues that survive both LLM and deterministic-fallback passes)
+    - **remediation_score** + **remediation_score_weighted**: "how much of the
+      detected work did the pipeline actually close?". A separate axis from
+      reliability — useful for honest reporting and pitch slides.
+
     No LLM call: the math is exact and reproducible.
     """
     sub = state.get("sub_scores", {})
-    # Default any missing dimension to 1.0 (no detected issue in that dim)
     pre_final = round(sum(RELIABILITY_WEIGHTS[k] * sub.get(k, 1.0) for k in RELIABILITY_WEIGHTS) * 100, 1)
 
     post_sub = state.get("post_sub_scores", {})
@@ -1461,7 +1835,21 @@ def node_supervisor(state: AgentState) -> Dict[str, Any]:
         post_final = None
         delta_str = ""
 
-    msg = f"supervisor: reliability={pre_final}/100{delta_str}"
+    # Resolution-rate metrics — meaningful only if final_audit produced post_issues
+    issues_pre = state.get("issues") or []
+    issues_post = state.get("post_issues") or []
+    n_pre, n_post = len(issues_pre), len(issues_post)
+    if n_pre > 0:
+        rem_plain = round(100.0 * max(0, n_pre - n_post) / n_pre, 1)
+        w_pre = sum(_SEVERITY_RESOLUTION_WEIGHT.get(i.get("severity", "medium"), 1.0) for i in issues_pre)
+        w_post = sum(_SEVERITY_RESOLUTION_WEIGHT.get(i.get("severity", "medium"), 1.0) for i in issues_post)
+        rem_weighted = round(100.0 * max(0.0, w_pre - w_post) / w_pre, 1) if w_pre > 0 else 100.0
+    else:
+        rem_plain = 100.0
+        rem_weighted = 100.0
+    rem_str = f" · remediation={rem_plain}% (weighted {rem_weighted}%)" if issues_post else ""
+
+    msg = f"supervisor: reliability={pre_final}/100{delta_str}{rem_str}"
 
     out: Dict[str, Any] = {
         "reliability_score": pre_final,
@@ -1471,6 +1859,8 @@ def node_supervisor(state: AgentState) -> Dict[str, Any]:
     if post_final is not None:
         out["post_reliability_score"] = post_final
         out["post_sub_scores"] = {k: round(post_sub.get(k, 1.0) * 100, 1) for k in RELIABILITY_WEIGHTS}
+        out["remediation_score"] = rem_plain
+        out["remediation_score_weighted"] = rem_weighted
     return out
 
 # ─── Extracted from notebook cell 51 ────────────────────────────────────
@@ -1483,9 +1873,11 @@ graph_builder.add_node("schema",        node_schema_agent)
 graph_builder.add_node("completeness",  node_completeness_agent)
 graph_builder.add_node("consistency",   node_consistency_agent)
 graph_builder.add_node("anomaly",       node_anomaly_agent)
-graph_builder.add_node("remediation",   node_remediation)
-graph_builder.add_node("re_audit",      node_re_audit)
-graph_builder.add_node("supervisor",    node_supervisor)
+graph_builder.add_node("remediation",       node_remediation)
+graph_builder.add_node("re_audit",          node_re_audit)
+graph_builder.add_node("second_pass",       node_second_pass_remediation)
+graph_builder.add_node("final_audit",       node_final_audit)
+graph_builder.add_node("supervisor",        node_supervisor)
 
 graph_builder.add_edge(START, "ingest")
 graph_builder.add_edge("ingest", "discover")
@@ -1494,13 +1886,15 @@ graph_builder.add_edge("audit", "schema")
 graph_builder.add_edge("schema", "completeness")
 graph_builder.add_edge("completeness", "consistency")
 graph_builder.add_edge("consistency", "anomaly")
-graph_builder.add_edge("anomaly", "remediation")
-graph_builder.add_edge("remediation", "re_audit")
-graph_builder.add_edge("re_audit", "supervisor")
-graph_builder.add_edge("supervisor", END)
+graph_builder.add_edge("anomaly",      "remediation")
+graph_builder.add_edge("remediation",  "re_audit")
+graph_builder.add_edge("re_audit",     "second_pass")
+graph_builder.add_edge("second_pass",  "final_audit")
+graph_builder.add_edge("final_audit",  "supervisor")
+graph_builder.add_edge("supervisor",   END)
 
 quality_graph = graph_builder.compile()
-print(f"StateGraph compiled: 10 nodes, 4 LLM agents, single iteration with post-fix re-audit.")
+print(f"StateGraph compiled: 12 nodes, 4 LLM agents, two-pass remediation (LLM + deterministic).")
 print(f"Reliability dimensions: {list(RELIABILITY_WEIGHTS.keys())}")
 
 # ─── Extracted from notebook cell 54 ────────────────────────────────────

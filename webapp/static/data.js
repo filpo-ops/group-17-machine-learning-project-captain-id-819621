@@ -10,6 +10,8 @@ const PIPELINE_NODES = [
   { id: 'anomaly',      kind: 'llm', label: 'Anomaly',        desc: 'Reason about outliers' },
   { id: 'remediation',  kind: 'det', label: 'Remediation',    desc: 'Apply planned actions' },
   { id: 're_audit',     kind: 'det', label: 'Re-audit',       desc: 'Re-run audit on fixed data' },
+  { id: 'second_pass',  kind: 'det', label: 'Second pass',    desc: 'Apply deterministic fallback to residual issues' },
+  { id: 'final_audit',  kind: 'det', label: 'Final audit',    desc: 'Re-audit after second-pass remediation' },
   { id: 'supervisor',   kind: 'det', label: 'Supervisor',     desc: 'Compute before / after score' },
 ];
 
@@ -22,7 +24,9 @@ const NODE_OUTCOMES = {
   consistency:  '4 actions planned · consistency score 0.78 → 0.90',
   anomaly:      '3 actions planned · 12 outliers flagged, 9 retained',
   remediation:  '19 actions applied · 1,847 cells modified',
-  re_audit:     'Re-audit complete · 2 residual issues (down from 29)',
+  re_audit:     'Re-audit complete · 9 residual issues (down from 29)',
+  second_pass:  'Applied 7 deterministic fallback fixes on residual issues',
+  final_audit:  'Final audit · 2 issues remain — verdict: high',
   supervisor:   'Before 54.0 → After 91.5 — verdict: high',
 };
 

@@ -361,6 +361,27 @@ function IssuePanel({ issue, onClose }) {
 
 function ExportMenu() {
   const [open, setOpen] = useStateR(false);
+
+  // Trigger a browser download by clicking a hidden <a> at /download/{kind}/{sid}.
+  // The backend route sets Content-Disposition: attachment, so the browser saves
+  // the file instead of rendering it. Falls back gracefully if no run has been
+  // completed (LATEST_SESSION_ID is set by app.jsx in the SSE `complete` handler).
+  const download = (kind) => {
+    const sid = window.LATEST_SESSION_ID;
+    if (!sid) {
+      alert('No active session — run the pipeline first.');
+      return;
+    }
+    const url = `/download/${kind}/${sid}`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setOpen(false);
+  };
+
   return (
     <div className="export-menu">
       <button className="btn-primary" onClick={() => setOpen(!open)}>
@@ -371,10 +392,18 @@ function ExportMenu() {
         <>
           <div className="export-scrim" onClick={() => setOpen(false)} />
           <div className="export-pop">
-            <button className="export-item"><span>Fixed dataset</span><span className="mono dim">.csv</span></button>
-            <button className="export-item"><span>Quality report</span><span className="mono dim">.html</span></button>
-            <button className="export-item"><span>Correction log</span><span className="mono dim">.json</span></button>
-            <button className="export-item"><span>Full run bundle</span><span className="mono dim">.zip</span></button>
+            <button className="export-item" onClick={() => download('fixed')}>
+              <span>Fixed dataset</span><span className="mono dim">.csv</span>
+            </button>
+            <button className="export-item" onClick={() => download('report')}>
+              <span>Quality report</span><span className="mono dim">.html</span>
+            </button>
+            <button className="export-item" onClick={() => download('log')}>
+              <span>Correction log</span><span className="mono dim">.json</span>
+            </button>
+            <button className="export-item" onClick={() => download('bundle')}>
+              <span>Full run bundle</span><span className="mono dim">.zip</span>
+            </button>
           </div>
         </>
       )}

@@ -75,6 +75,8 @@ def state_to_react_payload(final_state: Dict[str, Any], html_report: str) -> Dic
     post_score   = final_state.get("post_reliability_score")
     post_sub     = final_state.get("post_sub_scores") or {}
     post_sev     = final_state.get("post_severity_breakdown") or {}
+    rem_score    = final_state.get("remediation_score")
+    rem_weighted = final_state.get("remediation_score_weighted")
 
     return {
         "dataset_name":       final_state.get("dataset_name"),
@@ -94,6 +96,10 @@ def state_to_react_payload(final_state: Dict[str, Any], html_report: str) -> Dic
         "post_reliability_score":  float(post_score) if post_score is not None else None,
         "post_sub_scores":         dict(post_sub),
         "post_severity_breakdown": dict(post_sev),
+        # Resolution-rate metrics (complementary to reliability_score):
+        # how much of the detected work the pipeline actually closed.
+        "remediation_score":          float(rem_score) if rem_score is not None else None,
+        "remediation_score_weighted": float(rem_weighted) if rem_weighted is not None else None,
     }
 
 
