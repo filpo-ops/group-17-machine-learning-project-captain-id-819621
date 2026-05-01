@@ -3,165 +3,195 @@
 **LUISS — Machine Learning A.A. 2025/26 · Reply Whitehall**
 Group 17 — Ludovica De Biase, Giuseppe Catrambone, Filippo Lombardo (captain ID 819621)
 
-![Architecture](images/architecture_flowchart.png)
+![Architecture](agents/images/architecture_flowchart.png)
 
 ## [Section 1] Introduction
 
-Il sistema riceve in input un dataset CSV grezzo (con anomalie tipiche dei dati pubblici NoiPA: null mascherati, simboli valuta, formati data eterogenei, valori fuori range, righe duplicate, violazioni di logica cross-column) e produce due output:
+The system takes a raw CSV dataset as input (with anomalies typical of NoiPA public data: disguised nulls, currency symbols, heterogeneous date formats, out-of-range values, duplicate rows, cross-column logic violations) and produces two outputs:
 
-1. un **CSV corretto** in cui le anomalie sono state risolte automaticamente con tool deterministici;
-2. un **Quality Report HTML** con reliability score 0–100, breakdown per categoria, lista degli issue rilevati e log delle azioni applicate.
+1. a **corrected CSV** in which the anomalies have been resolved automatically through deterministic tools;
+2. a **Quality Report (HTML)** with a 0–100 reliability score, per-category breakdown, list of detected issues and log of the actions applied.
 
-Il sistema è stato progettato attorno al principio **"Determinism-first con LLM chirurgico"**: il layer deterministico (Phase 3) cattura tutte le anomalie esprimibili come regole; un singolo agente LLM (`RemediationPlanner`) interviene solo dove la decisione richiede ragionamento contestuale, scegliendo l'azione di fix per ogni gruppo di issue. Questa scelta ribalta l'approccio "LLM-first" classico, in cui il modello è il motore principale: la motivazione è duplice — efficienza (≈5–6k token per dataset, contro le decine di migliaia di un approccio agent-everywhere) e affidabilità (il deterministico è validato a F1 su un benchmark sintetico, l'LLM è verificabile su un piano JSON con enum chiusa di azioni).
+The system is designed around the principle of **"determinism-first with surgical LLM"**: the deterministic layer captures every anomaly that can be expressed as a rule; four specialized LLM agents (one per reliability dimension — Schema, Completeness, Consistency, Anomaly) intervene only where the decision requires contextual reasoning, picking the fix action from a closed enum of atomic tools for their own category. This choice flips the classic "LLM-first" approach in which the model is the main engine: the rationale is twofold — **efficiency** (~3–4k tokens per dataset, against tens of thousands for an agent-everywhere approach) and **reliability** (the deterministic layer is validated by F1 on a synthetic benchmark, the LLM is verifiable through a JSON plan with a closed enum of actions and a rule-based fallback if the model fails).
 
 ## [Section 2] Methods
 
-### Architettura
-La pipeline è un `StateGraph` LangGraph con **10 nodi (4 LLM + 6 deterministici)**, singola iterazione con re-audit deterministico post-fix:
+### Architecture
+The pipeline is a LangGraph `StateGraph` with **10 nodes (4 LLM + 6 deterministic)**, single-iteration with a deterministic post-fix re-audit:
 
 ```
 ingest → discover → audit → schema(LLM) → completeness(LLM) → consistency(LLM) → anomaly(LLM) → remediation → re_audit → supervisor
 ```
 
-- **ingest** carica il DataFrame nello stato condiviso.
-- **discover** ispeziona un sample del df e popola dinamicamente le regole di validazione (`EXPECTED_SCHEMAS`, `MANDATORY_COLUMNS`, `FORMAT_RULES`, `NUMERIC_RULES`). **Niente è hardcoded sui dataset specifici** — la pipeline funziona su qualsiasi CSV.
-- **audit** esegue 9 tool deterministici (Schema, Completeness, Sparse, Format, Categorical Variants, Numeric Validity, IQR Outliers, Duplicates, Cross-Column) e accumula gli issue in formato JSON standardizzato.
-- **4 LLM analysis agents** (Schema / Completeness / Consistency / Anomaly): ognuno riceve la propria fetta di issue (filtrate per `issue_type`), fa **una sola call LLM** con un'enum chiusa di azioni ammesse per la sua categoria, e restituisce: (a) un piano JSON, (b) un sub-score 0–1 per la sua dimensione di reliability. Token budget per agente: 500–1000. Totale per dataset: ~3–4k token. Fallback deterministico rule-based se l'LLM fallisce o restituisce JSON invalido.
-- **remediation** applica il piano consolidato con tool atomici (`impute_median`, `impute_mode`, `clip_iqr`, `drop_duplicates`, `normalize_dates`, `strip_currency`, `cast_numeric`, `drop_unexpected_columns`, `normalize_categorical`, `ignore`). Pre-flight guard contro `col=None` (no più KeyError silenti). Ogni applicazione produce un log entry con `agent`, `action`, `rationale` — e in caso di failure, `reason` esplicito (column missing, etc.).
-- **re_audit** (deterministico, zero LLM): rilancia gli stessi 9 tool sul `fixed_df` e ricalcola sub-score e severity post-remediation. Senza questo nodo, il reliability score riflette solo lo stato pre-fix; con esso, la UI mostra una vera before/after.
-- **supervisor** è **deterministico** (zero LLM call): aggrega i 5 sub-score con i pesi standard ISO-8000 (`completeness 30%, consistency 25%, validity 20%, uniqueness 15%, accuracy 10%`) e produce **due** reliability score 0–100 — pre-fix (dai sub-score LLM sull'audit iniziale) e post-fix (dai sub-score deterministici sul fixed_df). Il delta è il valore visibile della pipeline.
+- **ingest** loads the DataFrame into the shared state.
+- **discover** inspects a sample of the df and dynamically populates the validation rules (`EXPECTED_SCHEMAS`, `MANDATORY_COLUMNS`, `FORMAT_RULES`, `NUMERIC_RULES`). **Nothing is hardcoded against specific datasets** — the pipeline works on any CSV.
+- **audit** runs 9 deterministic tools (Schema, Completeness, Sparse, Format, Categorical Variants, Numeric Validity, IQR Outliers, Duplicates, Cross-Column) and accumulates issues in a standardized JSON format.
+- **4 LLM analysis agents** (Schema / Completeness / Consistency / Anomaly): each receives its own slice of issues (filtered by `issue_type`), makes **a single LLM call** with a closed enum of allowed actions for its category, and returns: (a) a JSON plan, (b) a 0–1 sub-score for its reliability dimension. Token budget per agent: 500–1000. Total per dataset: ~3–4k tokens. Rule-based deterministic fallback if the LLM fails or returns invalid JSON.
+- **remediation** applies the consolidated plan with atomic tools (`impute_median`, `impute_mode`, `clip_iqr`, `drop_duplicates`, `normalize_dates`, `strip_currency`, `cast_numeric`, `drop_unexpected_columns`, `normalize_categorical`, `ignore`). A pre-flight guard against `col=None` (no more silent `KeyError`s) is in place. Each application produces a log entry with `agent`, `action`, `rationale` — and on failure, an explicit `reason` (column missing, etc.).
+- **re_audit** (deterministic, zero LLM): re-runs the same 9 tools on `fixed_df` and recomputes sub-scores and severity post-remediation. Without this node, the reliability score reflects only the pre-fix state; with it, the UI shows a true before/after.
+- **supervisor** is **deterministic** (zero LLM calls): aggregates the 5 sub-scores using the standard ISO-8000 weights (`completeness 30%, consistency 25%, validity 20%, uniqueness 15%, accuracy 10%`) and produces **two** 0–100 reliability scores — pre-fix (from the LLM sub-scores on the initial audit) and post-fix (from the deterministic sub-scores on `fixed_df`). The delta is the visible value of the pipeline.
 
 ### Sparsity-aware scoring
-Le colonne con >95% missing (es. `note_operatore`, `flag_rischio` in ALLARMI) sono trattate come *strutturalmente morte*: imputarle introdurrebbe rumore, quindi gli agenti LLM scelgono correttamente `ignore` e tali issue non penalizzano il sub-score di completeness. Soglia controllata da `_DEAD_COLUMN_THRESHOLD` in `agents/pipeline.py`.
+Columns with >95% missing values (e.g. `note_operatore`, `flag_rischio` in ALLARMI) are treated as *structurally dead*: imputing them would introduce noise, so the LLM agents correctly choose `ignore` and these issues do not penalise the completeness sub-score. Threshold controlled by `_DEAD_COLUMN_THRESHOLD` in `agents/pipeline.py`.
 
-### Stack tecnologico
-| Componente | Scelta |
+### Technology stack
+| Component | Choice |
 |---|---|
-| Orchestrazione agenti | LangGraph |
+| Agent orchestration | LangGraph |
 | LLM backbone | DeepSeek-Chat (V3) via `langchain-openai` (OpenAI-compatible API) |
 | Webapp | FastAPI + Server-Sent Events + React 18 (Babel-standalone CDN, no build step) |
-| Layer deterministico | pandas + numpy + scipy |
-| Report | Jinja2 → HTML auto-contenuto (PDF via browser print) |
-| Linguaggio | Python 3.10+ |
+| Deterministic layer | pandas + numpy + scipy |
+| Reporting | Jinja2 → self-contained HTML (PDF via browser print) |
+| Language | Python 3.10+ |
 
-### Riproduzione dell'environment
+### Design exploration: paths we tried before settling
+
+The choices above did not emerge on the first attempt. We report the three experimental branches we walked (and the traces are still visible in the `feature/agents-data-quality`, `ollamacolab`, `deepseek` branches of this repo) because they illustrate the concrete trade-offs behind the final system.
+
+**LLM provider — three attempts, one final choice.**
+
+| Approach | Branch | Pros | Cons | Outcome |
+|---|---|---|---|---|
+| **Groq** (`llama-3.3-70b-versatile` via `langchain-groq`) | `feature/agents-data-quality`, early Main commits | very low latency (token streaming), suitably-sized model | aggressive rate-limits on the free tier, recurring blocks during multi-agent runs (4 close-spaced calls), API keys suspended without notice in shared dev environments | abandoned after the mid-check |
+| **Ollama + Qwen on Google Colab** | `ollamacolab` | local LLM, zero cost, zero rate-limits, independence from external providers | Colab disconnects erratically (sessions interrupted mid-run), complex tunneling to expose Ollama from Colab to the local notebook, Qwen at the size we can keep in RAM shows lower quality than llama-3.3-70b on the structured-output task | abandoned (infrastructural fragility, sub-optimal quality) |
+| **DeepSeek-Chat (V3)** via `langchain-openai` | `deepseek` → `Main` | OpenAI-compatible API (drop-in via `ChatOpenAI`), reasoning quality comparable on short-form structured-output tasks, negligible price, no rate-limit issues for our 4 calls/run | dependency on an external provider (mitigated by the rule-based deterministic fallback on every agent) | final choice |
+
+**Take-away.** The pipeline's added value does not lie in any single provider — every agent has a rule-based fallback that works even with the LLM disabled (tested: +24.6 reliability points post-fix on `ALLARMI.csv` even with the pure fallback path). The provider is swappable in ~5 lines of code in `agents/pipeline.py`.
+
+**Demo UI — three iterations.**
+
+| Iteration | Pros | Cons | Outcome |
+|---|---|---|---|
+| **Streamlit** (original Phase 7, today in `legacy/streamlit/app.py`) | quick to write, materialised from the notebook with `%%writefile` | limited layout for multi-step pipeline visualization, no live node-by-node streaming, prototype look-and-feel | archived as fallback |
+| **React + FastAPI v1** (commit `33d0142 demo html implementation`) | live 9-node timeline via SSE, single score, downloads of the 4 artefacts (CSV, log, report, bundle) | pre-fix score only (frustrating: the user would see 54/100 even after applying fixes that reduced issues by 70%), `FixedPreview` with hardcoded NoiPA mock columns | replaced |
+| **React + FastAPI v2** (current, after Claude Design v2) | 10-node timeline grouped into 3 phases (det → llm → det), **before/after side-by-side** score with reveal animation, sub-scores with per-dimension delta, dynamic-column `FixedPreview`, 5 selectable palettes in dev mode | none significant identified | final choice |
+
+The key architectural decision in the **v1 → v2 transition** was the introduction of the deterministic `re_audit` node: without it, the reliability score could not show an honest delta because it remained anchored to the pre-remediation audit.
+
+### Reproducing the environment
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-pip install -r ../requirements.txt
-echo "DEEPSEEK_API_KEY=sk-..." >> ../.env
-jupyter lab Main.ipynb
+source .venv/bin/activate                   # macOS/Linux
+pip install -r requirements.txt
+echo "DEEPSEEK_API_KEY=sk-..." > .env       # provider key required for the LLM agents
+jupyter lab agents/main.ipynb
 ```
-Il notebook è interamente self-contained per la pipeline scientifica: tutto il codice — caricamento dati, tool deterministici, benchmark v2, definizione del grafo LangGraph, esecuzione, generazione report — vive in `Main.ipynb`. Le celle di codice sono separate da celle di testo che spiegano *cosa* e *perché*.
+The notebook is fully self-contained for the scientific pipeline: all the code — data loading, deterministic tools, v2 benchmark, LangGraph graph definition, execution, report generation — lives in `agents/main.ipynb`. Code cells are separated by text cells that explain *what* and *why*.
 
-Per il **webapp demo** (FastAPI + React, frontend interattivo derivato da Claude Design):
+For the **webapp demo** (FastAPI + React, interactive frontend derived from Claude Design):
 ```bash
 uvicorn webapp.server:app --port 8000
-# poi: http://localhost:8000
+# then open: http://localhost:8000
 ```
-La webapp esegue live la pipeline sul CSV caricato (o sul dataset demo NoiPA `spesa`), mostra una timeline a 10 nodi con stream SSE, una score card con **reliability before/after** (es. `48.0 → 73.0 (+25.0)`), severity breakdown con i delta per ogni livello (es. `high: 15 → 7 (-8)`), correction log dettagliato e download del CSV corretto.
+The webapp runs the pipeline live on the uploaded CSV (or on the NoiPA `spesa` demo dataset), shows a 10-node timeline with SSE streaming, a score card with **before/after reliability** (e.g. `48.0 → 73.0 (+25.0)`), severity breakdown with per-level deltas (e.g. `high: 15 → 7 (-8)`), a detailed correction log and a download of the corrected CSV.
 
-> ⚠️ Non usare `--reload` di uvicorn durante una demo: il reload distrugge le sessioni in-memory e l'utente vede `404 Unknown session_id` tra `/upload` e `/run/{sid}`.
+> ⚠️ Do not use uvicorn's `--reload` during a demo: reload destroys in-memory sessions and the user gets `404 Unknown session_id` between `/upload` and `/run/{sid}`.
 
-Il modulo `agents/pipeline.py` (estratto da `Main.ipynb`) espone l'API runtime usata dalla webapp: `run_quality_pipeline()`, `stream_quality_pipeline()`, `render_quality_report()`, `quality_graph`, `RELIABILITY_WEIGHTS`. Smoke test CLI: `python -m agents.pipeline`.
+The `agents/pipeline.py` module (extracted from `main.ipynb`) exposes the runtime API used by the webapp: `run_quality_pipeline()`, `stream_quality_pipeline()`, `render_quality_report()`, `quality_graph`, `RELIABILITY_WEIGHTS`. CLI smoke test: `python -m agents.pipeline`.
 
-> *Lo Streamlit demo precedente è archiviato in `legacy/streamlit/app.py` come fallback; la webapp lo sostituisce in tutti i flussi.*
+> *The earlier Streamlit demo is archived in `legacy/streamlit/app.py` as a fallback; the webapp replaces it in every flow.*
 
 ## [Section 3] Experimental Design
 
-**Purpose.** Validare il layer deterministico (Phase 3) con un benchmark sintetico, prima di costruire la pipeline multi-agent sopra. La logica è semplice: se le funzioni che producono i fatti su cui ragionano gli agenti LLM non sono affidabili, l'intera pipeline non lo è.
+**Purpose.** Validate the deterministic layer (Phase 3) with a synthetic benchmark, before building the multi-agent pipeline on top of it. The logic is simple: if the functions producing the facts the LLM agents reason on are not reliable, neither is the whole pipeline.
 
-**Baseline.** *No-op detector* (rileva 0 anomalie → Precision indefinita, Recall=0). Un sistema funzionante deve nettamente superare questo riferimento.
+**Baseline.** *No-op detector* (detects 0 anomalies → Precision undefined, Recall=0). A working system must clearly outperform this reference.
 
-**Evaluation Metrics.** Precision, Recall, F1 calcolati a livello di coppia `(dataset, error_type)` confrontando le coppie iniettate (ground truth deterministica) con quelle rilevate. Tre tipi di errore — uno categorico (`disguised_null`), uno numerico (`iqr_outlier`), uno strutturale (`exact_duplicate`) — bastano a coprire le classi di anomalia tipiche di un CSV pubblico.
+**Evaluation Metrics.** Precision, Recall, F1 computed at the `(dataset, error_type)` pair level, comparing injected pairs (deterministic ground truth) against detected ones. Three error types — one categorical (`disguised_null`), one numerical (`iqr_outlier`), one structural (`exact_duplicate`) — are enough to cover the typical anomaly classes of a public CSV.
 
 ## [Section 4] Results
 
-### Layer deterministico — benchmark sintetico (Phase 4)
+### Deterministic layer — synthetic benchmark (Phase 4)
 
-Eseguito con `random.seed(42)`, `n_each=3` iniezioni per error_type, su un sample di 500 righe per dataset. **3 tipi di errore rappresentativi** (uno categorico, uno numerico, uno strutturale):
+Run with `random.seed(42)`, `n_each=3` injections per error_type, on a 500-row sample per dataset. **3 representative error types** (one categorical, one numerical, one structural):
 
-![Benchmark metrics](images/detection_heatmap.png)
+![Benchmark metrics](agents/images/detection_heatmap.png)
 
-| Metric | Valore |
+| Metric | Value |
 |---|---|
 | **Global F1** | 1.00 |
 | Global Precision | 1.00 |
 | Global Recall | 1.00 |
 | TP / FP / FN | 12 / 0 / 0 |
 
-| error_type | rilevato? | issue_types che lo catturano |
+| error_type | detected? | issue_types that capture it |
 |---|---|---|
-| `disguised_null` | ✅ tutti | `missing_*_values`, `sparse_column` |
-| `iqr_outlier` | ✅ tutti | `iqr_outliers` |
-| `exact_duplicate` | ✅ tutti | `exact_duplicate_rows` |
+| `disguised_null` | ✅ all | `missing_*_values`, `sparse_column` |
+| `iqr_outlier` | ✅ all | `iqr_outliers` |
+| `exact_duplicate` | ✅ all | `exact_duplicate_rows` |
 
-Il layer deterministico cattura il 100% delle iniezioni dei 3 tipi tracciati a livello `(dataset, error_type)`. Questo è atteso: i 3 tipi sono *progettati* per essere rilevabili dai tool di Phase 3 — l'esperimento è una *sanity check* che la pipeline deterministica funzioni come dichiarato, non un confronto adversariale. Le metriche ci servono come baseline solida prima di delegare il ragionamento agli agenti LLM.
+The deterministic layer captures 100% of the injections of the 3 tracked types at the `(dataset, error_type)` level. This is expected: the 3 types are *designed* to be detectable by Phase 3 tools — the experiment is a *sanity check* that the deterministic pipeline works as declared, not an adversarial benchmark. The metrics serve as a solid baseline before delegating reasoning to the LLM agents.
 
-### Pipeline end-to-end (Phase 5)
+### End-to-end pipeline (Phase 5)
 
-Smoke test su `ALLARMI.csv` (test fixture, 5'080 × 24) con discovery automatico delle regole + LLM disabilitato (chiave fittizia → tutti gli agenti cadono nel fallback deterministico). Misura il *worst case ragionevole*: nessun ragionamento contestuale, solo le azioni di default mappate da `_FALLBACK`.
+Smoke test on `ALLARMI.csv` (test fixture, 5,080 × 24) with automatic rule discovery + LLM disabled (fake key → all agents fall back to the deterministic path). Measures the *reasonable worst case*: no contextual reasoning, only the default actions mapped by `_FALLBACK`.
 
-| Metric | Valore |
+| Metric | Value |
 |---|---|
-| LLM calls totali | 4 (tutte fallite — fallback path) |
-| Issues rilevati (pre-fix) | 29 (15 high / 9 medium / 5 low) |
-| Issues residui (post-fix) | 19 (7 high / 7 medium / 5 low) |
-| Issues risolti dalla remediation | 10 (8 high + 2 medium) |
-| Corrections applied | 29/29 con `applied=True` |
+| Total LLM calls | 4 (all failed — fallback path) |
+| Issues detected (pre-fix) | 29 (15 high / 9 medium / 5 low) |
+| Issues remaining (post-fix) | 19 (7 high / 7 medium / 5 low) |
+| Issues resolved by remediation | 10 (8 high + 2 medium) |
+| Corrections applied | 29/29 with `applied=True` |
 | **Reliability — pre-fix** | **40.4 / 100** |
 | **Reliability — post-fix** | **65.0 / 100** (Δ +24.6) |
 
-Sub-scores pre → post: validity 90 → 90 · completeness 0 → 44 · consistency 56 → 56 · uniqueness 56 → 92 · accuracy 0 → 60. Il fatto che il delta sia +24.6 punti **anche con LLM disabilitato** valida che la pipeline aggiunge valore tramite il layer deterministico (impute mode/median, drop_duplicates, clip_iqr, normalize_dates) — gli agenti LLM affinano ulteriormente le scelte ma non sono il driver del miglioramento.
+Sub-scores pre → post: validity 90 → 90 · completeness 0 → 44 · consistency 56 → 56 · uniqueness 56 → 92 · accuracy 0 → 60. The fact that the delta is +24.6 points **even with the LLM disabled** validates that the pipeline adds value through the deterministic layer (`impute_mode/median`, `drop_duplicates`, `clip_iqr`, `normalize_dates`) — the LLM agents further refine the choices but are not the driver of the improvement.
 
-I CSV in `agents/data/` sono **test fixture**, non input di produzione. La pipeline gira on-demand su qualsiasi CSV caricato (via notebook o webapp).
+The CSVs in `agents/data/` are **test fixtures**, not production input. The pipeline runs on demand on any uploaded CSV (via notebook or webapp).
 
 ## [Section 5] Conclusions
 
-**Take-away.** Un'architettura **multi-agent "deterministic-first"** con 4 agenti LLM specializzati per dimensione + supervisor deterministico produce una pipeline di data quality (a) **schema-agnostica** — le regole vengono scoperte dinamicamente dal CSV input, niente è hardcoded sui dataset di test; (b) **efficiente** — ~3-4k token per dataset (4 LLM call, una per agente, con prompt ristretti ad enum chiuse di azioni); (c) **verificabile** — F1 misurato sul layer deterministico, JSON-schema sull'output LLM; (d) **robusta** — ogni agente ha un fallback rule-based deterministico. La scelta è coerente con il feedback del mid-check: LLM "importanti ma non totalizzanti", che intervengono solo dove il deterministico non basta.
+**Take-away.** A **multi-agent "deterministic-first" architecture** with 4 dimension-specialised LLM agents + a deterministic supervisor produces a data-quality pipeline that is (a) **schema-agnostic** — the rules are discovered dynamically from the input CSV, nothing is hardcoded against the test datasets; (b) **efficient** — ~3–4k tokens per dataset (4 LLM calls, one per agent, with prompts restricted to closed enums of actions); (c) **verifiable** — F1 measured on the deterministic layer, JSON-schema on the LLM output; (d) **robust** — every agent has a rule-based deterministic fallback. The choice is consistent with the mid-check feedback: LLMs are "important but not totalising", intervening only where the deterministic layer is not enough.
 
-**Domande non pienamente risolte e future work.**
-- *Categorical imputation con contesto LLM*: per i null categorici critici (es. `Descrizione` mancante), un secondo touchpoint LLM batched (~20 righe per chiamata) inferirebbe il valore dal contesto di riga. Non incluso perché l'impatto sul reliability score è marginale rispetto al costo in token.
-- *Discovery via LLM*: oggi `discover_dataset_rules` usa solo euristiche (deterministiche, zero token). Una variante che chiede a un LLM "guarda questi sample e proponi mandatory_columns / numeric_rules / cross_column_rules" produrrebbe regole più ricche, al costo di una call extra all'inizio.
-- *PDF report nativo*: oggi produciamo HTML con plotly embedded; il PDF si ottiene da browser print. Una pipeline pure-Python con `reportlab` chiuderebbe il loop.
-- *Conditional rerun loop*: la pipeline è single-iteration. Il nodo `re_audit` chiude un mezzo-loop (misurazione post-fix deterministica) ma non rilancia il piano LLM se lo score post-fix resta sotto soglia. Un loop completo `remedia → re_audit → se score < threshold rilancia gli agenti su `post_issues`` alzerebbe lo score finale al costo di un round extra di token. Non implementato perché aggiunge complessità di control flow (early-stopping, max iterations) per un guadagno marginale sui dataset testati.
+**Open questions and future work.**
+- *Categorical imputation with LLM context*: for critical categorical nulls (e.g. missing `Descrizione`), a second batched LLM touchpoint (~20 rows per call) would infer the value from row context. Not included because the impact on the reliability score is marginal compared to the token cost.
+- *Discovery via LLM*: today `discover_dataset_rules` uses heuristics only (deterministic, zero tokens). A variant that asks an LLM to "look at these samples and propose mandatory_columns / numeric_rules / cross_column_rules" would produce richer rules at the cost of one extra call at the start.
+- *Native PDF report*: today we produce HTML with embedded plotly; the PDF is obtained from browser print. A pure-Python pipeline using `reportlab` would close the loop.
+- *Conditional rerun loop*: the pipeline is single-iteration. The `re_audit` node closes a half-loop (deterministic post-fix measurement) but does not re-run the LLM plan if the post-fix score stays below threshold. A complete `remediate → re_audit → if score < threshold re-run agents on post_issues` loop would raise the final score at the cost of one extra round of tokens. Not implemented because it adds control-flow complexity (early-stopping, max iterations) for a marginal gain on the tested datasets.
 
 ## Repository structure
 
 ```
-Machine-Learning-Segreto/
+Machine-Learning-Segreto/                  (repo name ends with captain id 819621 on submission)
+├── README.md                              ← this file
+├── requirements.txt
+├── .gitignore
+├── .env                                   ← DEEPSEEK_API_KEY=sk-... (gitignored on submission)
 ├── agents/
-│   ├── Main.ipynb                    ← single source of truth (scientific pipeline)
-│   ├── pipeline.py                   ← runtime module extracted from the notebook (used by webapp)
-│   ├── README.md                     ← this file
-│   ├── images/                       ← README figures (generated from code)
+│   ├── main.ipynb                         ← single source of truth (scientific pipeline)
+│   ├── pipeline.py                        ← runtime module extracted from the notebook (used by webapp)
+│   ├── images/                            ← README figures (generated from code)
 │   │   ├── architecture_flowchart.png
 │   │   └── detection_heatmap.png
 │   ├── data/
-│   │   ├── project_data_quality/     ← spesa.csv, attivazioniCessazioni.csv
-│   │   ├── project_anomaly_detection/← TIPOLOGIA_VIAGGIATORE.csv, ALLARMI.csv
-│   │   └── benchmark/                ← Phase 4 artefacts (regenerated by notebook)
-│   └── outputs/                      ← generated by notebook (fixed CSV + reports)
-├── webapp/                           ← FastAPI + React demo (live SSE timeline, before/after scoring)
-│   ├── server.py                     ← FastAPI app: /upload, /demo, /run/{sid} (SSE), /download/*
-│   ├── adapters.py                   ← pipeline final_state → React JSON shape
-│   ├── sessions.py                   ← in-memory session store (DataFrame + final_state per sid)
-│   └── static/                       ← single-page React app (Babel-standalone, no build step)
+│   │   ├── project_data_quality/          ← spesa.csv, attivazioniCessazioni.csv
+│   │   ├── project_anomaly_detection/     ← TIPOLOGIA_VIAGGIATORE.csv, ALLARMI.csv
+│   │   └── benchmark/                     ← Phase 4 artefacts (regenerated by notebook)
+│   └── outputs/                           ← generated by notebook (fixed CSV + reports)
+├── webapp/                                ← FastAPI + React demo (live SSE timeline, before/after scoring)
+│   ├── server.py                          ← FastAPI app: /upload, /demo, /run/{sid} (SSE), /download/*
+│   ├── adapters.py                        ← pipeline final_state → React JSON shape
+│   ├── sessions.py                        ← in-memory session store
+│   └── static/                            ← single-page React app (Babel-standalone, no build step)
 │       ├── index.html
-│       ├── app.jsx                   ← phase orchestrator + SSE consumer
-│       ├── data.js                   ← pipeline node definitions (10 nodes)
-│       ├── screens-intro.jsx         ← welcome + dataset preview
-│       ├── screen-pipeline.jsx       ← live timeline during run
-│       ├── screen-results.jsx       ← results dashboard (before/after score, severity, log)
-│       ├── tweaks-panel.jsx          ← dev panel (visible with ?dev=1)
+│       ├── app.jsx                        ← phase orchestrator + SSE consumer + palette switcher
+│       ├── data.js                        ← pipeline node definitions (10 nodes)
+│       ├── screens-intro.jsx              ← welcome + dataset preview
+│       ├── screen-pipeline.jsx            ← live timeline (3-group flow: det → llm → det)
+│       ├── screen-results.jsx             ← results dashboard (before/after score, severity, log)
+│       ├── tweaks-panel.jsx               ← dev panel (visible with ?dev=1)
 │       └── styles.css
 ├── legacy/
-│   └── streamlit/app.py              ← previous Streamlit demo, kept as fallback
-├── docs/
-│   ├── ML Projects general info.docx.pdf
-│   ├── Reply_projects.pdf
-│   └── midterm_pitch_speech.md
-├── .env                              ← DEEPSEEK_API_KEY=sk-... (gitignored on submission)
-├── .gitignore
-└── requirements.txt
+│   └── streamlit/app.py                   ← discarded Streamlit demo, kept as fallback
+└── docs/
+    ├── ML Projects general info.docx.pdf
+    ├── Reply_projects.pdf
+    └── midterm_pitch_speech.md
 ```
+
+**Branches to consult for the experimental design choices (not all merged into `Main`):**
+
+- `feature/agents-data-quality` — earliest multi-agent implementation with Groq
+- `ollamacolab` — Ollama + Qwen on Google Colab experiment (Phase 4 completed, then abandoned)
+- `deepseek` — Groq → DeepSeek switch (later merged into `Main`)
