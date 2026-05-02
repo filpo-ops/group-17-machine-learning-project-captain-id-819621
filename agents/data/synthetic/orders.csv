@@ -1,0 +1,1101 @@
+order_id,customer_id,product_name,category,order_date,ship_date,quantity,unit_price,total_price,payment_method,status,shipping_country,Customer Age
+ORD-2025-000001,2679,N.D.,Beauty,2025-01-13,2025-01-17,4,115.49,461.96,Apple Pay,pending,PT,72
+ORD-2025-000002,1434,Wireless Headphones,Electronics,17/02/2025,2025-02-20,4,255.15,1020.6,Apple Pay,shipped,AT,71
+ORD-2025-000003,3615,Running Shoes,Clothing,2025-10-29,2025-11-02,1,9999.99,380.61,Cash on Delivery,delivered,UK,37
+ORD-2025-000004,6635,Wool Scarf,Clothing,2025-02-22,2025-02-23,7,52.87 EUR,370.09,Apple Pay,delivered,IT,76
+ORD-2025-000005,6925,Yoga Mat,Sports,2025-07-13,2025-07-14,9,150.12,1351.08,?,shipped,FR,23
+ORD-2025-000006,7227,Shampoo Organic,Beauty,2025-05-29,2025-05-26,4,433.91,1735.64,Bank Transfer,cancelled,US,38
+ORD-2025-000007,3803,Throw Pillow,Home,2025-04-18,2025-04-22,2,306.52,613.04,Bitcoin,shipped,DE,77
+ORD-2025-000001,2679,N.D.,Beauty,2025-01-13,2025-01-17,4,115.49,461.96,Apple Pay,pending,PT,72
+ORD-2025-000009,7482,Coffee Machine,Home,2025-04-19,2025-04-24,4,329.44,1317.76,Cash on Delivery,shipped,UK,35
+ORD-2025-000010,7543,Linen Shirt,Clothing,2025-10-03,2025-10-07,10,217.07,2170.7,Bank Transfer,shipped,DE,83
+ORD-2025-000011,7916,Mystery Novel,Books,2025-01-25,2025-01-26,3,315.59,946.77,Apple Pay,pending,NL,66
+ORD-2025-000012,1188,Cycling Helmet,Sports,2025-09-28,2025-10-02,9,431.09,3879.81,Credit Card,returned,UK,61
+ORD-2025-000013,5315,Bluetooth Speaker,Electronics,2025-08-11,2025-08-13,8,6.61,52.88,Apple Pay,shipped,AT,31
+ORD-2025-000014,3646,Lipstick Matte,Beauty,2025-11-24,2025-11-27,3,190.09,570.27,Apple Pay,returned,IT,59
+ORD-2025-000015,4946,Mystery Novel,Books,2025-02-27,2025-03-04,5,123.53,617.65,Apple Pay,pending,FR,80
+ORD-2025-000016,3705,Webcam HD,Electronics,2025-03-06,2025-03-08,8,473.69,3789.52,Bank Transfer,returned,PT,72
+ORD-2025-000017,7118,Linen Shirt,Clothing,2025-12-20,2025-12-23,5,202.5,1012.5,Cash on Delivery,returned,BE,33
+ORD-2025-000018,4770,Denim Jeans,Clothing,2025-02-02,2025-02-07,1,296.21,296.21,Apple Pay,shipped,IT,27
+ORD-2025-000019,2160,Face Cream,Beauty,2025-04-28,2025-04-29,1,430.52,430.52,Apple Pay,shipped,UK,80
+ORD-2025-000020,7669,Linen Shirt,Clothing,2025-03-09,2025-03-16,4,393.39,1573.56,PayPal,pending,FR,73
+ORD-2025-000021,2612,LED Floor Lamp,Home,2025-07-30,2025-08-06,1,338.32,338.32,Credit Card,cancelled,US,31
+ORD-2025-000022,5563,Denim Jeans,Clothing,2025-04-08,2025-04-15,3,213.83,641.49,Cash on Delivery,shipped,FR,74
+ORD-2025-000023,4872,Yoga Mat,Sports,2025-01-26,2025-01-26,2,463.55,927.1,PayPal,cancelled,BE,79
+ORD-2025-000024,7396,Running Shoes,Clothing,2025-01-31,2025-02-02,7,6.07,42.49,Bank Transfer,cancelled,UK,72
+ORD-2025-000025,4566,Perfume 50ml,Beauty,2025-12-05,2025-12-12,3,99.0,297.0,Credit Card,returned,AT,25
+ORD-2025-000026,9701,Lipstick Matte,Beauty,2025-01-30,2025-01-30,10,241.01,2410.1,PayPal,pending,AT,28
+ORD-2025-000027,5033,Cotton T-Shirt,Clothing,2025-11-01,2025-11-02,4,204.87,819.48,-,returned,IT,28
+ORD-2025-000028,6147,Poetry Collection,Books,2025-10-17,2025-10-22,5,106.11,530.55,PayPal,delivered,NL,34
+ORD-2025-000029,2638,Lipstick Matte,Beauty,2025-08-23,2025-08-28,2,9.61,19.22,Credit Card,returned,ES,82
+ORD-2025-000030,3584,Kitchen Knife Set,Home,2025-06-28,2025-06-29,4,187.92,751.68,Cash on Delivery,returned,UK,85
+ORD-2025-000031,2753,Webcam HD,Electronics,2025-06-03,2025-06-04,3,135.91,407.73,Apple Pay,shipped,UK,54
+ORD-2025-000032,5114,Running Shorts,Sports,2025-06-25,2025-06-28,5,255.18,1275.9,Credit Card,pending,NL,53
+ORD-2025-000033,8239,Wireless Headphones,Electronics,2025-06-20,2025-06-22,5,84.98,424.9,Apple Pay,cancelled,AT,19
+ORD-2025-000034,7049,Wireless Headphones,Electronics,2025-12-20,2025-12-22,9,22.83,205.47,N.D.,returned,DE,73
+ORD-2025-000035,4441,Cotton T-Shirt,Clothing,2025-06-07,2025-06-12,1,449.97,449.97,PayPal,pending,US,70
+ORD-2025-000036,1406,Running Shorts,Sports,2025-05-02,2025-05-04,3,441.3,1323.9,PayPal,delivered,NL,49
+ORD-2025-000037,8711,Kitchen Knife Set,Home,2025-12-26,2025-12-27,7,436.72,3057.04,PayPal,shipped,BE,62
+ORD-2025-000038,5564,Kitchen Knife Set,Home,2025-04-25,2025-04-25,4,202.24,808.96,Credit Card,delivered,US,83
+ORD-2025-000039,5279,Poetry Collection,Books,2025-06-19,2025-06-19,2,439.13,878.26,PayPal,returned,UK,22
+ORD-2025-000040,9379,Webcam HD,Electronics,2025-08-11,2025-08-16,6,221.01,1326.06,Credit Card,cancelled,-,42
+ORD-2025-000041,9821,Coffee Machine,Home,2025-12-29,2026-01-04,1,262.36,262.36,PayPal,delivered,NL,26
+ORD-2025-000042,5920,Lipstick Matte,Beauty,2025-11-16,2025-11-21,2,361.28,722.56,Apple Pay,delivered,NL,59
+ORD-2025-000043,7211,History Atlas,Books,2025-10-11,2025-10-13,4,213.12,852.48,PayPal,returned,PT,56
+ORD-2025-000044,6279,Poetry Collection,Books,2025-01-01,2025-01-05,5,109.04,545.2,Cash on Delivery,cancelled,?,45
+ORD-2025-000045,6491,Cycling Helmet,Sports,2025-03-28,2025-03-29,5,260.15,1300.75,Credit Card,shipped,UK,46
+ORD-2025-000046,2193,Denim Jeans,Clothing,2025-01-13,2025-01-13,4,492.05,1968.2,Cash on Delivery,cancelled,PT,42
+ORD-2025-000047,1090,Hair Dryer,Beauty,2025-09-11,2025-09-08,4,78.05,312.2,Credit Card,cancelled,ES,40
+ORD-2025-000048,2988,Perfume 50ml,Beauty,2025-08-26,2025-08-26,9,128.35,1155.15,Cash on Delivery,shipped,BE,85
+ORD-2025-000049,9270,Dumbbell 5kg,Sports,2025-06-12,2025-06-19,10,408.43,4084.3,Cash on Delivery,returned,BE,38
+ORD-2025-000050,5543,Hair Dryer,Beauty,2025-08-19,2025-08-23,4,420.73,1682.92,Apple Pay,cancelled,ES,53
+ORD-2025-000051,9849,Mystery Novel,Books,2025-05-27,2025-05-30,5,171.24,856.2,Credit Card,shipped,DE,47
+ORD-2025-000052,6421,Cookbook Italian,Books,2025-12-28,2025-12-31,2,210.36,420.72,Apple Pay,cancelled,NL,25
+ORD-2025-000053,1096,Running Shoes,Clothing,2025-07-19,2025-07-19,10,193.29,1932.9,Bank Transfer,delivered,NL,71
+ORD-2025-000054,8140,Dumbbell 5kg,Sports,2025-11-05,2025-11-08,8,113.61,908.88,Cash on Delivery,pending,NL,61
+ORD-2025-000055,9751,Hair Dryer,Beauty,2025-03-26,2025-04-02,3,490.46,1471.38,Credit Card,cancelled,PT,21
+ORD-2025-000056,7211,4K Monitor,Electronics,2025-03-11,2025-03-18,3,29.89,89.67,Bank Transfer,shipped,BE,59
+ORD-2025-000057,8705,LED Floor Lamp,Home,2025-05-23,2025-05-29,5,418.28,2091.4,Credit Card,returned,IT,62
+ORD-2025-000058,4266,Cotton T-Shirt,Clothing,2025-11-30,2025-11-30,1,475.06,475.06,Credit Card,returned,DE,48
+ORD-2025-000059,8619,Running Shoes,Clothing,2025-12-09,2025-12-10,10,474.14,4741.4,Bank Transfer,delivered,DE,32
+ORD-2025-000060,7149,Wool Scarf,Clothing,2025-02-25,2025-02-25,5,290.02,1450.1,Cash on Delivery,shipped,FR,49
+ORD-2025-000061,6688,Bluetooth Speaker,Electronics,2025-12-17,2025-12-18,10,392.4,3924.0,Apple Pay,cancelled,US,26
+ORD-2025-000062,6934,Tennis Racket,Sports,2025-01-07,2025-01-13,8,57.24,457.92,Cash on Delivery,shipped,NL,40
+ORD-2025-000063,9817,Perfume 50ml,Beauty,2025-11-30,2025-12-04,10,405.06,4050.6,Cash on Delivery,cancelled,NL,52
+ORD-2025-000064,8613,Kitchen Knife Set,Home,2025-02-14,2025-02-18,8,125.71,1005.68,Apple Pay,returned,NL,61
+ORD-2025-000065,5232,4K Monitor,Electronics,2025-06-16,2025-06-18,8,110.0,880.0,Bank Transfer,delivered,PT,53
+ORD-2025-000066,7658,Yoga Mat,Sports,2025-09-22,2025-09-25,2,124.47,248.94,Cash on Delivery,returned,ES,78
+ORD-2025-000067,7625,Hair Dryer,Beauty,2025-08-18,2025-08-18,2,150.65,301.3,PayPal,delivered,PT,65
+ORD-2025-000068,6419,Poetry Collection,Books,2025-09-29,2025-10-04,7,498.33,3488.31,Bank Transfer,cancelled,UK,57
+ORD-2025-000069,9779,Kitchen Knife Set,Home,2025-03-03,2025-03-06,6,64.18,385.08,PayPal,shipped,ES,79
+ORD-2025-000070,5853,Ceramic Mug,Home,2025-09-26,2025-09-30,2,417.15,834.3,PayPal,delivered,DE,56
+ORD-2025-000071,5786,Webcam HD,Electronics,2025-03-06,2025-03-10,1,487.28,487.28,PayPal,cancelled,FR,19
+ORD-2025-000072,1841,Tennis Racket,Sports,2025-08-29,2025-09-05,8,173.65,1389.2,Bank Transfer,cancelled,FR,26
+ORD-2025-000073,5978,Children Picture Book,Books,2025-02-07,2025-02-07,3,78.85,236.55,Credit Card,shipped,FR,71
+ORD-2025-000074,8253,Dumbbell 5kg,Sports,2025-11-13,2025-11-16,9,193.29,1739.61,Bank Transfer,returned,NL,57
+ORD-2025-000075,5335,Dumbbell 5kg,Sports,2025-01-31,2025-02-01,4,314.63,1258.52,Credit Card,shipped,ES,40
+ORD-2025-000076,8699,Yoga Mat,Sports,2025-03-22,2025-03-22,7,228.0,1596.0,Bank Transfer,pending,ES,54
+ORD-2025-000077,5334,Lipstick Matte,Beauty,2025-12-26,2026-01-02,2,345.26,690.52,Apple Pay,shipped,NL,32
+ORD-2025-000078,2169,Running Shorts,Sports,2025-11-28,2025-11-30,5,414.18,2070.9,Credit Card,shipped,UK,54
+ORD-2025-000079,9199,Mystery Novel,Books,2025-08-28,2025-09-01,7,471.62,3301.34,Apple Pay,cancelled,BE,28
+ORD-2025-000080,2496,Yoga Mat,Sports,2025-08-10,2025-08-15,10,128.93,1289.3,PayPal,returned,PT,20
+ORD-2025-000081,8245,Lipstick Matte,Beauty,2025-10-23,2025-10-23,3,237.9,713.7,Bank Transfer,shipped,PT,73
+ORD-2025-000082,6260,Hair Dryer,Beauty,2025-02-16,2025-02-23,6,207.13,1242.78,Credit Card,shipped,US,70
+ORD-2025-000083,2442,Hair Dryer,Beauty,2025-05-28,2025-06-03,9,23.17,208.53,Bank Transfer,delivered,US,32
+ORD-2025-000084,9494,Poetry Collection,Books,2025-01-01,2025-01-08,7,31.83,222.81,Bank Transfer,returned,BE,na
+ORD-2025-000085,8941,USB-C Cable,Electronics,2025-05-17,2025-05-19,5,221.87,1109.35,Credit Card,pending,PT,48
+ORD-2025-000086,4681,Shampoo Organic,Beauty,2025-06-09,2025-06-09,9,206.96,1862.64,Credit Card,cancelled,FR,37
+ORD-2025-000087,8736,History Atlas,Books,2025-09-18,2025-09-22,7,418.19,2927.33,PayPal,cancelled,AT,36
+ORD-2025-000088,7798,Cookbook Italian,Books,2025-11-03,2025-11-05,2,141.74,283.48,-,returned,UK,18
+ORD-2025-000089,8935,Throw Pillow,Home,2025-10-28,2025-11-04,3,226.04,678.12,Bank Transfer,delivered,AT,66
+ORD-2025-000090,7730,History Atlas,Books,2025-04-07,2025-04-10,10,194.57,1945.7,Credit Card,delivered,BE,66
+ORD-2025-000091,6439,Cookbook Italian,Books,2025-09-11,2025-09-11,3,253.63,760.89,Credit Card,cancelled,FR,85
+ORD-2025-000092,5342,Mystery Novel,Books,2025-03-15,2025-03-21,3,42.04,126.12,Bank Transfer,returned,NL,28
+ORD-2025-000093,1588,Ceramic Mug,Home,2025-07-14,2025-07-19,8,436.83,3494.64,Apple Pay,pending,ES,54
+ORD-2025-000094,5906,Cotton T-Shirt,Clothing,2025-08-11,2025-08-12,2,224.62,449.24,Credit Card,pending,US,25
+ORD-2025-000095,7751,Throw Pillow,Home,2025-07-11,2025-07-17,3,125.88,377.64,Apple Pay,shipped,DE,40
+ORD-2025-000096,3344,Webcam HD,Electronics,2025-07-15,2025-07-18,8,456.85,3654.8,PayPal,cancelled,UK,76
+ORD-2025-000097,8237,Coffee Machine,Home,2025-08-27,2025-08-31,9,83.2,748.8,Bank Transfer,returned,UK,72
+ORD-2025-000098,8916,Lipstick Matte,Beauty,2025-08-22,2025-08-26,4,-499.69,1998.76,Credit Card,shipped,NL,63
+ORD-2025-000099,7484,Tennis Racket,Sports,2025-12-25,2025-12-29,1,489.08,489.08,Bank Transfer,pending,PT,24
+ORD-2025-000100,4588,Cycling Helmet,Sports,2025-05-27,2025-05-30,10,401.96,4019.6,PayPal,returned,UK,35
+ORD-2025-000101,1546,Face Cream,Beauty,2025-11-18,2025-11-18,5,395.36,1976.8,Apple Pay,delivered,DE,29
+ORD-2025-000102,9837,Throw Pillow,Home,2025-08-01,2025-08-03,4,70.42,281.68,Bank Transfer,returned,AT,52
+ORD-2025-000103,8673,Wool Scarf,Clothing,2025-09-04,2025-09-08,6,403.1,2418.6,Credit Card,shipped,ES,68
+ORD-2025-000104,3024,Tennis Racket,Sports,2025-02-16,2025-02-22,1,135.91,135.91,Cash on Delivery,delivered,UK,66
+ORD-2025-000105,6374,Lipstick Matte,Beauty,2025-02-25,2025-02-28,8,17.39,139.12,Apple Pay,shipped,FR,77
+ORD-2025-000106,1609,Lipstick Matte,Beauty,2025-11-29,2025-12-05,2,74.19,148.38,Bank Transfer,cancelled,FR,30
+ORD-2025-000107,9850,Linen Shirt,Clothing,2025-03-11,2025-03-17,8,188.65,1509.2,Cash on Delivery,returned,DE,71
+ORD-2025-000108,7070,Face Cream,Beauty,2025-09-08,2025-09-14,5,21.19,105.95,PayPal,cancelled,BE,48
+ORD-2025-000109,6876,Coffee Machine,Home,2025-12-18,2025-12-23,9,451.34,4062.06,Credit Card,cancelled,UK,42
+ORD-2025-000110,1828,4K Monitor,Electronics,2025-02-16,2025-02-19,10,485.69,4856.9,Bank Transfer,shipped,DE,44
+ORD-2025-000111,3417,Webcam HD,Electronics,2025-04-17,2025-04-20,4,167.64,670.56,Apple Pay,pending,UK,36
+ORD-2025-000112,1422,Linen Shirt,Clothing,2025-05-09,2025-05-11,2,332.22,664.44,PayPal,pending,US,48
+ORD-2025-000113,7897,Tennis Racket,Sports,2025-01-09,2025-01-11,5,30.94,154.7,Apple Pay,pending,FR,78
+ORD-2025-000114,1710,History Atlas,Books,2025-09-20,2025-09-21,8,254.4,2035.2,Apple Pay,delivered,BE,21
+ORD-2025-000115,8267,4K Monitor,Electronics,2025-07-25,2025-07-31,2,247.68,495.36,Credit Card,pending,US,36
+ORD-2025-000116,9692,USB-C Cable,Electronics,2025-05-21,2025-05-26,7,497.34,3481.38,Bank Transfer,cancelled,AT,73
+ORD-2025-000117,4743,Wireless Headphones,Electronics,2025-12-02,2025-12-05,7,228.52,1599.64,Cash on Delivery,delivered,BE,69
+ORD-2025-000118,7132,Mystery Novel,Books,2025-06-10,2025-06-16,6,334.23,2005.38,PayPal,cancelled,FR,29
+ORD-2025-000119,1982,Wireless Headphones,Electronics,2025-08-10,2025-08-05,6,406.83,2440.98,Apple Pay,returned,AT,60
+ORD-2025-000120,1842,Face Cream,Beauty,2025-07-30,2025-08-04,999,434.71,3042.97,Bank Transfer,returned,UK,63
+ORD-2025-000121,4674,Webcam HD,Electronics,2025-09-17,2025-09-20,3,330.08,990.24,Credit Card,delivered,AT,65
+ORD-2025-000122,1430,Bluetooth Speaker,Electronics,2025-10-21,2025-10-24,7,423.35,2963.45,Apple Pay,delivered,IT,41
+ORD-2025-000123,3347,Throw Pillow,Home,2025-06-23,2025-06-28,1,94.8,94.8,Apple Pay,cancelled,FR,36
+ORD-2025-000124,6585,Face Cream,Beauty,2025-02-16,2025-02-19,7,212.82,1489.74,PayPal,delivered,UK,59
+ORD-2025-000125,1815,-,Sports,2025-02-13,2025-02-13,3,82.92,248.76,Credit Card,delivered,BE,72
+ORD-2025-000126,9394,Poetry Collection,Books,2025-08-15,2025-08-21,5,111.71,558.55,Credit Card,delivered,NL,32
+ORD-2025-000127,1897,Ceramic Mug,Home,2025-09-07,2025-09-11,1,114.16,114.16,Credit Card,shipped,UK,45
+ORD-2025-000128,8055,Wool Scarf,Clothing,2025-05-29,2025-06-03,2,8.83,17.66,PayPal,shipped,NL,47
+ORD-2025-000129,1693,Dumbbell 5kg,Sports,2025-12-09,2025-12-14,2,201.55,403.1,Cash on Delivery,pending,BE,27
+ORD-2025-000130,7636,Ceramic Mug,Home,2025-08-08,2025-08-14,7,148.31,1038.17,Credit Card,delivered,DE,76
+ORD-2025-000131,7560,Lipstick Matte,Beauty,2025-02-15,2025-02-21,2,125.44,250.88,Apple Pay,pending,NL,57
+ORD-2025-000132,2868,Lipstick Matte,Beauty,2025-04-24,2025-04-29,3,42.81,128.43,Apple Pay,returned,ES,62
+ORD-2025-000133,3842,Kitchen Knife Set,Home,2025-05-01,2025-05-02,3,131.7,395.1,Apple Pay,shipped,FR,40
+ORD-2025-000134,6295,Hair Dryer,Beauty,2025-08-26,2025-09-02,10,323.28,3232.8,Bank Transfer,shipped,BE,26
+ORD-2025-000135,6766,Children Picture Book,Books,2025-11-20,2025-11-24,5,297.75,1488.75,Apple Pay,pending,UK,77
+ORD-2025-000136,2479,Mystery Novel,Books,2025-01-30,2025-02-04,5,42.98,214.9,Apple Pay,returned,AT,67
+ORD-2025-000137,4084,Poetry Collection,Books,2025-10-11,2025-10-11,8 pcs,454.98,3639.84,Bank Transfer,returned,BE,82
+ORD-2025-000138,2381,Cotton T-Shirt,Clothing,2025-08-19,2025-08-20,6,491.28,2947.68,Apple Pay,shipped,IT,49
+ORD-2025-000139,5634,Hair Dryer,Beauty,2025-08-13,2025-08-15,6,189.56,1137.36,Cash on Delivery,cancelled,US,24
+ORD-2025-000140,7333,Lipstick Matte,Beauty,2025-02-03,2025-02-08,2,281.19,562.38,Bank Transfer,delivered,PT,37
+ORD-2025-000141,7421,Coffee Machine,Home,2025-10-26,2025-10-28,6,158.56,951.36,PayPal,returned,FR,57
+ORD-2025-000142,9624,Cycling Helmet,Sports,2025-11-26,2025-12-01,3,336.71,3644.67,Credit Card,cancelled,AT,64
+ORD-2025-000143,8967,Bluetooth Speaker,Electronics,2025-06-08,2025-06-10,4,174.16,696.64,PayPal,shipped,DE,37
+ORD-2025-000144,3147,Bluetooth Speaker,Electronics,2025-02-21,2025-02-21,6,438.81,2632.86,Apple Pay,cancelled,DE,38
+ORD-2025-000145,4891,Linen Shirt,Clothing,26 MAR 2025,2025-04-02,1,208.38,208.38,Cash on Delivery,returned,UK,75
+ORD-2025-000146,4178,Linen Shirt,Clothing,2025-05-03,2025-05-07,8,452.47,3619.76,Bank Transfer,returned,BE,77
+ORD-2025-000147,3267,LED Floor Lamp,Home,2025-09-15,2025-09-21,3,409.36,1228.08,Bank Transfer,pending,BE,65
+ORD-2025-000148,3626,Yoga Mat,Sports,2025-12-31,2026-01-01,5,46.52,232.6,Bank Transfer,cancelled,AT,36
+ORD-2025-000149,7797,Mystery Novel,Books,2025-04-24,2025-04-20,6,465.58,2793.48,Credit Card,cancelled,AT,65
+ORD-2025-000150,2623,Running Shoes,Clothing,2025-02-11,2025-02-16,4,18.95,75.8,Bank Transfer,shipped,DE,22
+ORD-2025-000151,1086,LED Floor Lamp,Home,2025-12-23,2025-12-25,8,227.06,1816.48,Credit Card,pending,UK,45
+ORD-2025-000152,4893,Linen Shirt,Clothing,2025-11-08,2025-11-14,2,389.21,778.42,Bank Transfer,pending,IT,48
+ORD-2025-000153,9189,Poetry Collection,Books,2025-08-23,2025-08-24,2,419.16,838.32,Apple Pay,returned,IT,83
+ORD-2025-000154,6780,Running Shorts,Sports,2025-03-15,2025-03-19,7,5.77,40.39,PayPal,returned,NL,41
+ORD-2025-000155,9914,Face Cream,Beauty,2025-09-26,2025-10-01,2,476.93,953.86,Apple Pay,returned,AT,20
+ORD-2025-000156,1266,Children Picture Book,Books,2025-01-23,2025-01-29,6,130.56,783.36,Bank Transfer,pending,US,48
+ORD-2025-000157,9945,Face Cream,Beauty,2025-10-25,2025-10-30,3,26.95,80.85,Bank Transfer,shipped,BE,79
+ORD-2025-000158,4302,Shampoo Organic,Beauty,2025-03-11,2025-03-12,8,23.31,186.48,Credit Card,shipped,IT,58
+ORD-2025-000159,4131,Ceramic Mug,Home,2025-07-23,2025-07-30,5,23.13 EUR,115.65,Bank Transfer,delivered,IT,60
+ORD-2025-000160,7334,Coffee Machine,Home,2025-07-08,2025-07-14,7,372.94,2610.58,Bank Transfer,shipped,BE,81
+ORD-2025-000161,3956,Ceramic Mug,Home,2025-05-17,2025-05-18,7,44.07,308.49,Apple Pay,delivered,US,31
+ORD-2025-000162,7981,Bluetooth Speaker,Electronics,2025-12-05,2025-12-09,5,225.73,1128.65,PayPal,cancelled,US,75
+ORD-2025-000163,1939,Bluetooth Speaker,Electronics,2025-11-11,2025-11-17,5,321.54,1607.7,Credit Card,cancelled,US,83
+ORD-2025-000164,8179,Shampoo Organic,Beauty,2025-01-16,2025-01-18,10,340.65,3406.5,Credit Card,shipped,FR,48
+ORD-2025-000165,3513,Lipstick Matte,Beauty,2025-07-05,2025-07-11,10,21.03,210.3,Cash on Delivery,delivered,US,74
+ORD-2025-000166,5566,Webcam HD,Electronics,2025-03-12,2025-03-17,7,160.62,1124.34,PayPal,pending,IT,41
+ORD-2025-000167,8311,Poetry Collection,Books,2025-07-18,2025-07-19,5,388.61,1943.05,PayPal,returned,UK,80
+ORD-2025-000168,8292,Cotton T-Shirt,Clothing,2025-03-11,2025-03-12,8,90.46,723.68,Credit Card,delivered,US,26
+ORD-2025-000169,3852,Dumbbell 5kg,Sports,2025-05-29,2025-06-02,3,357.35,1072.05,Bank Transfer,returned,ES,33
+ORD-2025-000170,7044,Denim Jeans,Clothing,2025-05-02,2025-05-09,1,183.64,183.64,Cash on Delivery,returned,DE,29
+ORD-2025-000171,7708,Bluetooth Speaker,Electronics,2025-07-23,2025-07-30,9,-208.34,1875.06,Apple Pay,pending,DE,58
+ORD-2025-000172,3981,Face Cream,Beauty,2025-08-19,2025-08-26,9,175.53,1579.77,PayPal,cancelled,AT,25
+ORD-2025-000173,4694,Webcam HD,Electronics,2025-03-20,24-03-25,3,85.17,255.51,Bank Transfer,returned,UK,28
+ORD-2025-000174,9740,Kitchen Knife Set,Home,2025-11-22,2025-11-26,3,9999.99,943.17,Credit Card,returned,DE,37
+ORD-2025-000175,1464,Linen Shirt,Clothing,2025-11-06,2025-11-11,10,25.39,253.9,Credit Card,pending,PT,51
+ORD-2025-000176,9159,Shampoo Organic,Beauty,2025-10-20,2025-10-26,10,9999.99,3213.0,Apple Pay,delivered,UK,79
+ORD-2025-000177,3589,Running Shoes,Clothing,2025-06-02,2025-06-09,2,345.86,691.72,Cash on Delivery,cancelled,BE,77
+ORD-2025-000178,6231,Wool Scarf,Clothing,2025-11-07,2025-11-09,6,431.44,2588.64,Bank Transfer,cancelled,DE,65
+ORD-2025-000179,5382,Dumbbell 5kg,Sports,2025-02-24,2025-03-01,4,235.9,943.6,Cash on Delivery,shipped,DE,30
+ORD-2025-000180,3616,Bluetooth Speaker,Electronics,2025-07-16,2025-07-22,4,481.53,1926.12,Bank Transfer,returned,US,42
+ORD-2025-000181,9148,Running Shoes,Clothing,2025-09-21,2025-09-28,8,440.14,3521.12,Credit Card,pending,NL,82
+ORD-2025-000182,9108,Cookbook Italian,Books,2025-04-21,26-04-25,1,30.02,30.02,Apple Pay,cancelled,UK,19
+ORD-2025-000183,6995,4K Monitor,Electronics,2025-03-10,2025-03-14,6,383.11,2298.66,Credit Card,cancelled,IT,42
+ORD-2025-000184,5582,na,Home,2025-05-28,2025-05-29,7,254.61,1782.27,Apple Pay,returned,FR,34
+ORD-2025-000185,3363,4K Monitor,Electronics,2025-07-11,2025-07-16,9,469.78,4228.02,PayPal,returned,AT,69
+ORD-2025-000186,8761,Yoga Mat,Sports,2025-01-24,2025-01-24,3,358.23,1074.69,Apple Pay,cancelled,DE,83
+ORD-2025-000187,5902,Wool Scarf,Clothing,2025-11-10,2025-11-15,3,199.51,598.53,Apple Pay,delivered,AT,83
+ORD-2025-000188,7035,Cycling Helmet,Sports,2025-12-29,2026-01-02,8,408.8,3270.4,Bank Transfer,pending,NL,57
+ORD-2025-000189,4728,Face Cream,Beauty,2025-11-02,2025-11-09,5,483.7,2418.5,Credit Card,returned,BE,39
+ORD-2025-000190,2800,Dumbbell 5kg,Sports,2025-07-14,2025-07-16,4,20.63,82.52,PayPal,pending,BE,58
+ORD-2025-000191,8726,Cookbook Italian,Books,2025-07-31,2025-08-03,7,253.4,1773.8,Credit Card,shipped,AT,44
+ORD-2025-000192,3837,Tennis Racket,Sports,2025-12-06,2025-12-13,9,191.53,1723.77,Cash on Delivery,returned,US,63
+ORD-2025-000193,5571,Lipstick Matte,Beauty,2025-11-09,2025-11-16,4,478.88,1915.52,Apple Pay,delivered,ES,56
+ORD-2025-000194,5480,Kitchen Knife Set,Home,2025-12-20,2025-12-27,6,242.5,1455.0,Bank Transfer,pending,PT,66
+ORD-2025-000195,2294,History Atlas,Books,2025-03-16,2025-03-20,1,147.38,147.38,Bank Transfer,cancelled,UK,79
+ORD-2025-000196,3249,Denim Jeans,Clothing,2025-10-03,2025-10-07,9,349.6,3146.4,Credit Card,returned,PT,48
+ORD-2025-000197,7771,Cotton T-Shirt,Clothing,2025-12-09,2025-12-12,4,30.98,123.92,Bank Transfer,cancelled,FR,35
+ORD-2025-000198,4267,Webcam HD,Electronics,2025-03-22,2025-03-28,8,241.34,1930.72,Bank Transfer,delivered,UK,25
+ORD-2025-000199,3880,Webcam HD,Electronics,2025-04-29,2025-04-29,3,211.85,635.55,Credit Card,cancelled,BE,41
+ORD-2025-000200,2758,Lipstick Matte,Beauty,2025-01-20,2025-01-20,5,286.14,1430.7,Bank Transfer,delivered,BE,85
+ORD-2025-000201,2845,Cookbook Italian,Books,2025-09-16,2025-09-23,5,100.44,502.2,Bank Transfer,shipped,BE,50
+ORD-2025-000202,4164,Shampoo Organic,Beauty,2025-01-08,2025-01-13,5,286.05,1430.25,PayPal,returned,NL,72
+ORD-2025-000203,3303,Tennis Racket,Sports,2025-02-14,2025-02-20,2,96.47,192.94,Cash on Delivery,delivered,ES,18
+ORD-2025-000204,5947,LED Floor Lamp,Home,2025-05-01,2025-05-08,5,477.25,2386.25,Apple Pay,returned,IT,51
+ORD-2025-000205,8625,Lipstick Matte,Beauty,2025-12-21,2025-12-24,1,335.55,335.55,Bank Transfer,shipped,NL,82
+ORD-2025-000206,4618,Lipstick Matte,Beauty,2025-12-20,2025-12-21,5,186.93,934.65,PayPal,shipped,BE,37
+ORD-2025-000207,9806,Poetry Collection,Books,2025-07-11,2025-07-17,9,456.83,4111.47,PayPal,shipped,PT,28
+ORD-2025-000208,2838,Cycling Helmet,Sports,2025-09-28,2025-10-03,2,459.04,918.08,Credit Card,returned,AT,43
+ORD-2025-000209,8239,Dumbbell 5kg,Sports,2025-03-18,2025-03-20,6,427.97,2567.82,Credit Card,shipped,PT,80
+ORD-2025-000210,7806,Webcam HD,Electronics,2025-08-17,2025-08-17,8,70.31,562.48,Cash on Delivery,returned,IT,77
+ORD-2025-000211,4570,Lipstick Matte,Beauty,2025-01-12,2025-01-18,5,409.14,2045.7,Apple Pay,pending,IT,72
+ORD-2025-000212,8734,Coffee Machine,Home,2025-10-05,2025-10-05,2,493.14,986.28,Credit Card,delivered,NL,41
+ORD-2025-000213,7184,Running Shoes,Clothing,2025-07-11,2025-07-17,8,435.46,3483.68,Cash on Delivery,pending,AT,35
+ORD-2025-000214,3086,Lipstick Matte,Beauty,2025-03-02,2025-03-04,9,199.56,1796.04,PayPal,pending,IT,56
+ORD-2025-000215,6671,Poetry Collection,Books,2025-08-06,2025-08-12,4,127.52,510.08,PayPal,delivered,ES,32
+ORD-2025-000216,2653,4K Monitor,Electronics,2025-11-11,2025-11-11,4,107.01,428.04,Apple Pay,pending,BE,24
+ORD-2025-000217,1924,Cotton T-Shirt,Clothing,2025-07-25,2025-08-01,4,272.18,1088.72,PayPal,returned,UK,47
+ORD-2025-000218,3347,Perfume 50ml,Beauty,2025-06-13,2025-06-18,4,154.37,617.48,Apple Pay,shipped,NL,56
+ORD-2025-000219,1768,Coffee Machine,Home,2025-10-13,2025-10-15,7,280.15,1961.05,Bank Transfer,cancelled,AT,58
+ORD-2025-000220,9813,Hair Dryer,Beauty,2025-07-29,2025-07-31,5,191.35,956.75,Cash on Delivery,shipped,ES,56
+ORD-2025-000221,7824,Shampoo Organic,Beauty,2025-08-26,2025-08-26,9,209.28,1883.52,Apple Pay,returned,DE,67
+ORD-2025-000222,7079,Wool Scarf,Clothing,2025-04-15,2025-04-20,2,461.5,923.0,Credit Card,returned,ES,24
+ORD-2025-000223,4555,LED Floor Lamp,Home,2025-12-11,2025-12-11,2,98.14,196.28,Cash on Delivery,shipped,US,56
+ORD-2025-000224,4350,USB-C Cable,Electronics,2025-04-08,2025-04-09,8,457.65,3661.2,Cash on Delivery,shipped,AT,59
+ORD-2025-000225,9401,LED Floor Lamp,Home,2025-08-27,2025-09-01,5,134.47,672.35,Cash on Delivery,cancelled,FR,78
+ORD-2025-000226,4625,Kitchen Knife Set,Home,2025-07-09,2025-07-14,7,27.63,193.41,PayPal,pending,UK,71
+ORD-2025-000227,5026,Kitchen Knife Set,Home,2025-04-11,2025-04-16,4,193.02,772.08,Cash on Delivery,returned,US,50
+ORD-2025-000228,9954,Children Picture Book,Books,2025-08-24,2025-08-26,6,88.79,532.74,Cash on Delivery,shipped,AT,25
+ORD-2025-000548,5904,Tennis Racket,Sports,2025-08-25,2025-08-31,1,418.38,418.38,Apple Pay,delivered,AT,20
+ORD-2025-000230,8916,Cycling Helmet,Sports,2025-07-11,2025-07-11,10,320.68,3206.8,Cash on Delivery,pending,IT,70
+ORD-2025-000231,1280,Wireless Headphones,Electronics,2025-09-29,2025-10-03,9,488.85,4399.65,Apple Pay,cancelled,DE,31
+ORD-2025-000232,5135,Webcam HD,Electronics,2025-03-18,2025-03-21,4,311.79,1247.16,Bank Transfer,delivered,N.D.,28
+ORD-2025-000233,2320,LED Floor Lamp,Home,2025-08-24,2025-08-27,4,153.49,613.96,Credit Card,pending,NL,66
+ORD-2025-000234,2354,Poetry Collection,Books,2025-09-01,2025-09-01,1,352.91,352.91,Cash on Delivery,cancelled,US,30
+ORD-2025-000235,1762,Yoga Mat,Sports,2025-04-28,2025-05-01,10,240.37,2403.7,Credit Card,delivered,AT,22
+ORD-2025-000236,7525,Wool Scarf,Clothing,2025-01-09,2025-01-12,10,76.37,763.7,Credit Card,delivered,DE,48
+ORD-2025-000237,3292,Cycling Helmet,Sports,2025-12-13,2025-12-18,7,379.03,2653.21,Credit Card,returned,US,24
+ORD-2025-000238,7499,4K Monitor,Electronics,2025-04-29,2025-04-30,6,304.56,1827.36,Bank Transfer,pending,UK,75
+ORD-2025-000239,7227,Cookbook Italian,Books,2025-07-02,2025-07-08,7,96.94,678.58,Credit Card,returned,UK,49
+ORD-2025-000240,3527,Face Cream,Beauty,2025-02-12,2025-02-16,3,193.1,579.3,Cash on Delivery,delivered,US,31
+ORD-2025-000241,2674,Wireless Headphones,Electronics,2025-06-07,2025-06-14,6,381.87,2291.22,PayPal,pending,DE,73
+ORD-2025-000242,6798,Poetry Collection,Books,2025-10-12,2025-10-18,2,18.0,36.0,Apple Pay,pending,PT,59
+ORD-2025-000243,4977,Mystery Novel,Books,2025-05-30,2025-06-05,7,390.69,2734.83,Apple Pay,returned,DE,66
+ORD-2025-000244,2036,Denim Jeans,Clothing,2025-05-18,2025-05-22,5,249.1,1245.5,PayPal,cancelled,UK,71
+ORD-2025-000245,9123,LED Floor Lamp,Home,2025-02-09,2025-02-14,5,472.39,2361.95,Apple Pay,returned,ES,76
+ORD-2025-000246,7224,USB-C Cable,Electronics,2025-06-05,2025-06-05,7,169.45,1186.15,Bank Transfer,cancelled,US,73
+ORD-2025-000247,4290,Perfume 50ml,Beauty,2025-03-11,2025-03-15,6,303.59,1821.54,Cash on Delivery,delivered,DE,68
+ORD-2025-000248,6339,Throw Pillow,Home,2025-12-22,2025-12-29,10,392.08,3920.8,Cash on Delivery,delivered,NL,64
+ORD-2025-000249,8563,Webcam HD,Electronics,2025-04-13,2025-04-15,9,18.32,164.88,PayPal,cancelled,UK,26
+ORD-2025-000250,3525,Children Picture Book,Books,2025-03-13,2025-03-17,4,130.08,520.32,Cash on Delivery,cancelled,FR,75
+ORD-2025-000251,7853,Cycling Helmet,Sports,2025-10-26,2025-11-01,9,255.77,2301.93,Apple Pay,pending,US,28
+ORD-2025-000252,1725,USB-C Cable,Electronics,2025-12-03,2025-12-08,3,325.26,975.78,Apple Pay,cancelled,US,73
+ORD-2025-000253,9499,Wireless Headphones,Electronics,2025-02-20,2025-02-24,4,257.78,1031.12,Apple Pay,returned,PT,46
+ORD-2025-000254,3469,History Atlas,Books,2025-07-20,2025-07-27,10,346.77,3467.7,Bank Transfer,pending,BE,31
+ORD-2025-000255,6620,LED Floor Lamp,Home,2025-02-13,2025-02-14,3,177.42,532.26,Cash on Delivery,shipped,AT,79
+ORD-2025-000256,5919,LED Floor Lamp,Home,2025-02-19,2025-02-26,8,162.86,1302.88,Credit Card,pending,IT,61
+ORD-2025-000257,3623,Face Cream,Beauty,2025-12-13,15-12-25,4,260.42,1041.68,Bank Transfer,returned,NL,77
+ORD-2025-000258,8080,Running Shoes,Clothing,2025-11-19,2025-11-21,3,322.04,966.12,Cash on Delivery,pending,PT,43
+ORD-2025-000259,4371,Poetry Collection,Books,08 AGO 2025,2025-08-14,1,353.84,353.84,Bank Transfer,pending,PT,31
+ORD-2025-000260,5298,Running Shorts,Sports,2025-07-07,2025-07-12,4,231.49,925.96,Cash on Delivery,returned,US,67
+ORD-2025-000261,8501,Cycling Helmet,Sports,2025-10-28,2025-10-29,6,179.23,1075.38,Apple Pay,shipped,UK,28
+ORD-2025-000262,3999,Shampoo Organic,Beauty,2025-06-10,2025-06-11,4,156.16,624.64,Bank Transfer,shipped,AT,67
+ORD-2025-000263,9804,Poetry Collection,Books,2025-03-12,2025-03-18,7,96.95,678.65,PayPal,returned,na,80
+ORD-2025-000264,6882,Kitchen Knife Set,Home,2025-04-06,2025-04-11,8,311.61,2492.88,Credit Card,cancelled,DE,42
+ORD-2025-000265,7809,Poetry Collection,Books,2025-09-16,2025-09-23,7,343.92,2407.44,Cash on Delivery,cancelled,DE,28
+ORD-2025-000266,9808,Yoga Mat,Sports,2025-04-23,2025-04-27,1,141.05,141.05,Bank Transfer,shipped,BE,81
+ORD-2025-000267,7010,Dumbbell 5kg,Sports,2025-02-27,2025-02-28,5,388.68,1943.4,Apple Pay,pending,BE,45
+ORD-2025-000268,1528,Mystery Novel,Books,2025-12-01,2025-12-04,5,438.03,2190.15,Cash on Delivery,delivered,US,29
+ORD-2025-000269,8015,Mystery Novel,Books,2025-05-02,2025-05-05,999,346.12,3461.2,PayPal,returned,DE,44
+ORD-2025-000270,9827,Cotton T-Shirt,Clothing,2025-10-19,2025-10-24,9,144.14,1297.26,PayPal,delivered,UK,55
+ORD-2025-000271,7743,Tennis Racket,Sports,2025-09-21,2025-09-22,3,481.57,1444.71,Credit Card,delivered,DE,34
+ORD-2025-000272,7434,Denim Jeans,Clothing,2025-12-31,2026-01-05,4,381.93,1527.72,Cash on Delivery,shipped,PT,52
+ORD-2025-000273,2525,Hair Dryer,Beauty,2025-07-12,2025-07-19,2,318.65,637.3,Cash on Delivery,returned,UK,65
+ORD-2025-000274,8511,Children Picture Book,Books,2025-06-17,2025-06-17,2,366.81,733.62,Bank Transfer,pending,AT,68
+ORD-2025-000275,5646,Running Shoes,Clothing,2025-04-19,2025-04-26,5,164.82,824.1,Bank Transfer,returned,PT,34
+ORD-2025-000276,8529,Cycling Helmet,Sports,2025-06-25,2025-06-25,1,54.29,54.29,Credit Card,pending,DE,74
+ORD-2025-000277,5945,Mystery Novel,Books,2025-08-08,2025-08-11,3,441.66,1324.98,PayPal,delivered,FR,64
+ORD-2025-000278,6005,Coffee Machine,Home,2025-07-10,2025-07-12,1,201.19 EUR,201.19,PayPal,cancelled,FR,30
+ORD-2025-000279,9510,USB-C Cable,Electronics,2025-09-02,2025-09-03,3,298.87,896.61,N.D.,pending,IT,61
+ORD-2025-000280,7276,4K Monitor,Electronics,2025-12-22,2025-12-24,8,40.06,320.48,Credit Card,pending,FR,58
+ORD-2025-000281,3340,Throw Pillow,Home,2025-03-12,2025-03-18,3,322.58,967.74,Credit Card,returned,PT,19
+ORD-2025-000282,3480,Running Shorts,Sports,2025-08-14,2025-08-19,4,315.9,1263.6,Cash on Delivery,returned,BE,45
+ORD-2025-000283,6759,Wireless Headphones,Electronics,2025-03-13,2025-03-14,10,366.35,3663.5,Cash on Delivery,delivered,DE,49
+ORD-2025-000284,5942,Coffee Machine,Home,2025-05-08,2025-05-12,1,424.71,424.71,PayPal,returned,PT,83
+ORD-2025-000285,2847,Running Shoes,Clothing,2025-06-01,2025-06-01,4,249.97,3424.53,PayPal,cancelled,PT,27
+ORD-2025-000286,7895,Yoga Mat,Sports,2025-07-04,2025-07-09,3,196.48,589.44,Bank Transfer,returned,DE,78
+ORD-2025-000287,1652,Wireless Headphones,Electronics,2025-10-28,2025-10-29,1,134.78,134.78,Credit Card,cancelled,AT,54
+ORD-2025-000288,9791,Perfume 50ml,Beauty,2025-08-01,2025-08-07,7,45.8,320.6,Apple Pay,returned,DE,53
+ORD-2025-000289,7401,Bluetooth Speaker,Electronics,2025-02-10,2025-02-13,3,270.51,811.53,Apple Pay,pending,UK,73
+ORD-2025-000290,2900,Shampoo Organic,Beauty,2025-01-30,2025-02-02,2,462.69,925.38,Cash on Delivery,returned,PT,25
+ORD-2025-000291,3684,Kitchen Knife Set,Home,2025-03-03,2025-03-03,3,352.24,1056.72,Cash on Delivery,delivered,AT,84
+ORD-2025-000292,5403,Lipstick Matte,Beauty,2025-03-27,2025-04-01,3,376.14,1128.42,Credit Card,pending,US,72
+ORD-2025-000293,9128,Ceramic Mug,Home,2025-02-02,2025-02-06,10,315.63,3156.3,Cash on Delivery,returned,US,25
+ORD-2025-000294,2685,Poetry Collection,Books,2025-03-27,2025-04-01,3,131.28,393.84,Apple Pay,pending,ES,83
+ORD-2025-000295,7274,Wireless Headphones,Electronics,2025-01-07,2025-01-10,1,238.52,238.52,PayPal,shipped,IT,71
+ORD-2025-000296,2276,Wool Scarf,Clothing,2025-05-08,2025-05-14,6,139.27,835.62,Apple Pay,delivered,FR,82
+ORD-2025-000297,7568,Face Cream,Beauty,2025-04-02,2025-04-05,9 pcs,490.8,4417.2,Credit Card,cancelled,UK,57
+ORD-2025-000298,5777,Coffee Machine,Home,2025-10-11,2025-10-18,1,187.62,187.62,Apple Pay,delivered,PT,49
+ORD-2025-000299,9954,History Atlas,Books,2025-10-30,2025-11-06,4,367.57,1470.28,PayPal,shipped,IT,70
+ORD-2025-000300,1023,USB-C Cable,Electronics,2025-10-05,2025-10-10,1,475.74,475.74,Cash on Delivery,delivered,FR,44
+ORD-2025-000301,3332,Running Shorts,Sports,2025-08-03,2025-08-10,1,486.42,486.42,Bank Transfer,pending,IT,47
+ORD-2025-000302,2391,Cycling Helmet,Sports,2025-12-25,2025-12-30,8,487.4,3899.2,Apple Pay,pending,AT,35
+ORD-2025-000303,3141,Hair Dryer,Beauty,2025-02-08,2025-02-08,7,332.91,2330.37,PayPal,delivered,UK,58
+ORD-2025-000304,4321,History Atlas,Books,2025-06-12,2025-06-19,5,120.64,603.2,PayPal,returned,FR,37
+ORD-2025-000305,9780,USB-C Cable,Electronics,2025-08-19,2025-08-26,6,206.22,1237.32,Bank Transfer,shipped,BE,57
+ORD-2025-000306,5984,History Atlas,Books,2025-03-03,2025-03-04,3,404.76,1214.28,Apple Pay,pending,ES,59
+ORD-2025-000307,1802,Cotton T-Shirt,Clothing,2025-12-31,2026-01-03,6,201.14,1206.84,Bank Transfer,delivered,DE,21
+ORD-2025-000308,3290,Children Picture Book,Books,2025-10-12,2025-10-15,2,233.71,467.42,Credit Card,pending,IT,46
+ORD-2025-000309,5240,Denim Jeans,Clothing,2025-07-25,2025-07-30,2,293.25,586.5,Credit Card,pending,FR,43
+ORD-2025-000310,8552,Hair Dryer,Beauty,2025-03-07,2025-03-08,6,65.65,393.9,Credit Card,shipped,PT,73
+ORD-2025-000311,3831,Hair Dryer,Beauty,2025-09-12,2025-09-12,7,343.19,2402.33,Bank Transfer,shipped,DE,53
+ORD-2025-000312,5026,LED Floor Lamp,Home,2025-03-18,2025-03-18,10,311.49,3114.9,Bank Transfer,cancelled,NL,79
+ORD-2025-000313,9614,Wireless Headphones,Electronics,2025-05-24,2025-05-30,3,212.52,637.56,PayPal,returned,IT,66
+ORD-2025-000314,9231,Lipstick Matte,Beauty,2025-09-03,2025-09-10,6,456.78,2740.68,Bank Transfer,cancelled,UK,41
+ORD-2025-000315,5602,Bluetooth Speaker,Electronics,2025-11-02,2025-11-05,1,448.4,448.4,Credit Card,cancelled,AT,63
+ORD-2025-000316,5366,Running Shorts,Sports,2025-03-23,2025-03-24,4,330.15,1320.6,Apple Pay,pending,ES,67
+ORD-2025-000317,6878,Kitchen Knife Set,Home,2025-04-01,2025-04-04,10,162.41,1624.1,Apple Pay,pending,US,36
+ORD-2025-000318,2478,Running Shorts,Sports,2025-09-10,2025-09-14,3,247.77,743.31,Credit Card,shipped,PT,46
+ORD-2025-000319,4300,Webcam HD,Electronics,2025-09-02,2025-09-02,6,459.36,2756.16,PayPal,delivered,DE,59
+ORD-2025-000320,6978,Wireless Headphones,Electronics,2025-03-17,2025-03-19,2,424.01,848.02,Credit Card,delivered,NL,30
+ORD-2025-000321,8157,Throw Pillow,Home,2025-06-15,2025-06-17,3,367.51,1102.53,Cash on Delivery,delivered,DE,63
+ORD-2025-000322,5825,Linen Shirt,Clothing,2025-03-31,2025-04-06,5,368.33,1841.65,PayPal,shipped,IT,68
+ORD-2025-000323,2705,Yoga Mat,Sports,2025-04-04,2025-04-09,10,114.34,1143.4,Cash on Delivery,shipped,US,27
+ORD-2025-000324,6500,Wool Scarf,Clothing,2025-06-13,2025-06-15,2 pcs,411.72,823.44,Cash on Delivery,pending,UK,44
+ORD-2025-000325,1788,Cotton T-Shirt,Clothing,2025-06-29,2025-07-03,2,361.6,723.2,Cash on Delivery,cancelled,NL,39
+ORD-2025-000326,8855,Children Picture Book,Books,2025-07-13,2025-07-18,9,190.8,1717.2,Apple Pay,shipped,DE,75
+ORD-2025-000327,2715,Wireless Headphones,Electronics,2025-05-31,2025-05-31,6,9999.99,805.56,Credit Card,delivered,DE,66
+ORD-2025-000328,8909,Cotton T-Shirt,Clothing,2025-10-08,2025-10-09,6,299.05,1794.3,Credit Card,cancelled,DE,73
+ORD-2025-000329,7705,Cotton T-Shirt,Clothing,2025-02-21,2025-02-26,4,487.33,1949.32,Apple Pay,returned,UK,54
+ORD-2025-000330,9043,Kitchen Knife Set,Home,2025-02-19,2025-02-19,7,288.03,2016.21,PayPal,pending,US,18
+ORD-2025-000331,4390,Mystery Novel,Books,2025-05-31,2025-06-07,4,53.01,212.04,PayPal,delivered,FR,78
+ORD-2025-000332,5341,Bluetooth Speaker,Electronics,2025-07-23,2025-07-30,8,447.96,3583.68,Credit Card,returned,NL,41
+ORD-2025-000333,8204,LED Floor Lamp,Home,2025-07-09,2025-07-11,8,27.09,216.72,Cash on Delivery,delivered,ES,52
+ORD-2025-000334,9871,Yoga Mat,Sports,2025-03-19,2025-03-20,2,335.73,671.46,Cash on Delivery,returned,ES,25
+ORD-2025-000335,8803,Poetry Collection,Books,2025-08-03,2025-08-10,10,441.42,4414.2,Bank Transfer,pending,NL,22
+ORD-2025-000336,8357,Dumbbell 5kg,Sports,2025-09-22,2025-09-24,2,474.88,949.76,PayPal,shipped,ES,42
+ORD-2025-000337,3422,Cotton T-Shirt,Clothing,2025-08-05,2025-08-06,7,104.95,734.65,Apple Pay,delivered,US,26
+ORD-2025-000338,5525,4K Monitor,Electronics,2025-10-12,2025-10-18,9,166.43,1497.87,Apple Pay,cancelled,IT,84
+ORD-2025-000339,2641,Mystery Novel,Books,2025-08-01,2025-08-03,3,285.46,856.38,Credit Card,returned,FR,54
+ORD-2025-000340,8750,Tennis Racket,Sports,2025-07-30,2025-08-03,7,329.12,2303.84,Credit Card,shipped,UK,69
+ORD-2025-000341,6431,--,Clothing,2025-11-08,2025-11-14,1,200.92,200.92,PayPal,pending,BE,52
+ORD-2025-000342,9054,Coffee Machine,Home,2025-06-22,2025-06-26,5,143.77,1845.9,Credit Card,shipped,DE,56
+ORD-2025-000343,2462,Hair Dryer,Beauty,2025-06-14,2025-06-18,7,304.46,2131.22,PayPal,cancelled,ES,70
+ORD-2025-000344,3604,Hair Dryer,Beauty,2025-09-22,2025-09-27,1,260.06,260.06,Credit Card,delivered,AT,69
+ORD-2025-000345,4288,Linen Shirt,Clothing,2025-10-19,2025-10-19,3,100.42,301.26,Credit Card,shipped,IT,76
+ORD-2025-000346,8605,Bluetooth Speaker,Electronics,2025-12-27,2025-12-30,5,187.33,936.65,Apple Pay,cancelled,FR,21
+ORD-2025-000347,8775,Wool Scarf,Clothing,2025-09-08,2025-09-15,3,480.46,1441.38,Apple Pay,returned,US,62
+ORD-2025-000348,1813,Wool Scarf,Clothing,2025-12-19,2025-12-20,5,18.59,92.95,PayPal,returned,ES,46
+ORD-2025-000349,9409,Shampoo Organic,Beauty,2025-12-13,2025-12-16,5,327.54,1637.7,Credit Card,pending,BE,34
+ORD-2025-000350,6004,Shampoo Organic,Beauty,2025-11-04,2025-11-04,4,129.93,519.72,Bank Transfer,cancelled,NL,62
+ORD-2025-000351,7506,History Atlas,Books,2025-04-22,2025-04-29,5,340.21,1701.05,Apple Pay,pending,IT,83
+ORD-2025-000352,8892,Lipstick Matte,Beauty,2025-10-15,2025-10-19,5,343.78,1718.9,Credit Card,delivered,UK,59
+ORD-2025-000353,4937,Throw Pillow,Home,2025-12-02,2025-12-06,4,79.22,316.88,Credit Card,returned,NL,58
+ORD-2025-000354,7857,Shampoo Organic,Beauty,2025-01-14,2025-01-21,5 pcs,133.42,667.1,Cash on Delivery,cancelled,IT,42
+ORD-2025-000355,3785,Kitchen Knife Set,Home,2025-12-18,2025-12-25,6,256.12,1536.72,Apple Pay,shipped,UK,30
+ORD-2025-000356,4641,Cookbook Italian,Books,2025-05-13,2025-05-15,6,328.95,1973.7,Bank Transfer,shipped,UK,71
+ORD-2025-000357,8709,Throw Pillow,Home,2025-05-14,2025-05-18,8,426.35,3410.8,Credit Card,returned,PT,27
+ORD-2025-000358,7768,Cookbook Italian,Books,2025-09-14,2025-09-15,7,267.27,1870.89,Credit Card,shipped,DE,43
+ORD-2025-000359,3954,LED Floor Lamp,Home,2025-10-19,2025-10-26,3,161.61,484.83,Credit Card,cancelled,US,40
+ORD-2025-000360,3762,Coffee Machine,Home,2025-01-03,2025-01-10,5,108.64,543.2,Apple Pay,shipped,BE,29
+ORD-2025-000361,8821,Linen Shirt,Clothing,2025-08-11,2025-08-17,7,217.37,1521.59,Cash on Delivery,pending,IT,43
+ORD-2025-000362,1067,Lipstick Matte,Beauty,2025-01-08,2025-01-13,9,99.34,894.06,PayPal,shipped,US,57
+ORD-2025-000363,1749,Cotton T-Shirt,Clothing,2025-07-16,2025-07-20,3,37.32,111.96,Bank Transfer,delivered,BE,84
+ORD-2025-000364,9031,Dumbbell 5kg,Sports,2025-06-22,2025-06-28,3,174.65,523.95,Bank Transfer,shipped,DE,69
+ORD-2025-000365,9267,USB-C Cable,Electronics,2025-04-25,2025-04-27,4,368.37,1473.48,PayPal,pending,US,22
+ORD-2025-000366,2771,History Atlas,Books,2025-10-01,2025-10-01,10,497.37,4973.7,Credit Card,pending,FR,71
+ORD-2025-000367,4366,Children Picture Book,Books,2025-03-05,2025-03-09,8,352.42,2819.36,Credit Card,delivered,NL,30
+ORD-2025-000368,2718,Perfume 50ml,Beauty,2025-05-19,2025-05-21,7,416.17,2913.19,Apple Pay,returned,FR,54
+ORD-2025-000369,5308,Wireless Headphones,Electronics,2025-09-12,2025-09-15,10,103.88,1038.8,Apple Pay,shipped,US,70
+ORD-2025-000370,8875,Kitchen Knife Set,Home,2025-01-21,2025-01-28,4,345.66,1382.64,Bank Transfer,shipped,IT,19
+ORD-2025-000371,9383,Face Cream,Beauty,2025-02-26,2025-03-05,3,474.98,1424.94,Credit Card,pending,UK,47
+ORD-2025-000372,3862,History Atlas,Books,2025-05-16,2025-05-23,1,54.41,54.41,Credit Card,delivered,US,58
+ORD-2025-000373,3793,Mystery Novel,Books,2025-02-18,2025-02-18,1,426.74,426.74,Bank Transfer,delivered,BE,52
+ORD-2025-000374,7557,Face Cream,Beauty,2025-07-10,2025-07-15,3,61.35,184.05,Cash on Delivery,delivered,NL,79
+ORD-2025-000375,3611,Cookbook Italian,Books,2025-02-27,2025-03-01,1,490.88,490.88,Credit Card,cancelled,na,79
+ORD-2025-000376,3140,Cycling Helmet,Sports,2025-04-03,2025-04-09,6,307.62,1845.72,Cash on Delivery,cancelled,FR,70
+ORD-2025-000377,9598,Mystery Novel,Books,2025-02-02,2025-02-06,6,11.12,66.72,Apple Pay,returned,ES,61
+ORD-2025-000378,5072,Dumbbell 5kg,Sports,2025-12-19,2025-12-20,7,332.55,2327.85,Cash on Delivery,delivered,NL,37
+ORD-2025-000379,8688,Dumbbell 5kg,Sports,2025-01-28,2025-01-28,3,255.26,765.78,Cash on Delivery,shipped,FR,80
+ORD-2025-000380,7203,Kitchen Knife Set,Home,2025-06-19,2025-06-23,1,255.93,255.93,Cash on Delivery,shipped,FR,76
+ORD-2025-000381,2944,Poetry Collection,Books,2025-08-18,2025-08-19,8,226.3,1810.4,Cash on Delivery,pending,FR,69
+ORD-2025-000382,5990,Mystery Novel,Books,2025-10-13,2025-10-13,2,396.93,793.86,Apple Pay,returned,ES,76
+ORD-2025-000383,8751,Throw Pillow,Home,2025-01-28,2025-01-31,8 pcs,169.33,1354.64,Bank Transfer,cancelled,FR,30
+ORD-2025-000384,5783,Shampoo Organic,Beauty,2025-01-02,2025-01-07,6,415.79,2494.74,Apple Pay,returned,US,31
+ORD-2025-000385,4209,USB-C Cable,Electronics,2025-09-10,2025-09-12,7,57.95,405.65,PayPal,pending,NL,45
+ORD-2025-000386,3018,Cookbook Italian,Books,2025-06-23,2025-06-24,7,28.02,196.14,Cash on Delivery,cancelled,PT,82
+ORD-2025-000387,8912,Running Shoes,Clothing,2025-01-03,2025-01-03,9,467.98,4211.82,Apple Pay,shipped,PT,40
+ORD-2025-000388,6273,Shampoo Organic,Beauty,2025-02-23,2025-03-01,10,305.05,3050.5,Apple Pay,cancelled,NL,49
+ORD-2025-000389,3263,LED Floor Lamp,Home,2025-06-25,2025-06-29,8,403.37,9785.55,Cash on Delivery,returned,AT,56
+ORD-2025-000390,5760,Perfume 50ml,Beauty,2025-06-10,2025-06-13,4,108.81,435.24,Bank Transfer,shipped,DE,82
+ORD-2025-000391,7839,Tennis Racket,Sports,2025-12-30,2025-12-31,6,283.33,1699.98,Apple Pay,delivered,NL,19
+ORD-2025-000392,1927,Yoga Mat,Sports,2025-01-13,2025-01-19,3,31.27,93.81,PayPal,delivered,DE,54
+ORD-2025-000393,9866,Lipstick Matte,Beauty,2025-03-16,2025-03-16,5,105.98,529.9,Credit Card,delivered,BE,31
+ORD-2025-000394,5712,Dumbbell 5kg,Sports,2025-04-25,2025-05-01,4,257.91,1031.64,Credit Card,cancelled,NL,71
+ORD-2025-000395,4327,Lipstick Matte,Beauty,2025-10-10,2025-10-10,1,373.12,373.12,Apple Pay,cancelled,ES,65
+ORD-2025-000396,3906,Dumbbell 5kg,Sports,2025-11-05,2025-11-08,4,150.62,602.48,Credit Card,shipped,DE,83
+ORD-2025-000397,3131,4K Monitor,Electronics,2025-01-21,2025-01-27,5,280.52,1402.6,PayPal,returned,UK,18
+ORD-2025-000398,6285,LED Floor Lamp,Home,2025-12-30,2026-01-01,1,81.08,81.08,Apple Pay,pending,PT,56
+ORD-2025-000399,6207,Poetry Collection,Books,2025-10-09,2025-10-14,2,393.1,786.2,Apple Pay,shipped,DE,84
+ORD-2025-000400,2506,Webcam HD,Electronics,2025-03-23,2025-03-29,9,270.83,2437.47,Bank Transfer,shipped,ES,60
+ORD-2025-000401,1144,Throw Pillow,Home,2025-05-31,2025-06-03,10,267.6,2676.0,Credit Card,delivered,BE,48
+ORD-2025-000402,6258,Perfume 50ml,Beauty,2025-11-15,2025-11-18,1,342.86,342.86,Cash on Delivery,pending,NL,50
+ORD-2025-000403,8300,Tennis Racket,Sports,2025-01-13,2025-01-18,9,402.39,3621.51,Cash on Delivery,pending,UK,42
+ORD-2025-000404,9814,Ceramic Mug,Home,2025-02-12,2025-02-13,3,485.96,1457.88,Apple Pay,pending,FR,44
+ORD-2025-000405,8130,Shampoo Organic,Beauty,2025-12-17,2025-12-23,2,106.76,213.52,Credit Card,shipped,IT,76
+ORD-2025-000406,5127,Lipstick Matte,Beauty,2025-01-20,2025-01-21,2,31.86,63.72,Apple Pay,pending,PT,47
+ORD-2025-000407,1276,LED Floor Lamp,Home,2025-07-18,2025-07-25,7,219.35,1535.45,Cash on Delivery,pending,AT,18
+ORD-2025-000408,9238,Perfume 50ml,Beauty,2025-02-02,2025-02-02,2,182.06,364.12,Credit Card,delivered,UK,29
+ORD-2025-000409,9740,LED Floor Lamp,Home,2025-07-15,2025-07-21,1,239.62,239.62,PayPal,shipped,NL,55
+ORD-2025-000410,3316,Shampoo Organic,Beauty,2025-06-02,2025-06-07,1,278.99,278.99,Credit Card,pending,IT,68
+ORD-2025-000411,6633,Dumbbell 5kg,Sports,2025-02-13,2025-02-17,4,375.41,1501.64,PayPal,cancelled,AT,36
+ORD-2025-000412,1891,Denim Jeans,Clothing,2025-04-24,2025-04-28,4,61.74,246.96,Apple Pay,cancelled,AT,27
+ORD-2025-000413,8982,Coffee Machine,Home,2025-05-09,2025-05-10,4,364.17,1456.68,Bank Transfer,delivered,DE,48
+ORD-2025-000414,8383,Bluetooth Speaker,Electronics,2025-11-14,2025-11-15,4,162.3,649.2,Bank Transfer,returned,UK,37
+ORD-2025-000415,6131,Dumbbell 5kg,Sports,2025-07-06,2025-07-11,7,88.48,619.36,PayPal,shipped,NL,53
+ORD-2025-000416,6877,Kitchen Knife Set,Home,2025-12-14,2025-12-19,8,234.11,1872.88,Bank Transfer,cancelled,AT,31
+ORD-2025-000417,4218,Linen Shirt,Clothing,2025-02-11,2025-02-15,3,446.19,1338.57,Bank Transfer,pending,FR,20
+ORD-2025-000418,1600,Yoga Mat,Sports,2025-10-25,2025-10-31,10,110.32,1103.2,Apple Pay,delivered,AT,78
+ORD-2025-000419,5767,Shampoo Organic,Beauty,2025-07-07,2025-07-13,4,446.26,1785.04,PayPal,cancelled,AT,83
+ORD-2025-000420,3717,4K Monitor,Electronics,2025-07-06,2025-07-06,4,424.75,1699.0,Apple Pay,shipped,BE,38
+ORD-2025-000421,1662,Linen Shirt,Clothing,2025-10-17,2025-10-19,8,469.89,3759.12,PayPal,cancelled,ES,26
+ORD-2025-000422,6918,Throw Pillow,Home,2025-04-30,2025-04-30,4,261.35,1045.4,Cash on Delivery,cancelled,BE,23
+ORD-2025-000423,3848,Bluetooth Speaker,Electronics,2025-02-22,2025-02-26,5,291.42,1457.1,Cash on Delivery,cancelled,US,27
+ORD-2025-000424,6653,Tennis Racket,Sports,2025-07-12,2025-07-15,9,205.89,1853.01,Cash on Delivery,cancelled,PT,18
+ORD-2025-000425,5600,Running Shorts,Sports,2025-08-14,2025-08-16,4,43.16,172.64,PayPal,shipped,DE,38
+ORD-2025-000426,2856,Ceramic Mug,Home,02/03/2025,2025-03-05,7,406.53,2845.71,Cash on Delivery,cancelled,BE,44
+ORD-2025-000427,3095,Running Shorts,Sports,2025-11-28,2025-12-04,1,125.62,125.62,Apple Pay,returned,DE,35
+ORD-2025-000428,3949,Perfume 50ml,Beauty,2025-01-21,2025-01-23,1,87.34,87.34,Apple Pay,cancelled,PT,20
+ORD-2025-000429,8723,Lipstick Matte,Beauty,2025-02-13,2025-02-16,8,305.23,2441.84,Cash on Delivery,shipped,ES,70
+ORD-2025-000430,5333,Running Shorts,Sports,2025-10-26,2025-10-28,10,331.53,3315.3,PayPal,delivered,BE,26
+ORD-2025-000431,9564,Running Shoes,Clothing,2025-07-17,2025-07-19,2,13.2,26.4,Apple Pay,cancelled,DE,30
+ORD-2025-000432,2925,Running Shoes,Clothing,2025-11-11,2025-11-11,9,254.15,2287.35,Credit Card,cancelled,DE,18
+ORD-2025-000433,9680,Hair Dryer,Beauty,2025-09-25,2025-10-01,6,438.04,2628.24,Cash on Delivery,shipped,BE,66
+ORD-2025-000434,8817,Ceramic Mug,Home,2025-12-23,2025-12-24,7,71.27,498.89,PayPal,pending,UK,70
+ORD-2025-000435,9515,Kitchen Knife Set,Home,2025-01-03,2025-01-03,10,263.66,2636.6,Credit Card,cancelled,ES,58
+ORD-2025-000436,5155,History Atlas,Books,2025-02-24,2025-02-26,7,327.53,2292.71,Bank Transfer,returned,NL,64
+ORD-2025-000437,8904,Tennis Racket,Sports,2025-12-15,2025-12-21,4,209.55,838.2,PayPal,delivered,AT,79
+ORD-2025-000438,2951,Throw Pillow,Home,2025-10-23,2025-10-28,7,369.21,2584.47,PayPal,cancelled,DE,30
+ORD-2025-000439,1852,Linen Shirt,Clothing,2025-07-25,2025-07-30,9,308.94,2780.46,PayPal,cancelled,IT,29
+ORD-2025-000440,4633,Running Shoes,Clothing,2025-11-04,2025-11-10,2,36.72,73.44,Bank Transfer,pending,PT,22
+ORD-2025-000441,3871,Hair Dryer,Beauty,2025-07-25,2025-07-29,10,33.44,334.4,Cash on Delivery,cancelled,IT,43
+ORD-2025-000442,9364,Perfume 50ml,Beauty,2025-05-27,2025-05-30,1,393.06,393.06,Apple Pay,shipped,PT,39
+ORD-2025-000443,2422,Face Cream,Beauty,2025-07-04,2025-07-07,1,487.94,487.94,Bank Transfer,cancelled,US,68
+ORD-2025-000444,5661,Poetry Collection,Books,2025-04-13,2025-04-13,2,459.99,919.98,Apple Pay,returned,US,62
+ORD-2025-000445,1076,Kitchen Knife Set,Home,2025-11-07,2025-11-10,8,465.21,3721.68,Bank Transfer,shipped,NL,82
+ORD-2025-000446,9409,Webcam HD,Electronics,2025-02-07,2025-02-11,6,473.77,2842.62,Bank Transfer,returned,PT,50
+ORD-2025-000447,8517,Hair Dryer,Beauty,2025-07-13,2025-07-20,4,379.95,1519.8,Cash on Delivery,returned,IT,79
+ORD-2025-000448,4767,Bluetooth Speaker,Electronics,2025-02-04,2025-02-10,4,340.07,1360.28,Bank Transfer,cancelled,US,84
+ORD-2025-000449,7536,Yoga Mat,Sports,2025-12-25,2025-12-29,4,147.21,588.84,Bank Transfer,pending,AT,40
+ORD-2025-000450,4115,History Atlas,Books,2025-07-01,2025-07-04,10,138.19 EUR,1381.9,Cash on Delivery,shipped,ES,48
+ORD-2025-000451,6833,Kitchen Knife Set,Home,2025-04-28,2025-05-01,4,418.99,1675.96,PayPal,pending,FR,28
+ORD-2025-000452,8901,Hair Dryer,Beauty,2025-11-11,2025-11-11,9,479.21,4312.89,Bank Transfer,returned,US,81
+ORD-2025-000453,4638,Tennis Racket,Sports,2025-09-09,2025-09-11,9,143.73,1293.57,Apple Pay,shipped,IT,85
+ORD-2025-000454,3863,Children Picture Book,Books,2025-10-04,2025-10-04,9,176.91,1592.19,Cash on Delivery,pending,AT,76
+ORD-2025-000455,6331,Coffee Machine,Home,2025-01-07,2025-01-10,7,292.6,2048.2,Bank Transfer,returned,UK,41
+ORD-2025-000456,6621,Tennis Racket,Sports,2025-05-02,2025-05-06,8,479.47,3835.76,Bank Transfer,shipped,BE,72
+ORD-2025-000457,5581,Running Shoes,Clothing,2025-12-25,2025-12-30,6,427.89,2567.34,Cash on Delivery,shipped,PT,34
+ORD-2025-000458,7240,Running Shorts,Sports,2025-02-21,2025-02-25,4,279.89,4305.98,PayPal,shipped,DE,78
+ORD-2025-000459,9470,USB-C Cable,Electronics,04 AGO 2025,2025-08-11,3,497.8,1493.4,Apple Pay,delivered,BE,56
+ORD-2025-000460,3676,Ceramic Mug,Home,2025-10-18,2025-10-18,7,-53.99,377.93,Credit Card,shipped,UK,78
+ORD-2025-000461,5222,Face Cream,Beauty,2025-08-19,2025-08-24,5,183.68,918.4,Bank Transfer,pending,NL,33
+ORD-2025-000462,9363,Ceramic Mug,Home,2025-04-12,2025-04-14,5,180.78,903.9,Cash on Delivery,cancelled,FR,66
+ORD-2025-000463,6527,Tennis Racket,Sports,2025-08-26,2025-08-28,3,322.09,966.27,Cash on Delivery,returned,PT,69
+ORD-2025-000464,5773,Wireless Headphones,Electronics,2025-03-24,2025-03-29,4,160.17,640.68,Bank Transfer,returned,NL,52
+ORD-2025-000465,1378,History Atlas,Books,2025-10-28,2025-11-04,7,87.82,614.74,PayPal,shipped,UK,28
+ORD-2025-000466,8752,Denim Jeans,Clothing,2025-07-23,2025-07-24,2,36.58,73.16,Apple Pay,pending,IT,68
+ORD-2025-000467,7387,Yoga Mat,Sports,2025-02-23,2025-02-27,10,81.86,818.6,Bank Transfer,shipped,ES,54
+ORD-2025-000468,6846,Cookbook Italian,Books,2025-03-09,2025-03-11,1,22.4,22.4,Bank Transfer,cancelled,BE,52
+ORD-2025-000469,8126,Cycling Helmet,Sports,2025-03-11,2025-03-13,10,300.8,3008.0,Apple Pay,returned,UK,62
+ORD-2025-000470,7753,Poetry Collection,Books,2025-04-27,2025-04-28,8,157.39,1259.12,Bank Transfer,shipped,UK,19
+ORD-2025-000471,1136,Webcam HD,Electronics,2025-03-11,2025-03-16,5,237.25,1186.25,Cash on Delivery,cancelled,UK,19
+ORD-2025-000472,4089,History Atlas,Books,2025-11-02,2025-11-05,1,276.37,276.37,Cash on Delivery,returned,NL,68
+ORD-2025-000473,2297,Denim Jeans,Clothing,2025-11-27,2025-12-03,7,-114.19,799.33,Cash on Delivery,shipped,AT,52
+ORD-2025-000474,3988,Ceramic Mug,Home,2025-05-18,2025-05-24,4,427.47,1709.88,PayPal,delivered,FR,76
+ORD-2025-000475,3492,Cycling Helmet,Sports,2025-05-20,2025-05-27,4,163.72,654.88,Credit Card,returned,IT,41
+ORD-2025-000476,4814,Bluetooth Speaker,Electronics,2025-05-18,2025-05-20,8,364.92,2919.36,Credit Card,shipped,IT,81
+ORD-2025-000477,8597,Wool Scarf,Clothing,2025-08-04,2025-08-08,8,498.99,3991.92,Credit Card,delivered,FR,36
+ORD-2025-000478,4148,Bluetooth Speaker,Electronics,2025-07-20,2025-07-21,9,237.72,2139.48,Bank Transfer,cancelled,IT,33
+ORD-2025-000479,1549,Shampoo Organic,Beauty,2025-07-17,2025-07-24,4,370.12,1480.48,PayPal,cancelled,FR,84
+ORD-2025-000480,3598,Shampoo Organic,Beauty,2025-08-31,2025-09-06,5,468.43,2342.15,Credit Card,returned,AT,33
+ORD-2025-000481,1853,LED Floor Lamp,Home,2025-11-23,2025-11-27,4,9999.99,733.64,PayPal,pending,ES,73
+ORD-2025-000482,4982,Coffee Machine,Home,2025-03-27,2025-03-31,10,64.23,642.3,Credit Card,pending,PT,78
+ORD-2025-000483,9190,Perfume 50ml,Beauty,2025-03-21,2025-03-26,2,128.12,256.24,Credit Card,returned,US,25
+ORD-2025-000484,3061,Bluetooth Speaker,Electronics,2025-11-27,2025-11-29,9,396.78,3571.02,Cash on Delivery,shipped,US,62
+ORD-2025-000485,5107,Cookbook Italian,Books,2025-01-11,2025-01-17,6,363.58,2181.48,Credit Card,cancelled,BE,55
+ORD-2025-000486,8674,Cycling Helmet,Sports,2025-04-08,2025-04-10,9,177.09,1593.81,Bank Transfer,returned,AT,38
+ORD-2025-000487,9873,Webcam HD,Electronics,2025-03-21,2025-03-28,5,410.61,2053.05,Bank Transfer,cancelled,IT,82
+ORD-2025-000488,2037,Cookbook Italian,Books,2025-01-10,2025-01-15,10,123.2,1232.0,Apple Pay,cancelled,ES,85
+ORD-2025-000489,7714,Hair Dryer,Beauty,2025-10-10,2025-10-12,10,145.15,1451.5,Bank Transfer,pending,FR,84
+ORD-2025-000490,4310,Face Cream,Beauty,2025-01-23,2025-01-25,3,437.38,1312.14,Credit Card,cancelled,ES,30
+ORD-2025-000491,5193,Webcam HD,Electronics,25 NOV 2025,2025-12-01,8,265.28,2122.24,Credit Card,delivered,ES,27
+ORD-2025-000492,1994,USB-C Cable,Electronics,2025-12-02,2025-12-09,2,236.69,473.38,Bank Transfer,returned,NL,65
+ORD-2025-000493,2153,Face Cream,Beauty,2025-11-12,2025-11-16,9,25.12,226.08,Bank Transfer,pending,ES,84
+ORD-2025-000494,5075,Wireless Headphones,Electronics,2025-04-29,2025-05-05,4,100.59,402.36,Apple Pay,shipped,AT,71
+ORD-2025-000495,7997,Face Cream,Beauty,2025-11-23,2025-11-28,8,352.76,2822.08,Credit Card,shipped,DE,69
+ORD-2025-000496,8258,Tennis Racket,Sports,2025-12-03,2025-12-05,9,499.22,4492.98,Bank Transfer,delivered,N.D.,59
+ORD-2025-000497,9939,LED Floor Lamp,Home,2025-11-21,2025-11-27,6,306.16,1836.96,PayPal,cancelled,AT,50
+ORD-2025-000498,5660,LED Floor Lamp,Home,2025-08-18,2025-08-24,1,364.53,364.53,Apple Pay,pending,AT,35
+ORD-2025-000499,1355,Coffee Machine,Home,2025-06-03,2025-06-06,4,428.58,1714.32,Bank Transfer,returned,AT,37
+ORD-2025-000500,7014,Wireless Headphones,Electronics,2025-08-24,2025-08-29,3,73.51,220.53,Apple Pay,shipped,ES,50
+ORD-2025-000501,2264,Coffee Machine,Home,20/10/2025,2025-10-26,10,459.35,4593.5,Bank Transfer,cancelled,DE,80
+ORD-2025-000502,7251,Perfume 50ml,Beauty,2025-02-18,22-02-25,1,366.74,366.74,Credit Card,pending,US,62
+ORD-2025-000503,7266,Children Picture Book,Books,2025-03-03,2025-03-06,10,464.68,4646.8,Credit Card,delivered,AT,23
+ORD-2025-000504,4617,Ceramic Mug,Home,2025-10-17,2025-10-19,6,253.69,1522.14,PayPal,pending,NL,75
+ORD-2025-000505,7460,Dumbbell 5kg,Sports,2025-09-16,2025-09-17,4,218.81,875.24,PayPal,shipped,US,28
+ORD-2025-000506,9221,Poetry Collection,Books,2025-01-26,2025-02-01,5,47.11,235.55,Cash on Delivery,shipped,DE,79
+ORD-2025-000507,9589,Running Shorts,Sports,2025-09-07,2025-09-13,10,102.07,1020.7,PayPal,shipped,FR,52
+ORD-2025-000508,7939,History Atlas,Books,2025-12-17,2025-12-18,2,337.52,675.04,Bank Transfer,delivered,ES,59
+ORD-2025-000509,6729,Ceramic Mug,Home,2025-12-02,2025-12-02,5,88.78,443.9,Apple Pay,cancelled,PT,36
+ORD-2025-000510,2405,Mystery Novel,Books,2025-04-30,2025-05-03,6,82.22,493.32,Credit Card,pending,ES,36
+ORD-2025-000511,1372,Coffee Machine,Home,2025-06-25,2025-06-26,5,227.78,1138.9,Bank Transfer,shipped,AT,45
+ORD-2025-000512,3315,Linen Shirt,Clothing,2025-09-25,2025-09-29,9,244.1,2196.9,Credit Card,cancelled,PT,85
+ORD-2025-000513,5444,Bluetooth Speaker,Electronics,2025-03-29,2025-03-29,5,104.34,521.7,Credit Card,cancelled,IT,26
+ORD-2025-000514,7332,History Atlas,Books,2025-12-06,2025-12-11,2,14.44,28.88,PayPal,cancelled,AT,30
+ORD-2025-000515,8503,LED Floor Lamp,Home,2025-11-02,2025-11-03,3,103.44,310.32,Apple Pay,pending,IT,49
+ORD-2025-000516,1301,Tennis Racket,Sports,2025-06-20,2025-06-27,7,373.47,2614.29,Bank Transfer,delivered,US,56
+ORD-2025-000517,1482,Linen Shirt,Clothing,2025-05-22,2025-05-22,5,439.95,2199.75,Apple Pay,delivered,ES,37
+ORD-2025-000518,9531,LED Floor Lamp,Home,2025-12-03,2025-12-05,2,366.3,732.6,Apple Pay,shipped,NL,48
+ORD-2025-000519,9883,Running Shorts,Sports,2025-08-07,2025-08-11,10,168.0,1680.0,Crypto,shipped,DE,43
+ORD-2025-000520,3378,Wool Scarf,Clothing,2025-12-19,2025-12-21,7,497.86,3485.02,-,shipped,US,26
+ORD-2025-000521,3384,Dumbbell 5kg,Sports,2025-03-02,2025-03-04,6,420.56,2523.36,Credit Card,delivered,NL,70
+ORD-2025-000522,2749,LED Floor Lamp,Home,2025-11-23,2025-11-27,3,390.66,1171.98,PayPal,shipped,IT,-
+ORD-2025-000523,1427,Dumbbell 5kg,Sports,2025-11-10,2025-11-13,10,119.93,1199.3,Bank Transfer,pending,BE,35
+ORD-2025-000524,9051,Dumbbell 5kg,Sports,2025-08-29,2025-09-03,3,426.8,1280.4,Cash on Delivery,shipped,DE,42
+ORD-2025-000525,4646,Cotton T-Shirt,Clothing,2025-07-29,2025-07-29,5,475.35,2376.75,PayPal,shipped,FR,40
+ORD-2025-000526,8005,Poetry Collection,Books,2025-09-08,13-09-25,8,444.36,3554.88,Cash on Delivery,pending,PT,66
+ORD-2025-000527,8485,Lipstick Matte,Beauty,2025-07-21,2025-07-21,9,59.11,531.99,Credit Card,shipped,AT,68
+ORD-2025-000528,1807,Face Cream,Beauty,13/10/2025,2025-10-19,9,383.75,3453.75,PayPal,delivered,BE,68
+ORD-2025-000529,1893,Throw Pillow,Home,2025-08-25,2025-08-27,7,150.74,1055.18,Apple Pay,shipped,BE,75
+ORD-2025-000530,9952,Webcam HD,Electronics,27/02/2025,2025-03-01,10,469.23,4692.3,PayPal,cancelled,NL,59
+ORD-2025-000531,4308,Mystery Novel,Books,2025-04-02,2025-04-09,10,448.83,4488.3,Cash on Delivery,pending,UK,59
+ORD-2025-000532,6946,Shampoo Organic,Beauty,2025-03-05,2025-03-06,2,354.58,709.16,Credit Card,returned,NL,83
+ORD-2025-000533,6491,Running Shorts,Sports,2025-07-13,2025-07-19,1,385.29,385.29,Apple Pay,shipped,DE,36
+ORD-2025-000534,8311,Cotton T-Shirt,Clothing,2025-08-03,2025-08-07,5,366.43,1832.15,Bank Transfer,shipped,FR,34
+ORD-2025-000535,9169,Cotton T-Shirt,Clothing,2025-11-15,2025-11-19,1,232.03,232.03,Apple Pay,pending,PT,81
+ORD-2025-000536,2300,Denim Jeans,Clothing,2025-10-29,2025-11-05,8,208.02,1664.16,Apple Pay,returned,IT,49
+ORD-2025-000537,1902,Tennis Racket,Sports,2025-11-14,2025-11-17,1,96.5,96.5,Bank Transfer,pending,DE,22
+ORD-2025-000538,1803,Perfume 50ml,Beauty,2025-11-05,2025-11-03,6,460.59,2763.54,Credit Card,cancelled,DE,38
+ORD-2025-000539,6901,Lipstick Matte,Beauty,2025-11-09,2025-11-11,8,375.92,3007.36,Credit Card,pending,UK,59
+ORD-2025-000540,8713,LED Floor Lamp,Home,2025-02-04,2025-02-10,9,37.14,334.26,PayPal,pending,UK,60
+ORD-2025-000541,2790,?,Sports,2025-09-26,2025-09-29,4,307.97,1231.88,Apple Pay,returned,FR,79
+ORD-2025-000542,6185,Perfume 50ml,Beauty,2025-12-28,2026-01-01,7,306.38,2144.66,Bank Transfer,returned,PT,63
+ORD-2025-000543,9154,Linen Shirt,Clothing,2025-10-16,2025-10-23,9,365.95,3293.55,Cash on Delivery,shipped,PT,47
+ORD-2025-000544,2932,Lipstick Matte,Beauty,2025-04-10,2025-04-10,2,16.87,33.74,PayPal,returned,NL,70
+ORD-2025-000545,5614,Bluetooth Speaker,Electronics,2025-06-29,2025-07-02,1,322.11,322.11,Bank Transfer,pending,UK,56
+ORD-2025-000546,6592,Dumbbell 5kg,Sports,2025-06-15,2025-06-15,2,344.49,688.98,Cash on Delivery,returned,PT,21
+ORD-2025-000547,1582,Denim Jeans,Clothing,2025-06-19,2025-06-24,8,458.5,3668.0,PayPal,cancelled,DE,76
+ORD-2025-000548,5904,Tennis Racket,Sports,2025-08-25,2025-08-31,1,418.38,418.38,Apple Pay,delivered,AT,20
+ORD-2025-000549,3446,Linen Shirt,Clothing,2025-12-17,2025-12-22,6,37.78,226.68,Bank Transfer,pending,US,66
+ORD-2025-000550,6050,Perfume 50ml,Beauty,2025-03-26,2025-04-01,3,299.62,898.86,Bank Transfer,pending,null,70
+ORD-2025-000551,5958,4K Monitor,Electronics,2025-05-02,2025-05-07,8,415.58,3324.64,PayPal,returned,UK,40
+ORD-2025-000552,1408,Bluetooth Speaker,Electronics,2025-01-20,2025-01-23,2,224.67,449.34,Cash on Delivery,returned,DE,42
+ORD-2025-000553,2609,LED Floor Lamp,Home,2025-09-26,2025-09-30,6,75.93,455.58,Apple Pay,shipped,ES,22
+ORD-2025-000554,1721,Children Picture Book,Books,2025-09-25,2025-09-26,1,158.94,158.94,Apple Pay,pending,US,77
+ORD-2025-000555,6114,Wireless Headphones,Electronics,2025-09-24,2025-09-28,1,290.89,290.89,PayPal,delivered,ES,42
+ORD-2025-000556,5467,Throw Pillow,Home,2025-09-30,2025-10-05,8,337.21,2697.68,PayPal,shipped,UK,32
+ORD-2025-000557,6218,Webcam HD,Electronics,2025-10-14,2025-10-15,4,273.55,1094.2,Bank Transfer,shipped,UK,49
+ORD-2025-000558,3131,Cotton T-Shirt,Clothing,2025-06-09,2025-06-14,9,224.61,2021.49,Credit Card,cancelled,IT,31
+ORD-2025-000559,8304,Mystery Novel,Books,2025-02-14,2025-02-20,7,93.6,655.2,Apple Pay,delivered,UK,N.D.
+ORD-2025-000560,8672,Linen Shirt,Clothing,2025-02-10,2025-02-17,10,70.24,702.4,Credit Card,cancelled,UK,77
+ORD-2025-000561,6954,Cookbook Italian,Books,2025-04-25,2025-04-27,10,132.74,1327.4,Cash on Delivery,shipped,US,59
+ORD-2025-000562,8842,Children Picture Book,Books,2025-01-16,2025-01-17,8,60.88,487.04,Cash on Delivery,shipped,UK,62
+ORD-2025-000563,2752,Dumbbell 5kg,Sports,2025-03-07,2025-03-08,7,409.69,2867.83,Bank Transfer,returned,FR,56
+ORD-2025-000564,9977,Cycling Helmet,Sports,2025-07-25,2025-07-31,4,312.33,1249.32,PayPal,cancelled,NL,26
+ORD-2025-000938,3112,Children Picture Book,Books,2025-09-26,2025-09-26,3,301.58,904.74,Bank Transfer,pending,PT,25
+ORD-2025-000566,6330,Perfume 50ml,Beauty,2025-09-07,2025-09-08,10,300.06,3000.6,Apple Pay,pending,BE,40
+ORD-2025-000567,7208,LED Floor Lamp,Home,2025-02-05,2025-02-06,10,386.81,3868.1,Bank Transfer,cancelled,IT,29
+ORD-2025-000568,8421,Denim Jeans,Clothing,2025-10-25,2025-10-25,3,332.14,996.42,Apple Pay,delivered,NL,75
+ORD-2025-000569,5989,Denim Jeans,Clothing,2025-12-15,2025-12-20,5,287.29,1436.45,Cash on Delivery,delivered,FR,19
+ORD-2025-000570,9992,Dumbbell 5kg,Sports,2025-07-26,2025-07-28,5,35.89,179.45,Credit Card,pending,na,63
+ORD-2025-000571,7459,Bluetooth Speaker,Electronics,2025-01-16,2025-01-19,7,352.6,2468.2,Bank Transfer,cancelled,NL,66
+ORD-2025-000572,7301,Poetry Collection,Books,2025-04-19,2025-04-21,8,73.84,590.72,Bank Transfer,cancelled,DE,54
+ORD-2025-000573,3359,Shampoo Organic,Beauty,2025-03-10,2025-03-10,2,-325.95,651.9,Cash on Delivery,cancelled,DE,28
+ORD-2025-000574,9346,Running Shoes,Clothing,2025-08-22,2025-08-28,10,94.0,940.0,Cash on Delivery,returned,BE,67
+ORD-2025-000575,9161,Kitchen Knife Set,Home,2025-04-06,2025-04-12,10,8.68,86.8,PayPal,returned,UK,70
+ORD-2025-000576,7038,Dumbbell 5kg,Sports,2025-07-07,2025-07-07,1,286.23,286.23,Credit Card,returned,BE,28
+ORD-2025-000577,2449,Linen Shirt,Clothing,2025-05-24,2025-05-31,9,43.73,393.57,PayPal,cancelled,FR,57
+ORD-2025-000578,8687,Yoga Mat,Sports,2025-06-25,2025-06-25,8,229.75,1838.0,Apple Pay,delivered,NL,63
+ORD-2025-000579,5267,Throw Pillow,Home,2025-03-27,2025-03-27,10,375.97,3759.7,Credit Card,cancelled,PT,39
+ORD-2025-000580,8942,Yoga Mat,Sports,2025-12-03,2025-12-07,10,18.51,185.1,Credit Card,shipped,AT,27
+ORD-2025-000581,1232,Throw Pillow,Home,2025-03-09,2025-03-13,5,429.64,2148.2,Credit Card,returned,DE,37
+ORD-2025-000582,4869,Hair Dryer,Beauty,2025-07-09,2025-07-11,5,392.35,1961.75,Cash on Delivery,shipped,AT,22
+ORD-2025-000583,7765,--,Home,2025-03-16,2025-03-18,8,377.62,3020.96,Cash on Delivery,shipped,BE,39
+ORD-2025-000584,2900,Linen Shirt,Clothing,2025-06-26,2025-06-26,5,378.96,1894.8,Credit Card,shipped,BE,69
+ORD-2025-000585,7390,History Atlas,Books,2025-09-01,2025-09-04,7,343.34,2403.38,Cash on Delivery,delivered,DE,85
+ORD-2025-000586,9687,Mystery Novel,Books,2025-05-28,2025-06-04,7,340.85,2385.95,Credit Card,pending,AT,63
+ORD-2025-000587,2610,Poetry Collection,Books,30/11/2025,2025-12-04,6,138.81,832.86,Bank Transfer,returned,NL,77
+ORD-2025-000588,3947,Shampoo Organic,Beauty,2025-12-11,2025-12-14,9,172.02,1548.18,Bank Transfer,returned,IT,19
+ORD-2025-000589,8306,Wireless Headphones,Electronics,2025-07-30,2025-07-31,9,56.43,507.87,Bank Transfer,shipped,UK,50
+ORD-2025-000590,4552,Cotton T-Shirt,Clothing,2025-01-13,2025-01-14,1,469.56,469.56,Apple Pay,pending,FR,29
+ORD-2025-000591,5150,Running Shorts,Sports,2025-07-12,2025-07-14,2,349.35,698.7,Bank Transfer,cancelled,FR,76
+ORD-2025-000592,2212,LED Floor Lamp,Home,2025-12-21,2025-12-26,5,85.17,425.85,Bank Transfer,pending,NL,67
+ORD-2025-000593,9056,Coffee Machine,Home,2025-05-13,2025-05-17,3,223.08,669.24,PayPal,returned,NL,40
+ORD-2025-000594,4578,Hair Dryer,Beauty,2025-02-25,2025-02-27,9,385.51,3469.59,Apple Pay,pending,BE,51
+ORD-2025-000595,8305,Wireless Headphones,Electronics,2025-02-07,2025-02-08,10,365.13,3651.3,Credit Card,cancelled,DE,18
+ORD-2025-000596,1060,4K Monitor,Electronics,2025-05-17,2025-05-19,6,452.79,2716.74,Apple Pay,cancelled,BE,73
+ORD-2025-000597,8898,Mystery Novel,Books,2025-10-04,2025-10-07,1,195.29,195.29,Credit Card,returned,-,63
+ORD-2025-000598,6571,Throw Pillow,Home,2025-07-25,2025-07-25,2,185.85,371.7,Credit Card,cancelled,UK,43
+ORD-2025-000599,7391,Linen Shirt,Clothing,2025-01-21,2025-01-27,4,152.94,611.76,Credit Card,delivered,BE,28
+ORD-2025-000600,4907,Hair Dryer,Beauty,2025-04-08,2025-04-10,1,100.58,100.58,Cash on Delivery,cancelled,FR,57
+ORD-2025-000601,6533,Poetry Collection,Books,2025-08-19,2025-08-19,1,172.95 EUR,172.95,Credit Card,cancelled,FR,45
+ORD-2025-000602,2180,Perfume 50ml,Beauty,2025-08-23,2025-08-25,10,120.33,1203.3,Credit Card,shipped,BE,20
+ORD-2025-000603,1818,Poetry Collection,Books,2025-01-24,2025-01-27,3,12.11,36.33,Bank Transfer,pending,BE,39
+ORD-2025-000604,4613,Yoga Mat,Sports,2025-02-24,2025-02-25,8,299.51,2396.08,Credit Card,shipped,NL,61
+ORD-2025-000605,6268,Hair Dryer,Beauty,2025-06-16,2025-06-17,10,275.21,2752.1,PayPal,pending,PT,40
+ORD-2025-000606,3753,Coffee Machine,Home,2025-03-03,2025-03-07,3,379.99,1139.97,Bank Transfer,returned,DE,74
+ORD-2025-000607,7162,Linen Shirt,Clothing,2025-01-21,2025-01-23,2,396.57,793.14,PayPal,pending,BE,28
+ORD-2025-000608,7819,Wireless Headphones,Electronics,2025-04-02,2025-04-03,10,444.02,4440.2,Cash on Delivery,shipped,ES,36
+ORD-2025-000609,3859,Lipstick Matte,Beauty,2025-09-25,2025-10-02,7,123.43,864.01,Apple Pay,pending,PT,41
+ORD-2025-000610,1074,Hair Dryer,Beauty,2025-11-10,2025-11-11,5,177.19,885.95,Apple Pay,shipped,ES,33
+ORD-2025-000611,8605,Yoga Mat,Sports,2025-11-13,2025-11-18,9,256.23,2306.07,PayPal,delivered,IT,42
+ORD-2025-000612,1706,USB-C Cable,Electronics,2025-12-17,2025-12-24,8,92.28,738.24,Credit Card,delivered,UK,44
+ORD-2025-000613,1859,History Atlas,Books,2025-06-21,2025-06-28,1,56.69,56.69,Apple Pay,shipped,DE,21
+ORD-2025-000614,6340,N.D.,Books,2025-03-01,2025-03-02,4,362.09,1448.36,Cash on Delivery,shipped,US,47
+ORD-2025-000615,4276,Bluetooth Speaker,Electronics,2025-04-27,2025-04-28,4,370.19,1480.76,Cash on Delivery,shipped,FR,78
+ORD-2025-000616,8454,Cycling Helmet,Sports,2025-01-28,2025-02-03,3,112.0,336.0,PayPal,cancelled,US,35
+ORD-2025-000617,3084,Cookbook Italian,Books,2025-11-20,2025-11-25,5,105.09,525.45,Credit Card,returned,IT,53
+ORD-2025-000618,6629,Cotton T-Shirt,Clothing,2025-08-27,2025-09-03,7,89.74,628.18,PayPal,delivered,PT,38
+ORD-2025-000619,9548,Perfume 50ml,Beauty,2025-03-29,2025-04-01,2,208.79,417.58,Cash on Delivery,shipped,PT,78
+ORD-2025-000620,8114,History Atlas,Books,2025-01-08,2025-01-14,4,127.68,510.72,Apple Pay,shipped,PT,37
+ORD-2025-000621,9261,Yoga Mat,Sports,2025-08-02,2025-08-02,1,495.68,495.68,Credit Card,cancelled,AT,68
+ORD-2025-000622,1203,Mystery Novel,Books,2025-08-20,2025-08-27,4,46.13,184.52,Cash on Delivery,shipped,DE,63
+ORD-2025-000623,5994,Kitchen Knife Set,Home,2025-11-28,2025-11-29,1,242.49,242.49,PayPal,cancelled,PT,21
+ORD-2025-000624,7068,Children Picture Book,Books,2025-03-12,2025-03-18,3,395.98,1187.94,Cash on Delivery,pending,FR,67
+ORD-2025-000625,5420,Lipstick Matte,Beauty,2025-09-29,2025-09-29,5,215.82,1079.1,Apple Pay,returned,PT,44
+ORD-2025-000626,6963,Face Cream,Beauty,2025-11-14,2025-11-19,1,259.79,259.79,Credit Card,pending,NL,64
+ORD-2025-000627,2097,Poetry Collection,Books,2025-01-21,2025-01-26,6,91.76,550.56,Apple Pay,shipped,DE,60
+ORD-2025-000628,4437,Linen Shirt,Clothing,2025-02-28,2025-03-07,10,436.21,4362.1,PayPal,delivered,US,52
+ORD-2025-000629,8412,Cycling Helmet,Sports,2025-05-22,2025-05-22,2,189.54,379.08,Cash on Delivery,returned,AT,33
+ORD-2025-000630,2075,Poetry Collection,Books,2025-12-14,2025-12-18,8,312.37,2498.96,PayPal,cancelled,FR,28
+ORD-2025-000631,2835,Cookbook Italian,Books,28 MAG 2025,2025-05-29,2,86.56,173.12,PayPal,cancelled,DE,44
+ORD-2025-000632,8764,Yoga Mat,Sports,2025-05-31,2025-06-06,9,466.2,4195.8,Bank Transfer,cancelled,BE,20
+ORD-2025-000633,9513,Kitchen Knife Set,Home,2025-02-02,2025-02-02,4,418.3,1673.2,Bank Transfer,cancelled,PT,61
+ORD-2025-000634,3161,Lipstick Matte,Beauty,2025-09-06,2025-09-13,8,155.52,1244.16,Bank Transfer,shipped,UK,47
+ORD-2025-000635,8469,History Atlas,Books,2025-05-28,2025-05-28,3,179.79,539.37,PayPal,returned,DE,54
+ORD-2025-000636,1674,Denim Jeans,Clothing,2025-12-29,2025-12-28,3,122.76,368.28,Bank Transfer,returned,DE,74
+ORD-2025-000637,6192,Throw Pillow,Home,2025-04-05,2025-04-08,9,355.03,3195.27,Bank Transfer,shipped,-,75
+ORD-2025-000638,7628,Running Shorts,Sports,2025-10-01,2025-10-05,2,460.61,921.22,Cash on Delivery,shipped,BE,58
+ORD-2025-000639,5748,Cotton T-Shirt,Clothing,07/10/2025,2025-10-12,5,239.59,1197.95,Apple Pay,shipped,PT,74
+ORD-2025-000640,2914,Coffee Machine,Home,2025-09-03,2025-09-03,3,340.61,1021.83,Bank Transfer,pending,NL,46
+ORD-2025-000641,4197,History Atlas,Books,2025-02-17,2025-02-22,1,306.03,306.03,Apple Pay,returned,ES,53
+ORD-2025-000642,7462,Cotton T-Shirt,Clothing,2025-02-12,2025-02-19,2,488.04,976.08,PayPal,cancelled,US,83
+ORD-2025-000643,7108,Bluetooth Speaker,Electronics,2025-07-23,2025-07-25,7,187.97,1315.79,Credit Card,delivered,US,62
+ORD-2025-000644,8278,LED Floor Lamp,Home,2025-10-15,2025-10-16,4,365.29,1461.16,Cash on Delivery,cancelled,UK,38
+ORD-2025-000645,3353,Hair Dryer,Beauty,2025-08-01,2025-08-03,10,300.98,3009.8,PayPal,delivered,BE,85
+ORD-2025-000646,5478,Coffee Machine,Home,2025-10-30,2025-11-05,2,8.28,56.09,Cash on Delivery,shipped,AT,77
+ORD-2025-000647,5742,Perfume 50ml,Beauty,2025-03-12,2025-03-15,3,416.98,1250.94,Apple Pay,cancelled,IT,56
+ORD-2025-000648,1040,Tennis Racket,Sports,2025-09-10,2025-09-17,4,18.29,73.16,PayPal,delivered,UK,78
+ORD-2025-000649,5009,Bluetooth Speaker,Electronics,2025-08-02,2025-08-04,8,453.86,3630.88,Credit Card,pending,UK,81
+ORD-2025-000650,5225,Webcam HD,Electronics,2025-07-05,2025-07-12,10,220.85,2208.5,Cash on Delivery,pending,US,83
+ORD-2025-000651,3394,Perfume 50ml,Beauty,2025-01-09,2025-01-13,3,292.92,878.76,Bank Transfer,cancelled,DE,63
+ORD-2025-000652,6832,Cotton T-Shirt,Clothing,2025-05-20,2025-05-25,7,319.94,2239.58,Credit Card,delivered,UK,85
+ORD-2025-000653,3738,Face Cream,Beauty,2025-09-21,2025-09-24,3,383.52 EUR,1150.56,Apple Pay,delivered,US,56
+ORD-2025-000654,9489,Throw Pillow,Home,2025-02-19,2025-02-24,3,11.38,34.14,Bank Transfer,delivered,BE,70
+ORD-2025-000655,4087,Kitchen Knife Set,Home,2025-02-22,2025-02-25,3,254.17,762.51,Apple Pay,returned,AT,32
+ORD-2025-000656,8856,Children Picture Book,Books,2025-02-09,2025-02-10,3,462.09,1386.27,Bank Transfer,delivered,US,35
+ORD-2025-000657,1471,Poetry Collection,Books,2025-09-25,2025-09-30,3,356.4,1069.2,Credit Card,shipped,DE,36
+ORD-2025-000658,2287,Shampoo Organic,Beauty,2025-06-07,2025-06-09,4,69.46,277.84,Cash on Delivery,pending,FR,20
+ORD-2025-000377,9598,Mystery Novel,Books,2025-02-02,2025-02-06,6,11.12,66.72,Apple Pay,returned,ES,61
+ORD-2025-000660,3028,Coffee Machine,Home,2025-02-03,2025-02-07,1,378.5,378.5,Apple Pay,shipped,PT,43
+ORD-2025-000661,5544,Wool Scarf,Clothing,2025-01-15,2025-01-16,3,423.7,1271.1,Apple Pay,delivered,US,38
+ORD-2025-000662,1229,Dumbbell 5kg,Sports,2025-05-04,2025-05-05,2,410.7,821.4,Apple Pay,shipped,ES,54
+ORD-2025-000663,8777,Linen Shirt,Clothing,2025-01-03,2025-01-04,4,460.64,1842.56,Bank Transfer,returned,DE,74
+ORD-2025-000664,9425,Face Cream,Beauty,2025-04-03,2025-04-08,7,214.93,1504.51,PayPal,cancelled,FR,58
+ORD-2025-000665,5723,4K Monitor,Electronics,2025-02-26,2025-02-28,8,382.33,3058.64,Apple Pay,pending,FR,59
+ORD-2025-000666,6111,Mystery Novel,Books,2025-07-17,2025-07-21,8,302.19,2417.52,Cash on Delivery,shipped,AT,--
+ORD-2025-000667,7020,LED Floor Lamp,Home,2025-04-07,2025-04-08,8,469.85,3758.8,PayPal,pending,BE,31
+ORD-2025-000668,7563,Children Picture Book,Books,2025-09-25,2025-09-26,2,75.97,151.94,Apple Pay,pending,DE,26
+ORD-2025-000669,7623,Kitchen Knife Set,Home,2025-06-23,2025-06-26,10,422.79,4227.9,Credit Card,shipped,NL,81
+ORD-2025-000670,7626,Ceramic Mug,Home,2025-10-31,2025-11-04,7,181.27,1268.89,Cash on Delivery,returned,UK,36
+ORD-2025-000671,3205,Mystery Novel,Books,2025-03-04,2025-03-08,8,251.15,2009.2,Credit Card,pending,IT,26
+ORD-2025-000672,3502,Mystery Novel,Books,2025-04-02,2025-04-08,10,341.21,3412.1,Bank Transfer,returned,PT,30
+ORD-2025-000673,9157,Webcam HD,Electronics,2025-09-10,2025-09-17,4,150.31,601.24,Cash on Delivery,returned,UK,61
+ORD-2025-000674,2951,Dumbbell 5kg,Sports,2025-01-10,2025-01-10,7,440.66,3084.62,Cash on Delivery,cancelled,US,66
+ORD-2025-000675,5965,Children Picture Book,Books,2025-01-19,2025-01-19,3,280.55,841.65,PayPal,cancelled,NL,35
+ORD-2025-000676,9837,LED Floor Lamp,Home,2025-09-07,2025-09-08,10,339.14,3391.4,Apple Pay,cancelled,BE,38
+ORD-2025-000677,7189,Yoga Mat,Sports,2025-07-20,2025-07-24,8,297.57,2380.56,Apple Pay,delivered,UK,59
+ORD-2025-000678,6715,Wireless Headphones,Electronics,2025-10-30,2025-10-30,3,419.28,1257.84,Apple Pay,pending,US,66
+ORD-2025-000679,5001,4K Monitor,Electronics,2025-06-26,2025-07-01,7,178.88,1252.16,PayPal,shipped,UK,28
+ORD-2025-000680,9821,Face Cream,Beauty,2025-06-06,2025-06-07,6,89.04,534.24,Bank Transfer,pending,BE,72
+ORD-2025-000681,1364,Dumbbell 5kg,Sports,2025-08-04,2025-08-08,1 pcs,349.5,349.5,Bank Transfer,cancelled,PT,67
+ORD-2025-000682,4373,Ceramic Mug,Home,2025-02-20,2025-02-27,2,346.98,693.96,Bank Transfer,cancelled,AT,61
+ORD-2025-000683,2234,Linen Shirt,Clothing,2025-06-03,2025-06-08,7,104.87,734.09,Apple Pay,shipped,UK,51
+ORD-2025-000684,2506,Bluetooth Speaker,Electronics,2025-10-21,2025-10-27,4,314.16,1256.64,Apple Pay,pending,PT,61
+ORD-2025-000685,2256,Coffee Machine,Home,2025-10-18,2025-10-25,7,108.82,761.74,Bank Transfer,returned,UK,73
+ORD-2025-000686,9443,Perfume 50ml,Beauty,2025-06-10,2025-06-13,7,204.14,1428.98,Cash on Delivery,returned,DE,20
+ORD-2025-000687,8656,Perfume 50ml,Beauty,2025-04-06,2025-04-13,4,332.1,1328.4,Bank Transfer,returned,PT,73
+ORD-2025-000688,4938,Yoga Mat,Sports,2025-09-25,2025-09-28,6,233.93,1403.58,PayPal,delivered,NL,70
+ORD-2025-000689,5702,Coffee Machine,Home,21/11/2025,2025-11-24,7,137.13,959.91,PayPal,delivered,PT,48
+ORD-2025-000690,6087,Cookbook Italian,Books,2025-02-28,2025-03-02,4,18.71,74.84,Cash on Delivery,cancelled,AT,73
+ORD-2025-000691,5233,Mystery Novel,Books,2025-04-14,16-04-25,5,72.53,362.65,Bank Transfer,returned,DE,23
+ORD-2025-000692,5882,Hair Dryer,Beauty,2025-01-11,2025-01-11,2,160.38,320.76,Credit Card,cancelled,US,29
+ORD-2025-000693,2976,Cookbook Italian,Books,2025-05-01,2025-05-02,10,368.57,3685.7,Apple Pay,returned,AT,50
+ORD-2025-000694,7388,Mystery Novel,Books,2025-05-02,2025-05-03,6,168.0,1008.0,PayPal,cancelled,ES,36
+ORD-2025-000695,1916,USB-C Cable,Electronics,2025-04-20,2025-04-24,8,207.15,1657.2,Cash on Delivery,returned,US,32
+ORD-2025-000696,3374,Ceramic Mug,Home,2025-08-05,2025-08-12,4,481.84,1927.36,Bank Transfer,cancelled,US,57
+ORD-2025-000697,7302,Webcam HD,Electronics,2025-01-18,2025-01-18,4,130.23,520.92,Bank Transfer,delivered,FR,48
+ORD-2025-000698,4857,Children Picture Book,Books,2025-01-05,2025-01-11,5,153.94,769.7,Bank Transfer,shipped,DE,74
+ORD-2025-000699,2312,Lipstick Matte,Beauty,2025-11-26,2025-12-02,1,140.65,140.65,Cash on Delivery,cancelled,NL,60
+ORD-2025-000700,6764,Hair Dryer,Beauty,2025-02-21,2025-02-23,5,255.64,1278.2,Cash on Delivery,returned,AT,N.D.
+ORD-2025-000701,3229,Mystery Novel,Books,2025-01-27,2025-01-29,8,396.55,3172.4,Credit Card,cancelled,ES,57
+ORD-2025-000702,3131,Ceramic Mug,Home,2025-02-12,2025-02-13,3,128.55,385.65,Apple Pay,cancelled,US,75
+ORD-2025-000703,5616,Cookbook Italian,Books,2025-05-14,2025-05-16,10,414.25,4142.5,PayPal,pending,NL,65
+ORD-2025-000704,4747,Running Shoes,Clothing,2025-07-13,2025-07-16,1,474.31,474.31,Credit Card,cancelled,ES,51
+ORD-2025-000705,5262,Shampoo Organic,Beauty,2025-01-26,2025-02-01,10,217.31,2173.1,PayPal,pending,US,39
+ORD-2025-000706,9096,Yoga Mat,Sports,2025-01-08,2025-01-14,8,414.49,3315.92,Credit Card,shipped,ES,42
+ORD-2025-000707,4385,Throw Pillow,Home,2025-09-11,2025-09-17,3,218.5,655.5,Apple Pay,shipped,UK,--
+ORD-2025-000708,5289,Cookbook Italian,Books,2025-07-29,2025-07-31,1,148.65,148.65,PayPal,returned,BE,49
+ORD-2025-000709,3182,Ceramic Mug,Home,2025-12-17,2025-12-24,2,10.11,20.22,Bank Transfer,cancelled,ES,67
+ORD-2025-000710,1962,Hair Dryer,Beauty,2025-11-02,2025-11-06,2,52.16,104.32,Credit Card,delivered,ES,78
+ORD-2025-000711,7241,Ceramic Mug,Home,2025-12-10,2025-12-10,1,130.56,130.56,Bank Transfer,cancelled,US,34
+ORD-2025-000712,9074,Yoga Mat,Sports,2025-10-25,2025-10-27,5,89.08,445.4,Bank Transfer,cancelled,DE,29
+ORD-2025-000713,1723,Ceramic Mug,Home,2025-08-10,2025-08-12,5,62.84,314.2,PayPal,cancelled,UK,64
+ORD-2025-000714,3703,History Atlas,Books,2025-05-15,2025-05-19,9,159.94,1439.46,Bank Transfer,cancelled,DE,74
+ORD-2025-000715,8704,USB-C Cable,Electronics,18/03/2025,2025-03-18,4,95.65,382.6,Bank Transfer,shipped,BE,73
+ORD-2025-000716,8949,4K Monitor,Electronics,2025-01-21,2025-01-28,6,494.47,2966.82,Cash on Delivery,cancelled,FR,36
+ORD-2025-000717,3757,Bluetooth Speaker,Electronics,2025-02-17,2025-02-20,5,94.42,472.1,Apple Pay,delivered,PT,45
+ORD-2025-000718,5033,Yoga Mat,Sports,2025-09-27,2025-09-29,7,460.6,3224.2,Cash on Delivery,pending,US,21
+ORD-2025-000719,2737,Coffee Machine,Home,2025-07-21,2025-07-26,10,464.93,4649.3,Bank Transfer,shipped,IT,28
+ORD-2025-000720,6397,Children Picture Book,Books,2025-08-21,2025-08-25,10,330.71,3307.1,Credit Card,returned,BE,59
+ORD-2025-000721,5635,Perfume 50ml,Beauty,2025-03-08,2025-03-11,1,401.77,401.77,Bank Transfer,pending,FR,66
+ORD-2025-000722,7535,4K Monitor,Electronics,2025-05-11,2025-05-13,4,482.7,1930.8,Credit Card,pending,ES,38
+ORD-2025-000723,8083,Children Picture Book,Books,2025-05-26,2025-05-28,2,152.78,305.56,Bank Transfer,returned,DE,63
+ORD-2025-000350,6004,Shampoo Organic,Beauty,2025-11-04,2025-11-04,4,129.93,519.72,Bank Transfer,cancelled,NL,62
+ORD-2025-000725,2522,4K Monitor,Electronics,2025-07-08,2025-07-10,7,317.19,2220.33,Credit Card,returned,US,77
+ORD-2025-000726,9596,Shampoo Organic,Beauty,2025-11-28,2025-11-30,8,266.0,2128.0,Credit Card,delivered,BE,73
+ORD-2025-000727,5921,4K Monitor,Electronics,2025-06-03,2025-06-05,3,343.74,1031.22,PayPal,returned,NL,55
+ORD-2025-000728,9366,Yoga Mat,Sports,2025-10-10,2025-10-11,1,259.14,259.14,Cash on Delivery,cancelled,FR,77
+ORD-2025-000729,9248,Perfume 50ml,Beauty,2025-05-10,2025-05-15,5,294.86,1474.3,Credit Card,pending,BE,40
+ORD-2025-000730,5876,Running Shoes,Clothing,2025-01-24,2025-01-25,7,438.99,3072.93,Bank Transfer,returned,BE,75
+ORD-2025-000731,5248,Tennis Racket,Sports,2025-06-24,2025-06-26,4,96.62,386.48,Credit Card,cancelled,AT,20
+ORD-2025-000732,8539,4K Monitor,Electronics,2025-03-01,2025-03-01,3,329.62,988.86,Cash on Delivery,returned,BE,56
+ORD-2025-000733,3213,Dumbbell 5kg,Sports,2025-07-04,2025-07-10,5,48.38,241.9,Credit Card,shipped,FR,20
+ORD-2025-000734,4961,Shampoo Organic,Beauty,2025-01-14,2025-01-17,8,326.07,2608.56,Cash on Delivery,returned,ES,29
+ORD-2025-000735,3721,LED Floor Lamp,Home,2025-03-17,2025-03-24,7,15.8,110.6,PayPal,cancelled,BE,78
+ORD-2025-000736,7418,4K Monitor,Electronics,2025-10-27,2025-10-30,4,150.94,603.76,Credit Card,delivered,IT,31
+ORD-2025-000737,5764,Hair Dryer,Beauty,2025-08-01,2025-08-08,10,299.94,2999.4,Credit Card,cancelled,NL,80
+ORD-2025-000738,9655,Dumbbell 5kg,Sports,2025-11-10,2025-11-17,4,358.57,1434.28,Credit Card,cancelled,PT,58
+ORD-2025-000739,6681,Yoga Mat,Sports,2025-05-18,2025-05-24,8,62.89,503.12,Cash on Delivery,cancelled,IT,38
+ORD-2025-000740,4599,Kitchen Knife Set,Home,2025-08-29,2025-09-03,8,119.89,959.12,Apple Pay,delivered,PT,77
+ORD-2025-000741,6902,Wool Scarf,Clothing,2025-12-31,2026-01-06,7,417.37,2921.59,Cash on Delivery,shipped,PT,44
+ORD-2025-000742,3561,Coffee Machine,Home,2025-12-08,2025-12-15,3,90.78 EUR,272.34,Apple Pay,cancelled,FR,71
+ORD-2025-000743,1297,--,Books,2025-05-01,2025-05-04,9,28.29,254.61,Bank Transfer,delivered,US,38
+ORD-2025-000744,4714,Linen Shirt,Clothing,2025-01-17,2025-01-18,6,218.16,1308.96,Credit Card,returned,ES,80
+ORD-2025-000745,3476,Throw Pillow,Home,2025-07-01,2025-07-01,9,137.41,1236.69,Apple Pay,returned,FR,24
+ORD-2025-000746,2669,Children Picture Book,Books,2025-02-26,2025-02-27,10,306.78,3067.8,Apple Pay,pending,AT,31
+ORD-2025-000747,8233,Cotton T-Shirt,Clothing,2025-04-16,2025-04-21,3,365.53,1096.59,Apple Pay,cancelled,FR,37
+ORD-2025-000748,8194,Lipstick Matte,Beauty,2025-06-21,2025-06-23,2,425.05,850.1,Cash on Delivery,pending,ES,78
+ORD-2025-000749,7799,Throw Pillow,Home,2025-09-16,2025-09-18,2,136.68,273.36,Bank Transfer,shipped,--,85
+ORD-2025-000750,8516,Cookbook Italian,Books,2025-03-12,2025-03-18,7,459.42,3215.94,Apple Pay,delivered,IT,74
+ORD-2025-000751,7580,Cotton T-Shirt,Clothing,2025-09-22,2025-09-23,2,172.46,344.92,PayPal,cancelled,IT,68
+ORD-2025-000752,7869,USB-C Cable,Electronics,2025-10-22,2025-10-22,9,486.47,4378.23,Cash on Delivery,returned,UK,58
+ORD-2025-000753,4360,Coffee Machine,Home,2025-05-24,2025-05-26,7,225.86 EUR,1581.02,Apple Pay,returned,PT,74
+ORD-2025-000754,2380,Lipstick Matte,Beauty,2025-11-29,2025-12-05,4,441.08,1764.32,Credit Card,returned,US,67
+ORD-2025-000755,6115,Shampoo Organic,Beauty,2025-09-24,2025-09-28,4,50.95,203.8,Apple Pay,delivered,DE,20
+ORD-2025-000756,5979,Webcam HD,Electronics,2025-10-31,2025-11-04,4,416.95,1667.8,Cash on Delivery,returned,FR,25
+ORD-2025-000757,3043,Throw Pillow,Home,2025-11-18,2025-11-23,2,28.63,57.26,Cash on Delivery,delivered,PT,18
+ORD-2025-000758,3293,History Atlas,Books,2025-05-01,2025-05-04,6,153.1,918.6,Cash on Delivery,returned,ES,31
+ORD-2025-000759,3401,Ceramic Mug,Home,2025-10-26,2025-10-29,6,229.88,1379.28,Cash on Delivery,cancelled,FR,29
+ORD-2025-000760,7050,4K Monitor,Electronics,2025-03-08,2025-03-15,4,225.85,903.4,Apple Pay,cancelled,PT,84
+ORD-2025-000761,9020,History Atlas,Books,2025-10-27,2025-11-03,7,498.27,3487.89,Cash on Delivery,shipped,DE,82
+ORD-2025-000762,9408,Running Shoes,Clothing,2025-12-31,2026-01-07,3,484.18,1452.54,Apple Pay,pending,ES,76
+ORD-2025-000763,7694,Mystery Novel,Books,2025-03-22,2025-03-27,2,302.79,605.58,Credit Card,pending,US,55
+ORD-2025-000764,7135,Webcam HD,Electronics,2025-03-20,2025-03-21,6,155.94,935.64,Bank Transfer,delivered,BE,21
+ORD-2025-000765,5999,Denim Jeans,Clothing,2025-10-29,2025-11-04,1,468.73,468.73,Bank Transfer,shipped,DE,80
+ORD-2025-000766,7841,Wireless Headphones,Electronics,2025-10-08,2025-10-13,2,435.86,871.72,Cash on Delivery,returned,UK,75
+ORD-2025-000767,8551,LED Floor Lamp,Home,2025-09-01,2025-09-03,3,254.86,764.58,Cash on Delivery,cancelled,DE,59
+ORD-2025-000768,7478,Webcam HD,Electronics,2025-12-07,2025-12-13,7,120.25,841.75,Bank Transfer,returned,IT,74
+ORD-2025-000769,6060,Lipstick Matte,Beauty,2025-11-27,2025-11-28,3,355.07,1065.21,Apple Pay,pending,AT,28
+ORD-2025-000770,8796,Linen Shirt,Clothing,2025-10-05,2025-10-05,10,263.27,2632.7,Apple Pay,pending,FR,41
+ORD-2025-000771,9741,Bluetooth Speaker,Electronics,2025-04-16,2025-04-19,10,224.89,2248.9,Apple Pay,delivered,NL,23
+ORD-2025-000772,9649,Mystery Novel,Books,2025-06-24,30-06-25,3,210.39,631.17,Bank Transfer,cancelled,UK,29
+ORD-2025-000773,5187,Wireless Headphones,Electronics,2025-10-05,2025-10-07,5,76.3,381.5,Credit Card,shipped,UK,70
+ORD-2025-000774,1958,Shampoo Organic,Beauty,2025-01-31,2025-02-05,3,18.45,55.35,Bank Transfer,cancelled,FR,58
+ORD-2025-000775,2981,Running Shoes,Clothing,2025-06-15,2025-06-19,7,471.08,3297.56,Credit Card,shipped,ES,48
+ORD-2025-000776,6215,Poetry Collection,Books,2025-09-16,2025-09-22,2,138.3,276.6,Cash on Delivery,returned,NL,26
+ORD-2025-000777,2663,Mystery Novel,Books,2025-07-28,2025-07-31,1,138.23,138.23,PayPal,returned,DE,56
+ORD-2025-000778,3332,Cycling Helmet,Sports,2025-08-17,2025-08-18,9,105.71,951.39,Bank Transfer,returned,DE,49
+ORD-2025-000779,8612,Cycling Helmet,Sports,2025-10-12,2025-10-19,1,5.5,5.5,Apple Pay,delivered,DE,18
+ORD-2025-000780,4485,4K Monitor,Electronics,2025-05-20,2025-05-24,7,499.62,3497.34,Apple Pay,returned,UK,23
+ORD-2025-000781,3014,Linen Shirt,Clothing,2025-10-16,2025-10-17,5,49.41,247.05,PayPal,returned,UK,73
+ORD-2025-000782,8417,Linen Shirt,Clothing,2025-09-16,2025-09-21,6,319.41,1916.46,Bank Transfer,shipped,US,61
+ORD-2025-000783,3190,Running Shoes,Clothing,2025-11-03,2025-11-08,1,457.44,457.44,Credit Card,returned,BE,18
+ORD-2025-000784,2270,USB-C Cable,Electronics,2025-07-31,2025-08-07,7,271.38,1899.66,Apple Pay,pending,BE,33
+ORD-2025-000785,1138,LED Floor Lamp,Home,04/11/2025,2025-11-09,7,92.71,648.97,Credit Card,cancelled,US,42
+ORD-2025-000786,6862,Mystery Novel,Books,2025-04-24,2025-04-24,5,341.87,1709.35,PayPal,pending,PT,56
+ORD-2025-000787,9074,Shampoo Organic,Beauty,2025-04-30,2025-05-07,6,23.21,139.26,Apple Pay,shipped,IT,43
+ORD-2025-000788,3793,Hair Dryer,Beauty,2025-02-26,2025-03-02,10,252.66,2526.6,Apple Pay,shipped,PT,40
+ORD-2025-000789,4734,?,Electronics,2025-03-07,2025-03-08,3,133.51,400.53,Apple Pay,delivered,ES,20
+ORD-2025-000790,1032,Perfume 50ml,Beauty,2025-11-11,2025-11-15,9,442.14,3979.26,Cash on Delivery,pending,US,73
+ORD-2025-000791,1712,History Atlas,Books,2025-03-04,2025-03-11,8,183.93,1471.44,PayPal,pending,UK,71
+ORD-2025-000792,2340,Cycling Helmet,Sports,2025-06-11,2025-06-11,7,101.33,709.31,Apple Pay,pending,ES,72
+ORD-2025-000793,2584,USB-C Cable,Electronics,2025-04-11,2025-04-13,6,158.85,953.1,Credit Card,cancelled,NL,21
+ORD-2025-000794,6583,Tennis Racket,Sports,2025-05-09,2025-05-12,2,239.42,478.84,Credit Card,delivered,AT,48
+ORD-2025-000795,3045,Webcam HD,Electronics,2025-11-14,21-11-25,2,314.55,629.1,Credit Card,pending,IT,66
+ORD-2025-000796,8075,Coffee Machine,Home,2025-03-07,2025-03-07,8,32.12,256.96,Credit Card,pending,IT,24
+ORD-2025-000797,4819,LED Floor Lamp,Home,2025-07-25,2025-07-26,10,377.22,3772.2,Apple Pay,returned,IT,76
+ORD-2025-000798,1425,Children Picture Book,Books,2025-08-08,2025-08-09,6,327.21,1963.26,Cash on Delivery,returned,US,42
+ORD-2025-000799,4172,Wireless Headphones,Electronics,2025-01-07,2025-01-08,10,395.76,3957.6,Apple Pay,shipped,AT,50
+ORD-2025-000800,1722,LED Floor Lamp,Home,2025-09-04,2025-09-11,3,125.36,376.08,Credit Card,shipped,UK,73
+ORD-2025-000801,6618,Tennis Racket,Sports,2025-06-09,2025-06-11,3,237.41,712.23,Bank Transfer,delivered,IT,84
+ORD-2025-000802,1894,Running Shorts,Sports,2025-01-30,2025-02-02,9,410.5,3694.5,Cash on Delivery,delivered,ES,43
+ORD-2025-000803,8657,Shampoo Organic,Beauty,2025-02-05,2025-02-10,4,335.59,1342.36,Apple Pay,delivered,PT,?
+ORD-2025-000804,1691,Tennis Racket,Sports,2025-08-03,2025-08-08,3,56.9,170.7,Cash on Delivery,shipped,IT,46
+ORD-2025-000805,6431,Shampoo Organic,Beauty,2025-08-27,2025-08-30,4,242.97,971.88,Cash on Delivery,shipped,NL,41
+ORD-2025-000806,2887,Bluetooth Speaker,Electronics,2025-01-06,2025-01-07,6,19.86,119.16,PayPal,delivered,BE,42
+ORD-2025-000807,5654,Perfume 50ml,Beauty,2025-07-04,2025-07-04,1,103.57,103.57,PayPal,shipped,UK,40
+ORD-2025-000808,5289,Ceramic Mug,Home,2025-05-06,2025-05-08,4,15.64,240.7,Credit Card,pending,DE,66
+ORD-2025-000809,7056,Face Cream,Beauty,2025-06-23,2025-06-26,5,230.82,1154.1,Bank Transfer,shipped,AT,73
+ORD-2025-000810,4140,Face Cream,Beauty,2025-03-02,2025-03-04,3,398.47,1195.41,Apple Pay,cancelled,US,58
+ORD-2025-000811,4098,Cycling Helmet,Sports,2025-11-22,2025-11-25,1,382.73,382.73,Apple Pay,delivered,DE,59
+ORD-2025-000812,9011,Cotton T-Shirt,Clothing,2025-11-19,2025-11-23,3,426.49,1279.47,PayPal,pending,BE,26
+ORD-2025-000813,3932,Linen Shirt,Clothing,2025-07-18,2025-07-23,8,261.85,2094.8,Bank Transfer,delivered,AT,79
+ORD-2025-000814,1599,Hair Dryer,Beauty,2025-08-31,2025-09-04,10,203.47,2034.7,PayPal,shipped,ES,75
+ORD-2025-000815,3575,Running Shoes,Clothing,2025-04-22,2025-04-26,7,444.91,3114.37,Bank Transfer,delivered,AT,28
+ORD-2025-000816,1674,Cotton T-Shirt,Clothing,2025-06-01,2025-06-08,9,179.03,1611.27,Cash on Delivery,returned,PT,61
+ORD-2025-000817,9151,?,Books,2025-08-28,2025-09-03,7,186.92,1308.44,Bank Transfer,delivered,NL,21
+ORD-2025-000818,2350,Running Shoes,Clothing,2025-04-30,2025-05-04,2,182.75,365.5,Bank Transfer,returned,AT,28
+ORD-2025-000819,9946,Kitchen Knife Set,Home,2025-02-20,2025-02-18,2,183.32,366.64,PayPal,delivered,ES,60
+ORD-2025-000820,3258,Throw Pillow,Home,2025-12-16,2025-12-20,4,354.29,1417.16,Apple Pay,delivered,IT,56
+ORD-2025-000821,1194,Throw Pillow,Home,2025-07-26,2025-08-01,10,9999.99,3801.1,Cash on Delivery,returned,DE,68
+ORD-2025-000822,8679,Denim Jeans,Clothing,2025-04-18,2025-04-25,4,260.33,1041.32,Cash on Delivery,delivered,FR,58
+ORD-2025-000823,1493,Running Shoes,Clothing,2025-12-24,2025-12-30,4,222.15,888.6,Bank Transfer,shipped,PT,34
+ORD-2025-000824,7974,Coffee Machine,Home,2025-09-13,2025-09-18,6,116.62,699.72,Cash on Delivery,returned,UK,59
+ORD-2025-000825,6410,Yoga Mat,Sports,2025-10-18,2025-10-18,3,81.08,243.24,Apple Pay,returned,PT,68
+ORD-2025-000826,8778,Cookbook Italian,Books,2025-07-20,2025-07-21,9,196.28,1766.52,Credit Card,delivered,PT,75
+ORD-2025-000827,3910,Lipstick Matte,Beauty,2025-02-17,2025-02-19,2,339.07,2706.59,Credit Card,returned,BE,21
+ORD-2025-000828,5769,Denim Jeans,Clothing,2025-02-05,2025-02-11,5,106.92,534.6,Apple Pay,pending,BE,25
+ORD-2025-000829,7731,Ceramic Mug,Home,2025-01-06,2025-01-08,6,430.56,2583.36,Cash on Delivery,shipped,FR,34
+ORD-2025-000830,4382,Cycling Helmet,Sports,2025-09-02,2025-09-03,7,477.77,3344.39,PayPal,shipped,UK,73
+ORD-2025-000831,8519,Hair Dryer,Beauty,2025-03-23,2025-03-27,10,105.47,1054.7,Bank Transfer,shipped,IT,36
+ORD-2025-000832,9043,Mystery Novel,Books,2025-07-24,2025-07-27,9,167.8,1510.2,Cash on Delivery,cancelled,PT,23
+ORD-2025-000833,5873,Face Cream,Beauty,2025-05-28,2025-06-04,6,351.66,2109.96,Cash on Delivery,returned,DE,71
+ORD-2025-000834,4005,Denim Jeans,Clothing,2025-11-13,2025-11-19,8,195.41,1563.28,Apple Pay,pending,NL,23
+ORD-2025-000835,4559,Denim Jeans,Clothing,2025-05-21,2025-05-25,2,350.53,701.06,Cash on Delivery,cancelled,AT,33
+ORD-2025-000836,5141,Coffee Machine,Home,2025-02-23,2025-02-28,7,228.21,1597.47,PayPal,returned,IT,77
+ORD-2025-000837,7542,Wireless Headphones,Electronics,2025-11-24,2025-12-01,7,175.11,1225.77,PayPal,cancelled,IT,19
+ORD-2025-000838,8606,Coffee Machine,Home,2025-12-30,2026-01-01,6,336.8,2020.8,Cash on Delivery,cancelled,FR,28
+ORD-2025-000839,3643,Running Shorts,Sports,2025-08-13,2025-08-15,8,411.11,3288.88,PayPal,pending,PT,30
+ORD-2025-000840,1183,Wool Scarf,Clothing,2025-03-05,2025-03-11,3,43.4,130.2,Bank Transfer,shipped,BE,63
+ORD-2025-000841,9566,Denim Jeans,Clothing,2025-01-18,2025-01-21,8,349.89,2799.12,Credit Card,cancelled,UK,74
+ORD-2025-000842,5091,Webcam HD,Electronics,2025-01-03,2025-01-03,7,384.72,2693.04,Bank Transfer,shipped,ES,29
+ORD-2025-000843,2035,4K Monitor,Electronics,2025-01-15,2025-01-15,6,411.16,2466.96,PayPal,pending,DE,39
+ORD-2025-000844,4105,4K Monitor,Electronics,2025-09-20,2025-09-21,6,164.73,988.38,Apple Pay,shipped,AT,68
+ORD-2025-000845,3844,Mystery Novel,Books,2025-04-29,2025-05-02,2,181.51,363.02,Credit Card,cancelled,US,19
+ORD-2025-000846,5562,Cookbook Italian,Books,2025-08-23,2025-08-26,2,330.69,661.38,Apple Pay,delivered,IT,26
+ORD-2025-000847,3809,Running Shoes,Clothing,2025-06-04,2025-06-11,2,357.7,715.4,Bank Transfer,pending,PT,59
+ORD-2025-000848,6209,Hair Dryer,Beauty,2025-12-14,2025-12-16,6,91.79,550.74,Cash on Delivery,pending,US,20
+ORD-2025-000849,4808,Dumbbell 5kg,Sports,2025-08-18,2025-08-24,9,322.09,2898.81,Apple Pay,returned,IT,47
+ORD-2025-000850,4990,Webcam HD,Electronics,2025-03-05,2025-03-09,4,370.27,1481.08,Apple Pay,pending,IT,35
+ORD-2025-000851,1621,LED Floor Lamp,Home,2025-06-01,2025-06-04,3,191.0,573.0,PayPal,returned,BE,60
+ORD-2025-000852,7797,Wool Scarf,Clothing,2025-06-12,2025-06-07,9,396.93,3572.37,Bank Transfer,pending,ES,60
+ORD-2025-000853,4644,Kitchen Knife Set,Home,2025-04-16,2025-04-16,4,401.72,1606.88,Apple Pay,cancelled,AT,59
+ORD-2025-000854,2146,Running Shoes,Clothing,2025-11-19,2025-11-19,2,435.58,871.16,PayPal,pending,DE,44
+ORD-2025-000855,7983,Cotton T-Shirt,Clothing,2025-03-30,2025-04-02,4,256.18,1024.72,Cash on Delivery,delivered,DE,43
+ORD-2025-000856,8344,Running Shoes,Clothing,2025-04-01,2025-04-04,5,146.25,731.25,PayPal,delivered,BE,28
+ORD-2025-000857,9278,LED Floor Lamp,Home,2025-07-13,2025-07-15,8,223.48,1787.84,Apple Pay,cancelled,DE,79
+ORD-2025-000858,3503,4K Monitor,Electronics,2025-08-07,2025-08-08,5,299.62,1498.1,Apple Pay,shipped,UK,66
+ORD-2025-000859,8878,History Atlas,Books,2025-08-21,2025-08-25,7,283.26,1982.82,Credit Card,delivered,DE,78
+ORD-2025-000860,7131,Denim Jeans,Clothing,2025-04-08,2025-04-08,1,431.52,431.52,Cash on Delivery,cancelled,NL,68
+ORD-2025-000861,2167,Lipstick Matte,Beauty,2025-07-16,2025-07-23,5,322.32,1611.6,Cash on Delivery,pending,FR,67
+ORD-2025-000862,6711,Running Shorts,Sports,2025-04-10,2025-04-16,5,386.78,1933.9,Apple Pay,cancelled,US,25
+ORD-2025-000863,6921,Hair Dryer,Beauty,2025-08-06,2025-08-09,4,241.47,965.88,Credit Card,shipped,UK,76
+ORD-2025-000864,3644,Shampoo Organic,Beauty,2025-05-11,2025-05-14,10,291.28,2912.8,Credit Card,pending,FR,67
+ORD-2025-000865,7993,Poetry Collection,Books,2025-02-11,2025-02-14,7,87.08 EUR,609.56,Bank Transfer,delivered,AT,66
+ORD-2025-000866,6642,Tennis Racket,Sports,2025-07-30,2025-07-31,2,319.91,639.82,PayPal,delivered,ES,68
+ORD-2025-000867,2144,Lipstick Matte,Beauty,2025-01-04,2025-01-06,8,5.78,46.24,Cash on Delivery,returned,NL,54
+ORD-2025-000868,3200,Hair Dryer,Beauty,2025-03-29,2025-03-31,6,97.27,583.62,PayPal,cancelled,DE,82
+ORD-2025-000869,3993,4K Monitor,Electronics,2025-10-18,2025-10-21,3,104.47,313.41,PayPal,delivered,NL,74
+ORD-2025-000870,7188,Perfume 50ml,Beauty,25 FEB 2025,2025-02-27,2,150.1,300.2,Credit Card,delivered,FR,61
+ORD-2025-000871,2651,Webcam HD,Electronics,2025-05-01,2025-05-08,8,338.04,2704.32,Credit Card,pending,UK,18
+ORD-2025-000872,1118,Perfume 50ml,Beauty,2025-01-22,2025-01-23,4,263.56,1054.24,Cash on Delivery,returned,AT,52
+ORD-2025-000873,6620,Children Picture Book,Books,2025-06-22,2025-06-28,6,188.54,1131.24,Bank Transfer,shipped,US,69
+ORD-2025-000874,1050,Poetry Collection,Books,2025-01-30,2025-02-04,6,404.1,2424.6,Cash on Delivery,cancelled,DE,21
+ORD-2025-000875,8785,Yoga Mat,Sports,2025-09-29,2025-10-03,4,187.37,749.48,Apple Pay,cancelled,ES,18
+ORD-2025-000876,6333,Lipstick Matte,Beauty,2025-01-09,2025-01-14,1,484.95,484.95,Cash on Delivery,shipped,PT,80
+ORD-2025-000877,8800,Poetry Collection,Books,2025-02-11,2025-02-16,7,469.85,3288.95,?,cancelled,UK,42
+ORD-2025-000878,2426,Shampoo Organic,Beauty,2025-09-24,2025-09-20,3,251.47,754.41,Bank Transfer,returned,BE,39
+ORD-2025-000879,2465,Mystery Novel,Books,2025-09-04,2025-09-07,4,109.76,439.04,Credit Card,cancelled,IT,38
+ORD-2025-000880,3016,LED Floor Lamp,Home,2025-05-24,2025-05-27,5,334.64,1673.2,PayPal,returned,BE,29
+ORD-2025-000881,7252,Lipstick Matte,Beauty,2025-04-25,2025-04-26,6,191.62,1149.72,Apple Pay,cancelled,ES,46
+ORD-2025-000866,6642,Tennis Racket,Sports,2025-07-30,2025-07-31,2,319.91,639.82,PayPal,delivered,ES,68
+ORD-2025-000883,9775,LED Floor Lamp,Home,2025-10-23,2025-10-23,5,35.63,178.15,PayPal,cancelled,NL,58
+ORD-2025-000884,9819,na,Home,2025-09-24,2025-09-27,2,200.68,401.36,Cash on Delivery,delivered,DE,55
+ORD-2025-000885,3389,Running Shoes,Clothing,2025-12-15,2025-12-22,3,302.73,908.19,Credit Card,returned,US,57
+ORD-2025-000886,7171,Yoga Mat,Sports,2025-05-21,2025-05-28,4,250.04,1000.16,Credit Card,delivered,DE,44
+ORD-2025-000887,7419,Shampoo Organic,Beauty,2025-12-25,2025-12-25,3,429.11,1287.33,Bank Transfer,shipped,IT,68
+ORD-2025-000888,7407,LED Floor Lamp,Home,2025-12-14,2025-12-21,6,380.07,2280.42,Credit Card,returned,UK,54
+ORD-2025-000889,1886,Shampoo Organic,Beauty,2025-12-25,2025-12-31,2,69.8,139.6,Bank Transfer,cancelled,DE,35
+ORD-2025-000890,4205,Children Picture Book,Books,2025-05-30,2025-06-01,4,112.98,451.92,Credit Card,delivered,PT,31
+ORD-2025-000891,2573,Shampoo Organic,Beauty,2025-07-12,2025-07-18,3,463.36,1390.08,Bank Transfer,cancelled,DE,24
+ORD-2025-000892,3434,Webcam HD,Electronics,2025-11-29,2025-12-04,10,219.74,2197.4,Cash on Delivery,shipped,IT,33
+ORD-2025-000893,7150,Running Shoes,Clothing,2025-09-08,2025-09-12,10,477.5,4775.0,Credit Card,cancelled,NL,53
+ORD-2025-000894,2999,Hair Dryer,Beauty,2025-07-08,2025-07-08,2,62.73,125.46,Cash on Delivery,returned,ES,20
+ORD-2025-000895,2549,Dumbbell 5kg,Sports,2025-10-21,2025-10-28,5 pcs,348.39,1741.95,Apple Pay,shipped,NL,79
+ORD-2025-000896,9806,Hair Dryer,Beauty,2025-06-02,2025-06-04,2,165.99,331.98,PayPal,cancelled,IT,68
+ORD-2025-000897,9830,Dumbbell 5kg,Sports,2025-09-29,2025-10-06,2,261.86,523.72,null,shipped,FR,41
+ORD-2025-000898,3110,Running Shorts,Sports,2025-01-03,2025-01-10,6,65.91,395.46,Apple Pay,shipped,DE,29
+ORD-2025-000899,6956,Tennis Racket,Sports,2025-01-18,19-01-25,2,255.54,511.08,Apple Pay,shipped,NL,18
+ORD-2025-000900,9035,Wool Scarf,Clothing,2025-01-24,2025-01-28,9,225.24,2027.16,Bank Transfer,returned,US,83
+ORD-2025-000901,3321,Cotton T-Shirt,Clothing,2025-12-06,2025-12-06,4,23.18,92.72,Bank Transfer,shipped,DE,45
+ORD-2025-000902,5177,Tennis Racket,Sports,2025-05-23,2025-05-25,10,213.9,2139.0,Bank Transfer,cancelled,DE,69
+ORD-2025-000903,2156,Mystery Novel,Books,2025-05-11,2025-05-17,3,270.27,810.81,Bank Transfer,shipped,US,83
+ORD-2025-000904,8104,Running Shorts,Sports,2025-08-03,2025-08-05,6,496.26,2977.56,Cash on Delivery,pending,PT,49
+ORD-2025-000905,6396,Bluetooth Speaker,Electronics,2025-03-05,2025-03-06,9,206.36,1857.24,Credit Card,delivered,US,200
+ORD-2025-000906,4640,Denim Jeans,Clothing,2025-05-21,2025-05-21,2,191.69,383.38,Cash on Delivery,pending,FR,40
+ORD-2025-000907,5620,Tennis Racket,Sports,2025-10-29,2025-11-05,2,266.84,533.68,Apple Pay,delivered,PT,30
+ORD-2025-000908,9711,USB-C Cable,Electronics,2025-06-12,2025-06-18,3,175.86,527.58,Apple Pay,returned,NL,79
+ORD-2025-000909,3070,N.D.,Sports,2025-05-13,2025-05-13,9,358.05,3222.45,PayPal,cancelled,PT,52
+ORD-2025-000910,8500,Bluetooth Speaker,Electronics,2025-12-29,2026-01-01,10,212.03,2120.3,PayPal,cancelled,US,77
+ORD-2025-000911,4748,Tennis Racket,Sports,2025-05-22,2025-05-28,9,471.13,4240.17,Bank Transfer,pending,UK,70
+ORD-2025-000912,2534,Coffee Machine,Home,2025-11-21,2025-11-22,2,366.33,732.66,PayPal,returned,IT,28
+ORD-2025-000913,7946,Lipstick Matte,Beauty,2025-10-11,2025-10-18,1,481.27,481.27,Apple Pay,shipped,BE,81
+ORD-2025-000914,4115,Dumbbell 5kg,Sports,2025-12-24,2025-12-25,7,11.88,83.16,Credit Card,cancelled,AT,62
+ORD-2025-000915,3761,Linen Shirt,Clothing,2025-12-17,2025-12-17,10,227.08,2270.8,Apple Pay,shipped,DE,27
+ORD-2025-000916,7211,Kitchen Knife Set,Home,2025-09-21,2025-09-26,1,214.25,214.25,PayPal,delivered,FR,61
+ORD-2025-000917,5809,?,Beauty,2025-10-04,2025-10-05,5,153.09,765.45,Bank Transfer,shipped,IT,68
+ORD-2025-000918,8999,Wool Scarf,Clothing,26 NOV 2025,2025-11-26,8,446.78,3574.24,Credit Card,delivered,IT,76
+ORD-2025-000919,4050,Throw Pillow,Home,01 LUG 2025,2025-07-02,1,178.11,178.11,Cash on Delivery,delivered,IT,30
+ORD-2025-000920,3518,Children Picture Book,Books,2025-04-12,2025-04-13,9,259.59,2336.31,Cash on Delivery,pending,BE,18
+ORD-2025-000921,6971,Wool Scarf,Clothing,2025-04-26,2025-05-03,7,190.28,1331.96,Cash on Delivery,shipped,AT,52
+ORD-2025-000922,8110,4K Monitor,Electronics,2025-12-03,2025-12-10,3,74.24,222.72,Credit Card,delivered,ES,32
+ORD-2025-000923,6426,Wool Scarf,Clothing,2025-01-21,2025-01-23,7,213.42,1493.94,Credit Card,shipped,ES,79
+ORD-2025-000924,3087,Lipstick Matte,Beauty,2025-03-02,2025-03-08,8,277.31,2218.48,Bank Transfer,cancelled,AT,67
+ORD-2025-000925,9192,Cotton T-Shirt,Clothing,2025-02-25,2025-02-25,3,81.99,245.97,Credit Card,shipped,IT,61
+ORD-2025-000926,8961,Poetry Collection,Books,2025-01-05,2025-01-11,8,148.29,1186.32,Credit Card,cancelled,ES,37
+ORD-2025-000927,5317,Perfume 50ml,Beauty,2025-04-06,2025-04-09,5,384.53,1922.65,PayPal,cancelled,ES,78
+ORD-2025-000928,3436,Face Cream,Beauty,2025-12-25,2025-12-27,4,496.31,1985.24,PayPal,pending,DE,69
+ORD-2025-000929,4270,Bluetooth Speaker,Electronics,2025-04-09,2025-04-11,7,13.74,96.18,Credit Card,pending,NL,70
+ORD-2025-000930,8851,Tennis Racket,Sports,2025-12-25,2025-12-28,4,171.41,685.64,Credit Card,returned,NL,24
+ORD-2025-000931,7849,Coffee Machine,Home,2025-05-18,2025-05-23,5,471.78,2358.9,PayPal,delivered,IT,41
+ORD-2025-000932,5590,Wireless Headphones,Electronics,2025-01-27,2025-02-01,4,146.23,584.92,Apple Pay,pending,NL,41
+ORD-2025-000933,1223,LED Floor Lamp,Home,2025-07-06,2025-07-11,5,60.21,301.05,Apple Pay,shipped,US,64
+ORD-2025-000934,4441,Lipstick Matte,Beauty,2025-10-29,2025-11-03,4,326.87,1307.48,Apple Pay,cancelled,FR,31
+ORD-2025-000935,4120,Linen Shirt,Clothing,2025-03-03,2025-03-03,10,484.32,4843.2,PayPal,cancelled,FR,27
+ORD-2025-000936,4309,Dumbbell 5kg,Sports,2025-06-25,2025-06-29,8,494.87,3958.96,Apple Pay,shipped,IT,34
+ORD-2025-000937,6996,Running Shoes,Clothing,2025-10-09,2025-10-13,9,487.69,4389.21,Cash on Delivery,pending,NL,26
+ORD-2025-000938,3112,Children Picture Book,Books,2025-09-26,2025-09-26,3,301.58,904.74,Bank Transfer,pending,PT,25
+ORD-2025-000939,2228,Shampoo Organic,Beauty,2025-07-23,2025-07-30,9,435.78,3922.02,PayPal,cancelled,AT,67
+ORD-2025-000940,3621,Cycling Helmet,Sports,2025-07-25,2025-07-29,4,96.11,384.44,Apple Pay,shipped,PT,19
+ORD-2025-000941,5855,Cycling Helmet,Sports,2025-09-15,2025-09-19,5,426.98,2134.9,Bank Transfer,returned,FR,39
+ORD-2025-000942,3427,Cotton T-Shirt,Clothing,2025-10-01,2025-10-04,5,24.35,121.75,Bank Transfer,shipped,UK,24
+ORD-2025-000943,7047,Shampoo Organic,Beauty,2025-04-18,2025-04-19,1,326.08,326.08,Bank Transfer,pending,AT,51
+ORD-2025-000944,1170,Shampoo Organic,Beauty,2025-07-29,2025-08-02,6,492.7,2956.2,Bank Transfer,shipped,UK,40
+ORD-2025-000945,5216,Coffee Machine,Home,2025-10-03,2025-10-04,7,473.1,3311.7,Apple Pay,returned,ES,74
+ORD-2025-000946,7479,Wool Scarf,Clothing,2025-05-18,2025-05-21,10,316.75,3167.5,PayPal,cancelled,ES,73
+ORD-2025-000947,4031,Kitchen Knife Set,Home,2025-09-03,2025-09-04,8,94.85,758.8,PayPal,shipped,PT,80
+ORD-2025-000948,3911,Shampoo Organic,Beauty,2025-11-28,2025-12-02,1,158.53,158.53,Cash on Delivery,returned,ES,26
+ORD-2025-000949,7594,Cotton T-Shirt,Clothing,2025-08-07,2025-08-10,8,455.02,3640.16,Credit Card,returned,DE,19
+ORD-2025-000950,1222,Yoga Mat,Sports,2025-07-13,2025-07-19,1,59.47,59.47,Credit Card,shipped,ES,28
+ORD-2025-000951,2742,Kitchen Knife Set,Home,2025-11-18,2025-11-18,1,479.02,479.02,Apple Pay,delivered,FR,43
+ORD-2025-000952,8846,Running Shoes,Clothing,2025-10-16,2025-10-23,3,157.16,471.48,PayPal,shipped,IT,52
+ORD-2025-000953,5861,Perfume 50ml,Beauty,2025-03-05,2025-03-05,1,55.89,55.89,Credit Card,returned,NL,36
+ORD-2025-000954,6788,USB-C Cable,Electronics,2025-01-13,2025-01-16,7,195.76,1370.32,Bank Transfer,shipped,NL,32
+ORD-2025-000955,5617,Cookbook Italian,Books,2025-02-26,2025-03-01,2,478.45,956.9,Bank Transfer,pending,PT,60
+ORD-2025-000956,8022,Bluetooth Speaker,Electronics,2025-02-13,2025-02-13,10,79.8,798.0,Apple Pay,delivered,N.D.,41
+ORD-2025-000957,6707,Hair Dryer,Beauty,2025-03-18,2025-03-22,10,409.69,4096.9,Credit Card,delivered,BE,65
+ORD-2025-000958,7399,Coffee Machine,Home,2025-01-02,2025-01-04,3,163.53,490.59,Cash on Delivery,cancelled,null,32
+ORD-2025-000959,3089,Cycling Helmet,Sports,23/05/2025,2025-05-25,2,164.91,329.82,PayPal,cancelled,US,58
+ORD-2025-000960,6463,Children Picture Book,Books,2025-09-04,2025-09-10,10,397.78,3977.8,PayPal,shipped,NL,71
+ORD-2025-000961,4770,Cycling Helmet,Sports,2025-10-03,2025-10-01,9,270.43,2433.87,Cash on Delivery,pending,PT,71
+ORD-2025-000962,1046,Dumbbell 5kg,Sports,2025-12-22,2025-12-25,2,121.42,242.84,PayPal,pending,US,78
+ORD-2025-000963,3283,Cotton T-Shirt,Clothing,2025-01-31,2025-02-05,6,425.13,2550.78,Bank Transfer,cancelled,DE,71
+ORD-2025-000964,3344,Denim Jeans,Clothing,2025-04-25,2025-04-25,3,63.03,189.09,Cash on Delivery,pending,?,65
+ORD-2025-000965,3591,Wireless Headphones,Electronics,2025-12-06,2025-12-07,8,419.53,3356.24,Credit Card,shipped,US,36
+ORD-2025-000966,7823,USB-C Cable,Electronics,2025-02-09,2025-02-09,10,416.38,4163.8,PayPal,shipped,BE,na
+ORD-2025-000967,6526,Perfume 50ml,Beauty,2025-12-24,2025-12-28,8,208.7,1669.6,Cash on Delivery,pending,UK,32
+ORD-2025-000968,9245,Cotton T-Shirt,Clothing,2025-11-25,2025-11-25,10,376.81,3768.1,PayPal,pending,NL,72
+ORD-2025-000969,4724,Hair Dryer,Beauty,2025-10-11,2025-10-15,10,253.43,2534.3,Cash on Delivery,shipped,UK,29
+ORD-2025-000970,4586,Cycling Helmet,Sports,2025-03-06,2025-03-09,7,311.43,2180.01,Cash on Delivery,shipped,AT,27
+ORD-2025-000971,3700,Hair Dryer,Beauty,2025-09-02,2025-09-07,7,414.49,2901.43,Credit Card,delivered,NL,42
+ORD-2025-000972,6496,Coffee Machine,Home,2025-02-23,2025-02-24,6,303.58,1821.48,Credit Card,shipped,UK,38
+ORD-2025-000973,6064,Yoga Mat,Sports,2025-02-03,2025-02-06,10,10.43,104.3,PayPal,returned,ES,22
+ORD-2025-000974,8926,Wool Scarf,Clothing,2025-02-13,2025-02-13,10,493.31,4933.1,Credit Card,pending,US,29
+ORD-2025-000975,6152,Coffee Machine,Home,2025-07-02,2025-07-06,7,252.61,1768.27,Cash on Delivery,delivered,DE,30
+ORD-2025-000976,3460,LED Floor Lamp,Home,2025-09-15,2025-09-16,9,404.71,3642.39,Credit Card,returned,NL,79
+ORD-2025-000977,2290,Yoga Mat,Sports,2025-05-29,2025-05-31,3,342.78,1028.34,Credit Card,shipped,ES,36
+ORD-2025-000978,6554,Shampoo Organic,Beauty,2025-09-14,2025-09-19,8,393.75,3150.0,Bank Transfer,delivered,PT,73
+ORD-2025-000979,3496,4K Monitor,Electronics,2025-05-03,06-05-25,10,305.4,3054.0,Apple Pay,cancelled,FR,19
+ORD-2025-000980,6139,Wool Scarf,Clothing,2025-10-08,2025-10-09,8,51.59,412.72,PayPal,delivered,DE,26
+ORD-2025-000981,8548,Ceramic Mug,Home,2025-07-06,2025-07-11,2,40.21,80.42,Bank Transfer,cancelled,UK,74
+ORD-2025-000982,5696,Shampoo Organic,Beauty,2025-03-05,2025-03-12,1,184.92,184.92,Cash on Delivery,cancelled,PT,34
+ORD-2025-000983,7769,History Atlas,Books,2025-09-20,2025-09-25,6,46.33,277.98,Apple Pay,cancelled,UK,23
+ORD-2025-000984,5762,Yoga Mat,Sports,2025-05-06,2025-05-06,3,427.26,1281.78,Cash on Delivery,shipped,PT,69
+ORD-2025-000985,8675,USB-C Cable,Electronics,2025-07-18,2025-07-25,2,177.72,355.44,Apple Pay,cancelled,FR,28
+ORD-2025-000986,2056,Cotton T-Shirt,Clothing,2025-07-23,2025-07-29,4,203.75,815.0,Bank Transfer,delivered,PT,80
+ORD-2025-000987,3551,Running Shoes,Clothing,2025-02-28,2025-03-04,8,23.95,191.6,Cash on Delivery,shipped,ES,58
+ORD-2025-000988,6922,Yoga Mat,Sports,2025-11-04,2025-11-10,1,468.55,468.55,Cash on Delivery,cancelled,ES,24
+ORD-2025-000989,3885,Cotton T-Shirt,Clothing,2025-12-17,2025-12-23,5,129.78,648.9,Credit Card,shipped,FR,53
+ORD-2025-000990,5250,Mystery Novel,Books,2025-06-02,2025-06-09,7,264.77,1853.39,PayPal,pending,FR,72
+ORD-2025-000991,8890,Throw Pillow,Home,26/03/2025,2025-03-29,6,471.26,2827.56,Cash on Delivery,returned,DE,73
+ORD-2025-000992,4253,Ceramic Mug,Home,2025-07-19,2025-07-19,9,392.62,3533.58,Credit Card,returned,PT,36
+ORD-2025-000993,9182,Throw Pillow,Home,2025-01-08,2025-01-10,8,467.24,3737.92,Bank Transfer,pending,NL,51
+ORD-2025-000994,2596,Yoga Mat,Sports,2025-08-19,2025-08-21,8,321.26,2570.08,Credit Card,shipped,ES,71
+ORD-2025-000995,4131,Perfume 50ml,Beauty,2025-03-27,2025-04-02,4,177.3,709.2,Apple Pay,pending,US,64
+ORD-2025-000996,8471,Bluetooth Speaker,Electronics,2025-06-07,2025-06-08,8,326.21,2609.68,Cash on Delivery,cancelled,US,63
+ORD-2025-000997,8517,Cycling Helmet,Sports,2025-09-25,2025-09-30,2,463.54,927.08,Cash on Delivery,delivered,DE,38
+ORD-2025-000998,2625,Cycling Helmet,Sports,2025-07-15,2025-07-19,7,318.88,2232.16,Credit Card,pending,FR,20
+ORD-2025-000999,2633,Cycling Helmet,Sports,2025-02-23,2025-03-02,10,463.98,4639.8,Cash on Delivery,returned,PT,22
+ORD-2025-001000,7243,Lipstick Matte,Beauty,2025-08-04,2025-08-07,4,389.56,1558.24,Credit Card,shipped,BE,33
+ORD-2025-001001,4668,LED Floor Lamp,Home,2025-07-31,2025-08-06,1,470.11,470.11,Apple Pay,delivered,UK,51
+ORD-2025-001002,7792,LED Floor Lamp,Home,2025-12-11,2025-12-07,1,450.59,450.59,Credit Card,pending,IT,37
+ORD-2025-001003,8045,Ceramic Mug,Home,2025-11-04,2025-11-09,6,89.35,536.1,PayPal,returned,NL,42
+ORD-2025-001004,7396,Cycling Helmet,Sports,2025-01-27,2025-02-02,3,470.0,1410.0,PayPal,cancelled,US,84
+ORD-2025-001005,7422,Running Shoes,Clothing,2025-04-29,2025-04-30,3,254.61,763.83,Bank Transfer,returned,DE,59
+ORD-2025-001006,3507,Cotton T-Shirt,Clothing,2025-02-17,2025-02-17,7,10.71,74.97,Credit Card,returned,AT,28
+ORD-2025-001007,6867,Cycling Helmet,Sports,2025-01-13,2025-01-15,8,319.06,2552.48,PayPal,shipped,ES,56
+ORD-2025-001008,5505,Linen Shirt,Clothing,2025-05-06,2025-05-12,5,331.33,1656.65,Credit Card,shipped,IT,31
+ORD-2025-000256,5919,LED Floor Lamp,Home,2025-02-19,2025-02-26,8,162.86,1302.88,Credit Card,pending,IT,61
+ORD-2025-001010,7778,Kitchen Knife Set,Home,2025-07-20,2025-07-21,8,398.74,3189.92,Credit Card,cancelled,FR,44
+ORD-2025-001011,3945,Hair Dryer,Beauty,2025-07-12,2025-07-17,8,405.23,3241.84,Bank Transfer,pending,DE,22
+ORD-2025-001012,1082,Bluetooth Speaker,Electronics,2025-06-27,2025-07-04,10,302.0,3020.0,PayPal,returned,UK,33
+ORD-2025-001013,3496,Linen Shirt,Clothing,2025-01-16,2025-01-16,9,258.31,2324.79,PayPal,delivered,FR,45
+ORD-2025-001014,3073,Bluetooth Speaker,Electronics,2025-03-12,2025-03-15,2,365.23,730.46,Bank Transfer,delivered,BE,43
+ORD-2025-001015,9123,Bluetooth Speaker,Electronics,2025-12-29,2026-01-02,8,373.87,2990.96,Cash on Delivery,returned,NL,42
+ORD-2025-001016,6105,Kitchen Knife Set,Home,2025-04-12,2025-04-16,7,55.93,391.51,PayPal,shipped,BE,73
+ORD-2025-001017,7275,Children Picture Book,Books,2025-11-02,2025-11-06,6,313.34,1880.04,Cash on Delivery,shipped,PT,63
+ORD-2025-001018,5146,Coffee Machine,Home,2025-08-19,2025-08-21,1,479.26 EUR,479.26,Apple Pay,cancelled,UK,85
+ORD-2025-001019,8035,LED Floor Lamp,Home,2025-01-16,2025-01-17,3,405.48,1216.44,PayPal,delivered,ES,27
+ORD-2025-001020,6219,Wool Scarf,Clothing,2025-07-10,2025-07-12,6,65.54,393.24,Credit Card,delivered,ES,77
+ORD-2025-001021,4476,Tennis Racket,Sports,2025-04-30,2025-05-01,7,145.39,1017.73,Apple Pay,shipped,FR,53
+ORD-2025-001022,7909,Perfume 50ml,Beauty,2025-12-10,2025-12-11,10,446.87,4468.7,Cash on Delivery,delivered,US,43
+ORD-2025-001023,7901,Cotton T-Shirt,Clothing,2025-09-10,2025-09-17,999,495.18,495.18,Credit Card,pending,BE,39
+ORD-2025-001024,5670,Tennis Racket,Sports,2025-10-30,2025-11-05,4,290.32,1161.28,Credit Card,returned,IT,77
+ORD-2025-001025,1640,Kitchen Knife Set,Home,2025-07-26,2025-07-26,9,459.43,4134.87,Bank Transfer,pending,FR,78
+ORD-2025-001026,7559,4K Monitor,Electronics,2025-06-04,2025-06-08,6,378.08,2268.48,Credit Card,returned,US,81
+ORD-2025-001027,2989,Yoga Mat,Sports,21 LUG 2025,2025-07-25,8,249.2,1993.6,Bank Transfer,returned,FR,21
+ORD-2025-001028,8138,Cotton T-Shirt,Clothing,2025-01-06,2025-01-08,2,496.8,993.6,PayPal,shipped,FR,42
+ORD-2025-001029,1705,Lipstick Matte,Beauty,2025-10-03,2025-10-03,1,133.55,133.55,Credit Card,pending,UK,27
+ORD-2025-001030,3257,Throw Pillow,Home,2025-12-19,2025-12-25,5,350.84,1754.2,Apple Pay,cancelled,FR,34
+ORD-2025-001031,9548,Kitchen Knife Set,Home,2025-10-27,2025-11-02,8,335.78,2686.24,Apple Pay,shipped,PT,79
+ORD-2025-001032,5322,Hair Dryer,Beauty,2025-05-24,2025-05-29,8,116.79,934.32,Bank Transfer,pending,US,49
+ORD-2025-001033,1987,Shampoo Organic,Beauty,2025-12-22,2025-12-23,2,486.02,972.04,PayPal,pending,ES,77
+ORD-2025-001034,9644,Cookbook Italian,Books,2025-09-07,2025-09-08,6,108.29,649.74,Apple Pay,delivered,UK,76
+ORD-2025-001035,6957,Shampoo Organic,Beauty,2025-09-16,2025-09-17,3,113.3,339.9,Cash on Delivery,cancelled,PT,83
+ORD-2025-001036,6032,Running Shoes,Clothing,2025-04-07,2025-04-08,5,214.43,1072.15,Apple Pay,pending,DE,77
+ORD-2025-001037,1468,Wireless Headphones,Electronics,2025-05-04,2025-05-04,8,97.58,780.64,Cash on Delivery,returned,BE,63
+ORD-2025-001038,3467,Coffee Machine,Home,2025-10-09,2025-10-10,6,218.58,1311.48,Cash on Delivery,returned,NL,83
+ORD-2025-001039,7267,Coffee Machine,Home,2025-08-14,2025-08-18,6,53.42,320.52,Cash on Delivery,shipped,UK,42
+ORD-2025-001040,9497,Cookbook Italian,Books,2025-11-01,2025-11-05,9,305.69,2751.21,Cash on Delivery,pending,IT,49
+ORD-2025-001041,4911,USB-C Cable,Electronics,2025-02-28,2025-02-28,1,289.74,289.74,Credit Card,returned,FR,53
+ORD-2025-001042,4602,Linen Shirt,Clothing,2025-12-25,2025-12-31,7,199.48,1396.36,Bank Transfer,cancelled,ES,39
+ORD-2025-001043,1050,Wool Scarf,Clothing,2025-11-23,2025-11-27,10,147.55,1475.5,Credit Card,shipped,AT,79
+ORD-2025-001044,2137,Lipstick Matte,Beauty,2025-12-19,2025-12-22,3,160.98,482.94,PayPal,shipped,US,76
+ORD-2025-001045,3908,Cotton T-Shirt,Clothing,2025-12-08,2025-12-15,7,170.36,1192.52,Bank Transfer,pending,DE,19
+ORD-2025-001046,8742,Tennis Racket,Sports,2025-08-31,2025-08-31,8,437.24,3497.92,Credit Card,pending,IT,55
+ORD-2025-001047,2638,Linen Shirt,Clothing,2025-09-15,2025-09-17,3,388.75,1166.25,Bank Transfer,delivered,BE,80
+ORD-2025-001048,8516,Lipstick Matte,Beauty,2025-10-07,2025-10-11,8,130.5,1044.0,Credit Card,delivered,UK,60
+ORD-2025-001049,1339,Dumbbell 5kg,Sports,2025-09-05,2025-09-06,5,344.46,1722.3,PayPal,cancelled,ES,36
+ORD-2025-001050,8056,LED Floor Lamp,Home,2025-01-16,2025-01-19,10,371.8,3718.0,Bank Transfer,shipped,FR,42
+ORD-2025-001051,6715,Mystery Novel,Books,2025-05-21,2025-05-28,9,91.6,824.4,Bank Transfer,cancelled,PT,71
+ORD-2025-001052,6624,Throw Pillow,Home,2025-04-08,2025-04-08,10,262.44,2624.4,Apple Pay,pending,NL,76
+ORD-2025-001053,3410,Tennis Racket,Sports,2025-05-28,2025-05-29,1,251.97,251.97,Cash on Delivery,shipped,AT,55
+ORD-2025-001054,2058,Dumbbell 5kg,Sports,2025-12-07,2025-12-09,5,245.98,1229.9,Bank Transfer,pending,BE,23
+ORD-2025-001055,1083,Wool Scarf,Clothing,2025-10-31,2025-11-01,1,246.74,246.74,Cash on Delivery,delivered,IT,24
+ORD-2025-001056,3540,Kitchen Knife Set,Home,2025-06-29,2025-07-03,9,334.34,3009.06,Credit Card,delivered,DE,43
+ORD-2025-001057,6810,Poetry Collection,Books,2025-02-11,2025-02-15,4,20.91,83.64,PayPal,cancelled,NL,69
+ORD-2025-001058,6283,Bluetooth Speaker,Electronics,2025-06-04,2025-06-08,3,284.13,852.39,Apple Pay,shipped,ES,50
+ORD-2025-001059,5871,Running Shoes,Clothing,2025-10-11,2025-10-14,5,155.97,779.85,Apple Pay,cancelled,AT,41
+ORD-2025-001060,6132,Children Picture Book,Books,2025-02-19,2025-02-21,9,223.74,2013.66,Apple Pay,delivered,BE,63
+ORD-2025-001061,1432,Children Picture Book,Books,2025-08-04,10-08-25,8,18.7,149.6,Cash on Delivery,pending,DE,56
+ORD-2025-001062,5806,Linen Shirt,Clothing,2025-09-20,2025-09-25,3,312.34,937.02,Credit Card,cancelled,DE,69
+ORD-2025-001063,5426,Face Cream,Beauty,2025-08-25,2025-09-01,1,46.91,46.91,Credit Card,delivered,PT,30
+ORD-2025-001064,9369,Ceramic Mug,Home,2025-09-04,2025-09-09,1,65.11,65.11,Credit Card,shipped,AT,36
+ORD-2025-001065,6093,Cycling Helmet,Sports,2025-03-11,2025-03-14,3,153.94,461.82,Credit Card,cancelled,PT,43
+ORD-2025-001066,9516,Wireless Headphones,Electronics,2025-01-01,2025-01-03,10,440.55,4405.5,Credit Card,shipped,ES,31
+ORD-2025-001067,2995,Mystery Novel,Books,2025-09-16,2025-09-23,7,32.55,227.85,Bank Transfer,cancelled,BE,41
+ORD-2025-001068,3396,Linen Shirt,Pet,2025-05-14,2025-05-21,10,65.98,659.8,Credit Card,shipped,DE,48
+ORD-2025-001069,5742,Linen Shirt,Clothing,2025-12-25,2025-12-24,8,242.83,1942.64,Credit Card,returned,BE,65
+ORD-2025-001070,7960,Lipstick Matte,Beauty,2025-07-20,2025-07-26,2,234.66,469.32,PayPal,pending,UK,76
+ORD-2025-001071,8282,Webcam HD,Electronics,2025-07-19,2025-07-19,10,154.87,1548.7,?,delivered,DE,77
+ORD-2025-001072,9244,Hair Dryer,Beauty,2025-05-22,2025-05-22,3,182.09,546.27,PayPal,delivered,AT,67
+ORD-2025-001073,6558,Yoga Mat,Sports,2025-03-31,2025-04-02,6,329.69,1978.14,Cash on Delivery,shipped,UK,56
+ORD-2025-001074,3955,Mystery Novel,Books,2025-11-27,2025-12-04,7,481.46,3370.22,Apple Pay,returned,AT,51
+ORD-2025-001075,7615,Wool Scarf,Clothing,2025-10-29,2025-11-03,10,310.65,3106.5,Credit Card,pending,IT,38
+ORD-2025-001076,8805,Cotton T-Shirt,Clothing,2025-12-07,2025-12-08,8,467.45,3739.6,Bank Transfer,shipped,ES,31
+ORD-2025-001077,2875,Running Shoes,Clothing,2025-08-04,2025-08-05,1,307.89,307.89,Credit Card,pending,BE,65
+ORD-2025-001078,7187,Yoga Mat,Sports,2025-03-31,2025-04-05,2,350.87,701.74,PayPal,returned,AT,43
+ORD-2025-001079,3655,Wool Scarf,Clothing,2025-09-09,2025-09-16,5,116.62,583.1,Cash on Delivery,returned,ES,29
+ORD-2025-001080,3302,Yoga Mat,Sports,2025-11-19,2025-11-20,4,21.45,85.8,Credit Card,delivered,NL,27
+ORD-2025-001081,8761,Kitchen Knife Set,Home,2025-12-16,2025-12-23,4,417.04,1668.16,Apple Pay,delivered,US,35
+ORD-2025-001082,3083,4K Monitor,Electronics,2025-08-07,2025-08-13,2,286.73,573.46,Apple Pay,delivered,FR,33
+ORD-2025-001083,5749,Cookbook Italian,Books,2025-01-27,2025-02-01,1,115.89,115.89,Bank Transfer,cancelled,US,26
+ORD-2025-001084,9192,Wool Scarf,Clothing,2025-02-08,2025-02-11,9,466.25,4196.25,Bank Transfer,cancelled,PT,25
+ORD-2025-001085,1528,Yoga Mat,Sports,2025-10-26,2025-11-02,5,328.35,1641.75,Bank Transfer,cancelled,UK,43
+ORD-2025-001086,6400,Coffee Machine,Home,2025-03-13,2025-03-16,9,409.3,3683.7,Credit Card,shipped,BE,27
+ORD-2025-001087,7819,Dumbbell 5kg,Sports,2025-12-26,2025-12-26,6,490.62,2943.72,Apple Pay,returned,FR,200
+ORD-2025-001088,4690,Wool Scarf,Clothing,2025-01-22,2025-01-23,1,250.82,250.82,Bank Transfer,cancelled,BE,56
+ORD-2025-001089,7215,Cotton T-Shirt,Clothing,2025-01-29,2025-01-29,4,269.42,1077.68,Credit Card,returned,BE,24
+ORD-2025-001090,3257,Children Picture Book,Books,2025-12-23,2025-12-25,7,352.16,2465.12,Credit Card,cancelled,FR,65
+ORD-2025-001091,2507,Kitchen Knife Set,Home,2025-06-25,2025-07-01,1,122.89,122.89,Apple Pay,pending,ES,70
+ORD-2025-001092,5094,Perfume 50ml,Beauty,2025-10-18,2025-10-18,1,437.26,437.26,Credit Card,pending,IT,34
+ORD-2025-001093,5001,Cookbook Italian,Books,25 MAG 2025,2025-05-25,6,178.09,1068.54,Bank Transfer,shipped,PT,68
+ORD-2025-001094,9907,Mystery Novel,Books,2025-12-03,2025-12-04,2,128.85,257.7,PayPal,cancelled,US,46
+ORD-2025-001095,5383,History Atlas,Books,2025-07-07,2025-07-11,4,265.79,1063.16,Bank Transfer,returned,AT,31
+ORD-2025-001096,3246,Bluetooth Speaker,Electronics,2025-07-30,2025-08-06,5,43.83,219.15,Apple Pay,shipped,UK,44
+ORD-2025-001097,8434,Bluetooth Speaker,Electronics,2025-03-14,2025-03-14,4,350.68,1402.72,Credit Card,pending,BE,22
+ORD-2025-001098,2384,Throw Pillow,Home,2025-10-29,2025-11-04,5,414.45,2072.25,Credit Card,delivered,PT,67
+ORD-2025-001099,4370,Mystery Novel,Books,2025-07-15,2025-07-21,8,26.99,215.92,Cash on Delivery,shipped,NL,24
+ORD-2025-001100,6508,Lipstick Matte,Beauty,2025-01-17,2025-01-22,1,455.48,455.48,Bank Transfer,returned,ES,21

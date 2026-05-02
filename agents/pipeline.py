@@ -1291,34 +1291,24 @@ ANOMALY_ISSUE_TYPES      = {"iqr_outliers", "non_numeric_values_in_numeric_field
 SEVERITY_PENALTY = {"critical": 0.40, "high": 0.20, "medium": 0.08, "low": 0.02}
 
 
-# Sparsity threshold above which a column is treated as "structurally dead":
-# imputing >95%-missing data introduces noise, so the only sensible action is `ignore`.
-# We don't penalise the sub-score for these columns — they're an artefact of the source data,
-# not something the pipeline can or should fix.
-_DEAD_COLUMN_THRESHOLD = 0.05  # completeness ratio below which we skip the penalty
+# Sparsity threshold: columns above 95% missing are excluded from the sub-score.
+# Imputation on these columns would add noise; `ignore` is the right action.
+_DEAD_COLUMN_THRESHOLD = 0.05
 
 
-# Issue types whose only safe action is `ignore` (cosmetic / structural). They show up
-# in audits but the correct response is always to leave them alone — renaming a column
-# would break downstream references, semantic mismatches require human judgement, etc.
-# Excluding them from the sub-score prevents the system from being penalised for
-# correctly identifying problems it cannot or should not fix.
+# Issue types whose only safe action is `ignore` (cosmetic / structural).
+# Renaming columns would break downstream references; we surface the issue
+# but do not penalise the sub-score for it.
 _COSMETIC_ISSUE_TYPES = {
     "naming_convention_violation",
 }
 
 
 def _compute_subscore(issues):
-    """Compute a 0–1 sub-score from severity-weighted issue penalties, clipped to [0, 1].
+    """Compute a 0-1 sub-score from severity-weighted issue penalties, clipped to [0, 1].
 
-    Two exemption rules apply, both designed so the score reflects *fixable* anomalies
-    rather than artefacts of source-data structure:
-
-    - **Sparsity-aware**: issues on columns >95% missing are excluded — imputation would
-      add noise, `ignore` is the correct action, and the column is structurally untreatable.
-    - **Cosmetic-aware**: issues whose only safe action is `ignore` (e.g. naming convention
-      violations on column headers — renaming would break downstream references) are excluded
-      via the `_COSMETIC_ISSUE_TYPES` set.
+    Two exemptions: issues on columns above 95% missing, and issues whose only
+    safe action is `ignore` (see `_COSMETIC_ISSUE_TYPES`).
     """
     score = 1.0
     for iss in issues:
@@ -1401,10 +1391,9 @@ _VALID_IGNORE_KEYWORDS = (
 def _ignore_is_valid(rationale: str, issue: Dict[str, Any]) -> bool:
     """Decide whether an LLM `ignore` decision is evidence-based or safety-driven.
 
-    Returns True if any of:
-      - the issue is on a structurally dead column (>95% missing, naming convention)
-      - the rationale text matches one of `_VALID_IGNORE_KEYWORDS`
-    Returns False otherwise — meaning the `ignore` is over-cautious and should be
+    Returns True if the issue is on a column above 95% missing or on a cosmetic
+    issue type, or if the rationale text matches one of `_VALID_IGNORE_KEYWORDS`.
+    Returns False otherwise; in that case the `ignore` is over-cautious and is
     replaced by the issue type's deterministic fallback.
     """
     # Structural exemptions — independent of rationale
@@ -1441,22 +1430,14 @@ _FALLBACK = {
 
 
 def _make_agent(name, issue_types, allowed, dims):
-    """Build an analysis-agent node with a focused, fix-biased prompt.
+    """Build an analysis-agent node with a fix-biased prompt.
 
-    The prompt v3 combines four techniques:
-      1. **Senior-engineer framing** — primes the model toward decisive action.
-      2. **Default-action mapping** — exposes the deterministic fallback for each
-         issue type, so the model has a concrete prior to deviate from only with
-         evidence.
-      3. **Tight `ignore` policy** — restricts `ignore` to three named cases
-         (>95% missing, cosmetic, would-corrupt). Anything else is over-cautious.
-      4. **Few-shot examples** — three concrete decisions on NoiPA-style data,
-         showing both the right call and a tempting wrong one.
-
-    Without this priming, LLMs default to `ignore` whenever they're uncertain,
-    leaving 30–40% of fixable issues untouched. The deterministic fallback is
-    aggressive by construction; this prompt aligns the LLM with that aggression
-    while still giving it room to override when the column context says so.
+    The prompt combines four elements: a senior-engineer framing, a per-issue
+    default-action mapping that exposes the deterministic fallback, an `ignore`
+    policy restricted to three named cases (>95% missing, cosmetic, would-corrupt),
+    and three NoiPA few-shot examples. Without these, the LLM tends to pick
+    `ignore` whenever it is uncertain and leaves 30-40% of fixable issues
+    untouched.
     """
     actions_str = ", ".join(allowed)
     # Per-issue-type default action, filtered to what this agent is allowed to do
@@ -1869,15 +1850,12 @@ _SEVERITY_RESOLUTION_WEIGHT = {"critical": 4.0, "high": 2.0, "medium": 1.0, "low
 
 
 def node_supervisor(state: AgentState) -> Dict[str, Any]:
-    """Deterministic supervisor — aggregates sub-scores into 0-100 quality metrics.
+    """Deterministic supervisor: aggregates sub-scores into 0-100 quality metrics.
 
-    Produces three complementary numbers:
-    - **reliability_score** (pre-fix): "how dirty is the input?" (penalty-based)
-    - **post_reliability_score**: "how clean is the output?" (penalty-based on
-      issues that survive both LLM and deterministic-fallback passes)
-    - **remediation_score** + **remediation_score_weighted**: "how much of the
-      detected work did the pipeline actually close?". A separate axis from
-      reliability — useful for honest reporting and pitch slides.
+    Produces three numbers: `reliability_score` (pre-fix penalty-based score),
+    `post_reliability_score` (same metric on issues surviving both passes), and
+    `remediation_score` / `remediation_score_weighted` (resolution rate, plain
+    and severity-weighted).
 
     No LLM call: the math is exact and reproducible.
     """
