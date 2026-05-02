@@ -1,6 +1,7 @@
 error_type,TP,FP,FN,Precision,Recall,F1,Runs,IssueHitRate
 disguisednull,20.0,6.0,0.0,0.7692,1.0,0.8696,20.0,0.0
 iqr_outlier,15.0,1.0,5.0,0.9375,0.75,0.8333,20.0,0.0
-wrong_but_parseable,20.0,5.0,0.0,0.8,1.0,0.8889,20.0,0.0
+wrong_but_parseable,20.0,6.0,0.0,0.7692,1.0,0.8696,20.0,0.0
 semantic_duplicate,10.0,1.0,0.0,0.9091,1.0,0.9524,10.0,0.0
-crossfield_inconsistency,10.0,1.0,0.0,0.9091,1.0,0.9524,10.0,0.0
+mixed_date_format,10.0,0.0,0.0,1.0,1.0,1.0,10.0,0.0
+crossfield_inconsistency,9.0,0.0,1.0,1.0,0.9,0.9474,10.0,0.0

@@ -591,8 +591,15 @@ def classify_format(value, kind):
         return "invalid"
 
     if kind == "datetime":
+        # Four labels so detect_mixed_date_format can distinguish ISO from EU/US.
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?", text):
+            return "iso_datetime"
+        if re.fullmatch(r"\d{2}/\d{2}/\d{4}( \d{2}:\d{2}(:\d{2})?)?", text):
+            return "eu_datetime"
+        if re.fullmatch(r"[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+\d{4}( \d{2}:\d{2}(:\d{2})?)?", text):
+            return "us_textual_datetime"
         if pd.to_datetime(pd.Series([text]), errors="coerce", dayfirst=True).notna().iloc[0]:
-            return "datetime_like" if ("T" in text or ":" in text) else "date_like"
+            return "other_parseable_datetime"
         return "invalid"
 
     return "unknown"
@@ -671,6 +678,53 @@ def check_categorical_case_variants(df, dataset_name, max_unique=40):
                 evidence={"variant_groups": suspicious},
                 suggested_fix="Standardize category labels before aggregation or modeling."
             ))
+
+    return build_result(dataset_name, tool, issues)
+
+def check_categorical_rare_values(df, dataset_name, max_unique=200, freq_threshold=0.001, min_rows=200):
+    """Flag categorical values whose frequency falls below `freq_threshold` in an
+    otherwise populous column (typos, legacy codes, genuine outliers).
+
+    Skip free-text fields (cardinality > `max_unique`) and small columns (n < `min_rows`).
+    """
+    tool = "check_categorical_rare_values"
+    issues = []
+    object_cols = df.select_dtypes(include="object").columns.tolist()
+
+    for col in object_cols:
+        s = df[col].dropna().astype(str).str.strip()
+        s = s[s.ne("") & ~s.str.lower().isin(DISGUISED_NULLS)]
+        n = len(s)
+        if n < min_rows:
+            continue
+        nunique = s.nunique()
+        if nunique > max_unique or nunique < 2:
+            continue
+
+        counts = s.value_counts()
+        share = counts / n
+        rare_mask = share < freq_threshold
+        if not rare_mask.any():
+            continue
+
+        rare_values = counts[rare_mask]
+        # Cap evidence to keep the issue payload bounded
+        evidence_samples = rare_values.head(10).to_dict()
+
+        issues.append(make_issue(
+            dataset_name, tool, "categorical_rare_value", "low",
+            f"Column `{col}` contains {int(rare_mask.sum())} rare categorical "
+            f"value(s) below the {freq_threshold:.1%} frequency threshold "
+            f"(column cardinality={nunique}, n={n}).",
+            columns=[col],
+            row_count=int(rare_values.sum()),
+            evidence={
+                "freq_threshold": freq_threshold,
+                "column_cardinality": int(nunique),
+                "sample_rare_values": evidence_samples,
+            },
+            suggested_fix="Investigate source: rare values often indicate typos, legacy codes, or true outliers."
+        ))
 
     return build_result(dataset_name, tool, issues)
 
@@ -899,6 +953,7 @@ PHASE3_TOOLS = [
     check_sparse_columns,
     check_formats,
     check_categorical_case_variants,
+    check_categorical_rare_values,
     check_numeric_validity,
     check_outliers_iqr,
     check_duplicates,
@@ -1230,7 +1285,8 @@ CONSISTENCY_ISSUE_TYPES  = {"invalid_format_values", "mixed_format_family",
                             "year_date_mismatch", "month_year_period_mismatch",
                             "logical_count_violation"}
 ANOMALY_ISSUE_TYPES      = {"iqr_outliers", "non_numeric_values_in_numeric_field",
-                            "forbidden_token_in_numeric_field", "value_below_minimum"}
+                            "forbidden_token_in_numeric_field", "value_below_minimum",
+                            "categorical_rare_value"}
 
 SEVERITY_PENALTY = {"critical": 0.40, "high": 0.20, "medium": 0.08, "low": 0.02}
 
@@ -1380,6 +1436,7 @@ _FALLBACK = {
     "value_below_minimum": "clip_to_min",
     "non_numeric_values_in_numeric_field": "cast_numeric",
     "forbidden_token_in_numeric_field": "strip_currency",
+    "categorical_rare_value": "ignore",
 }
 
 

@@ -12,12 +12,12 @@
     "crossfield_inconsistency"
   ],
   "overall": {
-    "TP": 75,
+    "TP": 84,
     "FP": 14,
-    "FN": 5,
-    "Precision": 0.8427,
-    "Recall": 0.9375,
-    "F1": 0.8876
+    "FN": 6,
+    "Precision": 0.8571,
+    "Recall": 0.9333,
+    "F1": 0.8936
   },
   "per_family": {
     "disguisednull": {
@@ -42,11 +42,11 @@
     },
     "wrong_but_parseable": {
       "TP": 20,
-      "FP": 5,
+      "FP": 6,
       "FN": 0,
-      "Precision": 0.8,
+      "Precision": 0.7692,
       "Recall": 1.0,
-      "F1": 0.8889,
+      "F1": 0.8696,
       "Runs": 20,
       "IssueHitRate": 0.0
     },
@@ -60,16 +60,26 @@
       "Runs": 10,
       "IssueHitRate": 0.0
     },
-    "crossfield_inconsistency": {
+    "mixed_date_format": {
       "TP": 10,
-      "FP": 1,
+      "FP": 0,
       "FN": 0,
-      "Precision": 0.9091,
+      "Precision": 1.0,
       "Recall": 1.0,
-      "F1": 0.9524,
+      "F1": 1.0,
+      "Runs": 10,
+      "IssueHitRate": 0.0
+    },
+    "crossfield_inconsistency": {
+      "TP": 9,
+      "FP": 0,
+      "FN": 1,
+      "Precision": 1.0,
+      "Recall": 0.9,
+      "F1": 0.9474,
       "Runs": 10,
       "IssueHitRate": 0.0
     }
   },
-  "n_trials": 80
+  "n_trials": 90
 }
