@@ -1902,7 +1902,7 @@ from jinja2 import Template
 
 REPORT_TEMPLATE = Template("""
 <!DOCTYPE html>
-<html lang="it"><head><meta charset="UTF-8">
+<html lang="en"><head><meta charset="UTF-8">
 <title>Data Quality Report — {{ dataset_name }}</title>
 <style>
 body{font-family:-apple-system,system-ui,sans-serif;max-width:1100px;margin:24px auto;padding:16px;color:#222}
@@ -2068,25 +2068,25 @@ def _default_exec_summary(state):
     n_applied = sum(1 for e in state.get("correction_log", []) if e.get("applied"))
 
     display = post if post is not None else pre
-    verdict = "alto" if display >= 70 else ("medio" if display >= 40 else "basso")
+    verdict = "high" if display >= 70 else ("medium" if display >= 40 else "low")
 
-    base = (f"Il dataset <strong>{state['dataset_name']}</strong> ha reliability "
-            f"<strong>{display}/100</strong> (livello {verdict}). Issue iniziali: "
+    base = (f"Dataset <strong>{state['dataset_name']}</strong> reached reliability "
+            f"<strong>{display}/100</strong> ({verdict} level). Initial issues: "
             f"{sev.get('critical',0)} critical / {sev.get('high',0)} high / "
             f"{sev.get('medium',0)} medium / {sev.get('low',0)} low. "
-            f"Pipeline ha applicato {n_applied} correzioni")
+            f"The pipeline applied {n_applied} corrections")
 
     if post is not None:
         residual = sum(post_sev.values()) if post_sev else 0
         delta = round(post - pre, 1)
-        return (base + f", portando lo score da <strong>{pre}/100</strong> a "
+        return (base + f", lifting the score from <strong>{pre}/100</strong> to "
                 f"<strong>{post}/100</strong> (Δ {'+' if delta >= 0 else ''}{delta}). "
-                f"Residuano {residual} issue dopo il re-audit deterministico.")
+                f"{residual} issue(s) remain after the deterministic re-audit.")
     return base + "."
 
 # ─── Extracted from notebook cell 56 ────────────────────────────────────
 # Optional LLM-narrative for the executive summary (single short call per run)
-NARRATIVE_PROMPT = """You are a data quality analyst. In ONE concise paragraph (40-80 words) in Italian,
+NARRATIVE_PROMPT = """You are a data quality analyst. In ONE concise paragraph (40-80 words) in English,
 summarize the data quality of dataset '{name}': mention its reliability score ({score}/100),
 the top severity issues, and the most impactful remediation actions taken. Use professional, factual tone.
 Output plain text only (no markdown, no headers)."""
