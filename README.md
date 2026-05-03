@@ -203,7 +203,7 @@ The CSVs in `agents/data/` are test fixtures, not production input. The pipeline
 
 ### Generalisation check on a synthetic, LLM-generated dataset
 
-The four NoiPA fixtures above are realistic, but they also acted as the development corpus: every prompt iteration, every threshold, every fallback rule was calibrated on the issues these specific datasets surface. To measure how the system behaves on input it has *never* been tuned against, we asked an LLM to produce a synthetic e-commerce orders dataset whose schema, business semantics and distribution are unrelated to NoiPA. The exact prompt is in `GENERATIVE_AI_USAGE.md` and the resulting CSV is `agents/data/synthetic/orders.csv` (1 100 rows × 13 columns). The dataset shares no column name, no rule, no domain with the four assigned fixtures.
+The four NoiPA fixtures above are realistic, but they also acted as the development corpus: every prompt iteration, every threshold, every fallback rule was calibrated on the issues these specific datasets surface. To measure how the system behaves on input it has *never* been tuned against, we asked an LLM to produce a synthetic e-commerce orders dataset whose schema, business semantics and distribution are unrelated to NoiPA. The exact prompt is in `GenAI_Usage.md` and the resulting CSV is `agents/data/synthetic/orders.csv` (1 100 rows × 13 columns). The dataset shares no column name, no rule, no domain with the four assigned fixtures.
 
 About 13% of rows were seeded with anomalies covering eight detection categories: disguised nulls, IQR outliers, mixed date formats, wrong-but-parseable numerics, full-row duplicates, ship-before-order inconsistencies, singleton categorical values, and a whitespace-bearing header. The first eight rows hold one distinct anomaly each, so the webapp's "Fixed dataset" preview surfaces the variety of fixes without scrolling. End-to-end with the deterministic fallback path (`DEEPSEEK_API_KEY=sk-fake`):
 
@@ -229,7 +229,8 @@ Open questions and future work:
 ```
 GROUP-17-Machine-Learning-Project-Captain-ID-819621/
 ├── README.md                                  ← this file
-├── GENERATIVE_AI_USAGE.md                     ← prompts submitted to LLMs (test data, webapp design)
+├── GenAI_Usage.md                             ← prompts submitted to LLMs (test data, webapp design)
+├── Agents for Data Quality - Pitch.html       ← final pitch
 ├── requirements.txt
 ├── .gitignore
 ├── .env                                       ← DEEPSEEK_API_KEY=sk-... (gitignored)
