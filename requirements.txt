@@ -1,15 +1,18 @@
+# Tested on Python 3.12.7 (Anaconda base). Any Python >= 3.10 should work.
+
 # Core data
 pandas>=2.0.0
 numpy>=1.26.0
 
 # Multi-agent orchestration
-langgraph>=0.2.0
-langchain-core>=0.2.0
-langchain-openai>=0.1.0     # DeepSeek via OpenAI-compatible API
+langgraph>=1.0.0            # API stabilised at 1.x; 0.x is incompatible
+langchain-core>=1.0.0
+langchain-openai>=1.0.0     # DeepSeek via OpenAI-compatible API
 
 # Reporting
 jinja2>=3.1.0
 matplotlib>=3.7.0           # used by notebook for benchmark charts
+plotly>=5.20.0              # used by Phase 6 radar in the HTML quality report
 
 # Webapp (FastAPI backend + SSE live timeline)
 fastapi>=0.110.0

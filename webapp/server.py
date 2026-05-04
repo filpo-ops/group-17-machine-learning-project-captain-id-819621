@@ -3,7 +3,7 @@
 Endpoints:
     GET  /                          → serve static/index.html
     POST /upload                    → accept CSV, create session, return preview
-    POST /demo                      → load NoiPA spesa.csv as demo, return preview
+    POST /demo                      → load synthetic orders.csv as demo, return preview
     GET  /run/{session_id}          → SSE stream of pipeline events (Phase 3)
     GET  /report/{session_id}       → serve final HTML report (Phase 6)
     GET  /download/fixed/{sid}      → fixed_<name>.csv (Phase 6)
@@ -62,14 +62,15 @@ app.add_middleware(
 )
 
 STATIC_DIR = PROJECT_ROOT / "webapp" / "static"
-DEMO_CSV   = PROJECT_ROOT / "agents" / "data" / "project_data_quality" / "spesa.csv"
+DEMO_CSV   = PROJECT_ROOT / "agents" / "data" / "synthetic" / "orders.csv"
 BENCHMARK_JSON_V2  = PROJECT_ROOT / "agents" / "data" / "benchmark" / "evaluation_results_v2.json"
 BENCHMARK_JSON_V1  = PROJECT_ROOT / "agents" / "data" / "benchmark" / "evaluation_results.json"
 
 # ─── Replay cache ─────────────────────────────────────────────────────────────
 # LRU keyed by SHA-1 hash of the dataframe content. When the user clicks "Run"
-# on a CSV the system has seen before (typical demo scenario: hit "Try with NoiPA
-# spesa" twice), we serve the cached payload instead of burning LLM tokens.
+# on a CSV the system has seen before (typical demo scenario: hit "Try with the
+# synthetic orders sample" twice), we serve the cached payload instead of
+# burning LLM tokens.
 _REPLAY_CACHE: "OrderedDict[str, Dict[str, Any]]" = OrderedDict()
 _REPLAY_CACHE_MAX = 8
 
@@ -170,12 +171,18 @@ async def upload_csv(file: UploadFile = File(...)) -> Dict[str, Any]:
 
 @app.post("/demo")
 async def load_demo() -> Dict[str, Any]:
-    """Load the NoiPA `spesa.csv` demo dataset and return its preview payload."""
+    """Load the synthetic `orders.csv` demo dataset and return its preview payload.
+
+    The synthetic orders dataset is intentionally neutral with respect to the
+    NoiPA fixtures the pipeline was tuned on: 500 rows × 13 columns of
+    e-commerce data with anomalies seeded in the first 8 rows for showcase
+    visibility plus moderate scattering across the rest (~13 % rows touched).
+    """
     if not DEMO_CSV.exists():
         raise HTTPException(status_code=500, detail=f"Demo dataset missing: {DEMO_CSV}")
     df = pd.read_csv(DEMO_CSV)
-    sess = session_store.create(df=df, name="spesa")
-    return {"session_id": sess.id, **_df_preview_payload(df, "spesa")}
+    sess = session_store.create(df=df, name="orders")
+    return {"session_id": sess.id, **_df_preview_payload(df, "orders")}
 
 
 @app.get("/cache/{session_id}")

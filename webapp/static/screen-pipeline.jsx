@@ -1,5 +1,5 @@
 // Pipeline execution screen — flowing horizontal layout
-// Visualizes the 10-node pipeline as 3 groups: head (det) → middle (llm) → tail (det)
+// Visualizes the 12-node pipeline as 3 groups: head (det) → middle (llm) → tail (det, two-pass)
 
 const { useState: useState2 } = React;
 
