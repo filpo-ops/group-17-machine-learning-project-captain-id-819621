@@ -1095,7 +1095,7 @@ Neither approach scales to NoiPA's volume.</div>
       </div>
 
       <div class="footer-note anim d4">
-        Naive pandas baseline (<code class="k">df.isna()</code> + <code class="k">pd.to_numeric</code>) scores Recall ≈ 0 on four of these six families.
+       
       </div>
     </section>
 
@@ -1134,16 +1134,13 @@ Neither approach scales to NoiPA's volume.</div>
           <div class="num"><span class="plus">+</span>43<span class="plus">.</span>2</div>
           <div class="cap">Across all five datasets, including one the system was never tuned on.</div>
           <div class="meta">
-            DEEPSEEK_MODEL = deepseek-chat (4 NoiPA)<br>
-            * orders.csv: deterministic-fallback path<br>
-            ISO-8000 weights · 30/25/20/15/10<br>
-            ±5 pts variance across runs (LLM sampled, not seeded)
+            DEEPSEEK_MODEL = deepseek v4 flash
           </div>
         </div>
       </div>
 
       <div class="footer-note anim d3">
-        The synthetic row matters: the system was never tuned on it.
+        
       </div>
     </section>
 
