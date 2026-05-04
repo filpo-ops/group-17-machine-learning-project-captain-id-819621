@@ -182,20 +182,20 @@ We measured the pipeline end-to-end on the four NoiPA test fixtures with the liv
 | Dataset | shape | pre | post (LLM live) | Δ | verdict |
 |---|---|---|---|---|---|
 | `spesa.csv` | 7,543 × 18 | 48.0 | 89.4 | +41.4 | HIGH |
-| `attivazioniCessazioni.csv` | 20,102 × 19 | 45.6 | 82.6 | +37.0 | HIGH |
+| `attivazioniCessazioni.csv` | 20,102 × 19 | 45.6 | 88.6 | +43.0 | HIGH |
 | `ALLARMI.csv` | 5,080 × 24 | 53.6 | 95.8 | +42.2 | HIGH |
 | `TIPOLOGIA_VIAGGIATORE.csv` | 5,095 × 33 | 51.2 | 95.2 | +44.0 | HIGH |
 
-All four datasets reach HIGH reliability (≥70 / 100). Average Δ is +41.15 points. The two-pass remediation, combined with the prompt-v3 design (senior-engineer framing, four NoiPA-specific few-shot examples, tight `ignore` policy with three explicit conditions), gives the LLM a usable starting plan; the deterministic second pass closes any residual issue the LLM left for safety.
+All four datasets reach HIGH reliability (≥70 / 100). Average Δ is +42.65 points. The two-pass remediation, combined with the prompt-v3 design (senior-engineer framing, four NoiPA-specific few-shot examples, tight `ignore` policy with three explicit conditions), gives the LLM a usable starting plan; the deterministic second pass closes any residual issue the LLM left for safety.
 
 Per-dataset sub-score breakdown (post-fix, live LLM):
 
 - spesa: validity 100, completeness 100, consistency 80, uniqueness 80, accuracy 74.
-- attivazioniCessazioni: validity 100, completeness 80, consistency 72, uniqueness 80, accuracy 86.
+- attivazioniCessazioni: validity 100, completeness 100, consistency 72, uniqueness 80, accuracy 86.
 - ALLARMI: validity 100, completeness 100, consistency 92, uniqueness 100, accuracy 78.
 - TIPOLOGIA_VIAGGIATORE: validity 100, completeness 100, consistency 92, uniqueness 100, accuracy 72.
 
-`completeness=80` on `attivazioniCessazioni` reflects columns with 30–60% missingness that are too dense to flag as effectively empty (>95% missing) but too sparse for clean imputation. The system surfaces this case rather than masking it.
+`consistency=72` on `attivazioniCessazioni` and `accuracy=72` on `TIPOLOGIA_VIAGGIATORE` reflect residual issues the LLM agents intentionally left untouched (the deterministic floor would have penalised them more). The system surfaces these cases rather than masking them.
 
 Robustness check (LLM disabled, fake key). Running the four datasets with `DEEPSEEK_API_KEY=sk-fake` (every LLM call fails, agents fall back to the deterministic `_FALLBACK` path) still produces HIGH reliability on all four: `spesa` 87.2 (Δ +39.2), `attivazioniCessazioni` 84.4 (Δ +42.0), `ALLARMI` 91.2 (Δ +40.8), `TIPOLOGIA_VIAGGIATORE` 81.6 (Δ +33.6). Average Δ +38.9. The pipeline does not depend on the LLM being available; the deterministic layer is a true floor and the LLM is a refinement on top.
 

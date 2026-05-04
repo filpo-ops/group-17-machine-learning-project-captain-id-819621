@@ -368,7 +368,7 @@
   }
   .node.det{ background:#eaf2fc; color:#1f3a72; border:1px solid #c2d4ee; }
   .node.llm{
-    background:#fff;
+    background:var(--purple);
     color:var(--purple-ink);
     border:1.5px solid var(--purple-ink);
     text-align:center;
@@ -969,9 +969,6 @@ Neither approach scales to NoiPA's volume.</div>
         </div>
       </div>
 
-      <div class="footer-note anim d4">
-        We flipped the conventional approach. Deterministic rules surface the issues; the LLM picks the fix from a closed enum, only where context matters.
-      </div>
     </section>
 
     <!-- ============== SLIDE 4 — ARCHITECTURE ============== -->
@@ -1109,7 +1106,7 @@ Neither approach scales to NoiPA's volume.</div>
 
       <div class="anim">
         <div class="eyebrow">Numbers II · end-to-end pipeline</div>
-        <h1 class="title">Average reliability <em>+42</em> across 4 assigned datasets<br>and 1 unseen synthetic.</h1>
+        <h1 class="title">Average reliability <em>+43</em> across 4 assigned datasets<br>and 1 unseen synthetic.</h1>
       </div>
 
       <div class="e2e-grid">
@@ -1125,7 +1122,7 @@ Neither approach scales to NoiPA's volume.</div>
           </thead>
           <tbody>
             <tr><td class="ds">spesa.csv</td><td class="shape">7 543 × 18</td><td class="r pre">48.0</td><td class="r post">89.4</td><td class="r delta">+41.4</td></tr>
-            <tr><td class="ds">attivazioniCessazioni.csv</td><td class="shape">20 102 × 19</td><td class="r pre">45.6</td><td class="r post">82.6</td><td class="r delta">+37.0</td></tr>
+            <tr><td class="ds">attivazioniCessazioni.csv</td><td class="shape">20 102 × 19</td><td class="r pre">45.6</td><td class="r post">88.6</td><td class="r delta">+43.0</td></tr>
             <tr><td class="ds">ALLARMI.csv</td><td class="shape">5 080 × 24</td><td class="r pre">53.6</td><td class="r post">95.8</td><td class="r delta">+42.2</td></tr>
             <tr><td class="ds">TIPOLOGIA_VIAGGIATORE.csv</td><td class="shape">5 095 × 33</td><td class="r pre">51.2</td><td class="r post">95.2</td><td class="r delta">+44.0</td></tr>
             <tr class="synth"><td class="ds">orders.csv * <span class="badge">unseen</span></td><td class="shape">1 100 × 13</td><td class="r pre">47.2</td><td class="r post">92.6</td><td class="r delta">+45.4</td></tr>
@@ -1134,7 +1131,7 @@ Neither approach scales to NoiPA's volume.</div>
 
         <div class="e2e-aside anim d2">
           <div class="pre">Average Δ across runs</div>
-          <div class="num"><span class="plus">+</span>42<span class="plus">.</span>0</div>
+          <div class="num"><span class="plus">+</span>43<span class="plus">.</span>2</div>
           <div class="cap">Across all five datasets, including one the system was never tuned on.</div>
           <div class="meta">
             DEEPSEEK_MODEL = deepseek-chat (4 NoiPA)<br>
@@ -1252,7 +1249,7 @@ Neither approach scales to NoiPA's volume.</div>
         </div>
         <div class="take-claim anim d2">
           <div class="num">02 / lift</div>
-          <div class="text">Reliability <strong>+42 average</strong> across 5 datasets, <em>including one the system never saw</em>.</div>
+          <div class="text">Reliability <strong>+43 average</strong> across 5 datasets, <em>including one the system never saw</em>.</div>
         </div>
         <div class="take-claim anim d3">
           <div class="num">03 / trust</div>
