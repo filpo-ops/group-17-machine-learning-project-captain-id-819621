@@ -2031,7 +2031,7 @@ Plotly.newPlot("radar", [{type:"scatterpolar",r:{{ radar_values|tojson }},theta:
 """)
 
 
-def render_quality_report(state, provider_name="DeepSeek-Chat (V3)"):
+def render_quality_report(state, provider_name="DeepSeek-Chat (V4)"):
     """Render the full quality report HTML page from the final pipeline state (with embedded plotly radar).
 
     When `state` includes `post_reliability_score` and `post_sub_scores` (i.e. the

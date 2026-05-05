@@ -20,7 +20,7 @@ RELIABILITY_WEIGHTS_DICT = {
 }
 
 # Provider name shown in the UI top bar / report.
-PROVIDER_NAME = "DeepSeek-Chat (V3)"
+PROVIDER_NAME = "DeepSeek-Chat (V4)"
 
 
 def _df_preview(df: pd.DataFrame, n: int = 8) -> List[Dict[str, Any]]:

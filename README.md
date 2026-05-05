@@ -99,7 +99,7 @@ The two can diverge. A dataset with 100 small issues, 80 of which are resolved, 
 | Component | Choice |
 |---|---|
 | Agent orchestration | LangGraph |
-| LLM backbone | DeepSeek (`deepseek-chat`, V3) via `langchain-openai` (OpenAI-compatible API) |
+| LLM backbone | DeepSeek (`deepseek-chat`, V4) via `langchain-openai` (OpenAI-compatible API) |
 | Webapp | FastAPI + Server-Sent Events + React 18 (Babel-standalone CDN, no build step) |
 | Deterministic layer | pandas + numpy |
 | Reporting | Jinja2 → self-contained HTML (PDF via browser print) |
