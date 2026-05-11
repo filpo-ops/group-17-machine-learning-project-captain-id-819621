@@ -271,4 +271,4 @@ Branches that hold the experimental traces (not all merged into `Main`):
 
 - `feature/agents-data-quality` — earliest multi-agent implementation with Groq.
 - `ollamacolab` — Ollama + Qwen on Google Colab experiment (Phase 4 completed, then abandoned).
-- `deepseek` — Groq → DeepSeek switch (later merged into `Main`).
+
